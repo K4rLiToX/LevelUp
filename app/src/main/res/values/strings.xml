@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">LevelUp</string>
+
+    <string name="section_workout">Workouts</string>
+    <string name="section_exercises_and_progress">Exercises &amp; Progress</string>
+    <string name="section_body_weight">Body Weight</string>
+
+    <string name="title_exercise">Exercises</string>
+    <string name="title_set">Set</string>
+    <string name="title_set_drop">Drop set</string>
+
+    <string name="exercise_category_push">Push</string>
+    <string name="exercise_category_pull">Pull</string>
+    <string name="exercise_category_legs">Legs</string>
+    <string name="exercise_category_core">Core</string>
+
+    <string name="time_today">Today</string>
+    <string name="time_yesterday">Yesterday</string>
+
+    <string name="action_add_exercise">Add Exercises</string>
+    <string name="action_add">Add</string>
+    <string name="action_note_down">Note down</string>
+
+    <string name="form_input_text_title">Title</string>
+    <string name="form_input_text_range">Range</string>
+    <string name="form_input_text_weight">Weight</string>
+    <string name="form_input_text_repetitions">Reps</string>
+    <string name="form_input_text_repetitions_partials">Partials</string>
 </resources>
