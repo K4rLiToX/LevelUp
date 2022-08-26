@@ -41,6 +41,11 @@ sealed class StringValue(val resId: Int) {
         object Reps : FormInput(R.string.form_input_text_repetitions)
         object Partials : FormInput(R.string.form_input_text_repetitions_partials)
     }
+
+    sealed class Placeholder(resId: Int) : StringValue(resId) {
+        object Kg : Placeholder(R.string.placeholder_weight)
+    }
 }
 
 fun StringValue.toText(context: Context): String = context.getString(this.resId)
+fun StringValue.toText(context: Context, value: Double): String = context.getString(this.resId, value)

@@ -26,4 +26,6 @@
     <string name="form_input_text_weight">Weight</string>
     <string name="form_input_text_repetitions">Reps</string>
     <string name="form_input_text_repetitions_partials">Partials</string>
+
+    <string name="placeholder_weight">%d kg</string>
 </resources>
