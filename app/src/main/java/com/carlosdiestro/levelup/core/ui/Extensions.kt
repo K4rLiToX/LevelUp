@@ -1,5 +1,7 @@
 package com.carlosdiestro.levelup.core.ui
 
+import android.opengl.Visibility
+import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -33,3 +35,9 @@ fun <T, U> Flow<T>.diff(
         body = body
     )
 }
+
+fun View.visible(visibility: Boolean = true) {
+    if(visibility) this.visibility = View.VISIBLE
+    else this.visibility = View.INVISIBLE
+}
+fun View.gone() { this.visibility = View.GONE }
