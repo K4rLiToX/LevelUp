@@ -1,60 +1,58 @@
 package com.carlosdiestro.levelup.core.ui
 
-import androidx.annotation.MainThread
-import androidx.navigation.NavController
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavDirections
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.launch
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 
-interface NavigationManager {
-    fun to(scope: CoroutineScope, routeDestination: NavDestination)
-    fun back(scope: CoroutineScope)
-    fun getEventCallback(): Flow<NavController.() -> Any>
-}
+class NavigationManager(private val viewModel: BaseViewModel) :
+    FragmentManager.FragmentLifecycleCallbacks() {
 
-private class NavigationManagerImpl : NavigationManager {
-    private val navEventChannel = Channel<NavController.() -> Any>()
-    private val navEventFlow = navEventChannel.receiveAsFlow()
-
-    override fun to(scope: CoroutineScope, routeDestination: NavDestination) {
-        withNavController(scope) { navigate(routeDestination.navDirections) }
+    sealed class NavCommand {
+        data class To(val navDestination: NavDestination) : NavCommand()
+        object Up : NavCommand()
+        object Back : NavCommand()
+        object Idle : NavCommand()
     }
 
-    override fun back(scope: CoroutineScope) {
-        withNavController(scope) { navigateUp() }
+    sealed class NavDestination(val navDirections: NavDirections) {
+        //TODO
+        //Implement own destinations in the form of
+        // class FragmentNameToFragmentName(safeArg1: Type, safeArg2: Type, ...) : RouteDestination(FragmentNameDirections.actionFragmentNameToFragmentName(safeArg1, safeArg2, ...))
     }
 
-    override fun getEventCallback(): Flow<NavController.() -> Any> {
-        return navEventFlow
-    }
-
-    private fun withNavController(scope: CoroutineScope, action: NavController.() -> Any) {
-        scope.launch { navEventChannel.send(action) }
-    }
-}
-
-sealed class NavDestination(val navDirections: NavDirections) {
-    //TODO
-    //Implement own destinations in the form of
-    // class FragmentNameToFragmentName(safeArg1: Type, safeArg2: Type, ...) : RouteDestination(FragmentNameDirections.actionFragmentNameToFragmentName(safeArg1, safeArg2, ...))
-}
-
-@MainThread
-fun navigations(): Lazy<NavigationManager> {
-    return NavigationManagerLazy()
-}
-
-private class NavigationManagerLazy : Lazy<NavigationManager> {
-
-    private var cached: NavigationManager? = null
-
-    override val value: NavigationManager
-        get() {
-            return cached ?: NavigationManagerImpl().also { cached = it }
+    override fun onFragmentViewCreated(
+        fm: FragmentManager,
+        f: Fragment,
+        v: View,
+        savedInstanceState: Bundle?
+    ) {
+        super.onFragmentViewCreated(fm, f, v, savedInstanceState)
+        f.viewLifecycleOwner.launchAndCollect(viewModel.navEvent) { navCommand ->
+            when (navCommand) {
+                is NavCommand.To -> navigateTo(navCommand, f)
+                is NavCommand.Up -> navigateUp(f)
+                is NavCommand.Back -> navigateBack(f)
+                is NavCommand.Idle -> Unit
+            }
         }
+    }
 
-    override fun isInitialized(): Boolean = cached != null
+    fun register(fragmentManager: FragmentManager) {
+        fragmentManager.registerFragmentLifecycleCallbacks(this, true)
+    }
+
+    private fun navigateTo(navCommand: NavCommand.To, fragment: Fragment) {
+        findNavController(fragment).navigate(navCommand.navDestination.navDirections)
+    }
+
+    private fun navigateUp(fragment: Fragment) {
+        findNavController(fragment).navigateUp()
+    }
+
+    private fun navigateBack(fragment: Fragment) {
+        findNavController(fragment).popBackStack()
+    }
 }
