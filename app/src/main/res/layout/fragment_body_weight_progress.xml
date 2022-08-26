@@ -41,4 +41,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <include
+        android:id="@+id/lNoData"
+        layout="@layout/layout_no_data"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
