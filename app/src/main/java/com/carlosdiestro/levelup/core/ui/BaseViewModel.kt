@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.update
 
-class BaseViewModel : ViewModel() {
+abstract class BaseViewModel : ViewModel() {
     private val _navEvent: MutableStateFlow<NavigationManager.NavCommand> = MutableStateFlow(NavigationManager.NavCommand.Idle)
     val navEvent = _navEvent.asSharedFlow()
 
