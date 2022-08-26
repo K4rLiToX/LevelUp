@@ -9,17 +9,17 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-interface RouterDelegate {
-    fun to(scope: CoroutineScope, routeDestination: RouteDestination)
+interface NavigationManager {
+    fun to(scope: CoroutineScope, routeDestination: NavDestination)
     fun back(scope: CoroutineScope)
     fun getEventCallback(): Flow<NavController.() -> Any>
 }
 
-private class RouterDelegateImpl : RouterDelegate {
+private class NavigationManagerImpl : NavigationManager {
     private val navEventChannel = Channel<NavController.() -> Any>()
     private val navEventFlow = navEventChannel.receiveAsFlow()
 
-    override fun to(scope: CoroutineScope, routeDestination: RouteDestination) {
+    override fun to(scope: CoroutineScope, routeDestination: NavDestination) {
         withNavController(scope) { navigate(routeDestination.navDirections) }
     }
 
@@ -36,24 +36,24 @@ private class RouterDelegateImpl : RouterDelegate {
     }
 }
 
-sealed class RouteDestination(val navDirections: NavDirections) {
+sealed class NavDestination(val navDirections: NavDirections) {
     //TODO
     //Implement own destinations in the form of
     // class FragmentNameToFragmentName(safeArg1: Type, safeArg2: Type, ...) : RouteDestination(FragmentNameDirections.actionFragmentNameToFragmentName(safeArg1, safeArg2, ...))
 }
 
 @MainThread
-fun routers(): Lazy<RouterDelegate> {
-    return RouterManagerLazy()
+fun navigations(): Lazy<NavigationManager> {
+    return NavigationManagerLazy()
 }
 
-private class RouterManagerLazy : Lazy<RouterDelegate> {
+private class NavigationManagerLazy : Lazy<NavigationManager> {
 
-    private var cached: RouterDelegate? = null
+    private var cached: NavigationManager? = null
 
-    override val value: RouterDelegate
+    override val value: NavigationManager
         get() {
-            return cached ?: RouterDelegateImpl().also { cached = it }
+            return cached ?: NavigationManagerImpl().also { cached = it }
         }
 
     override fun isInitialized(): Boolean = cached != null

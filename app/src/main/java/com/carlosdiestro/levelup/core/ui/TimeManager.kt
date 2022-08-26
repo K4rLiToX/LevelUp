@@ -3,7 +3,7 @@ package com.carlosdiestro.levelup.core.ui
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-interface TimeDelegate {
+interface TimeManager {
     fun todayInMillis() : Long
     fun todayInDate(format: DateFormat) : String
 
@@ -13,12 +13,12 @@ interface TimeDelegate {
     }
 }
 
-private class TimeDelegateImp() : TimeDelegate {
+private class TimeManagerImpl() : TimeManager {
     override fun todayInMillis(): Long {
         return System.currentTimeMillis()
     }
 
-    override fun todayInDate(format: TimeDelegate.DateFormat): String {
+    override fun todayInDate(format: TimeManager.DateFormat): String {
         val date = LocalDate.now()
         return date.format(DateTimeFormatter.ofPattern(format.value))
     }
