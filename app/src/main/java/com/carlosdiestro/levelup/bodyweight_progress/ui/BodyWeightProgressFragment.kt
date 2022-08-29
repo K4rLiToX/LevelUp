@@ -7,10 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.carlosdiestro.levelup.core.ui.gone
-import com.carlosdiestro.levelup.core.ui.launchAndCollect
-import com.carlosdiestro.levelup.core.ui.toTrimmedString
-import com.carlosdiestro.levelup.core.ui.visible
+import com.carlosdiestro.levelup.core.ui.*
 import com.carlosdiestro.levelup.databinding.FragmentBodyWeightProgressBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -79,7 +76,6 @@ class BodyWeightProgressFragment : Fragment() {
         binding.apply {
             etNewWeight.setText(response.weight)
             ilNewWeight.error = response.weightError?.let { getString(it.resId) }
-            if(response.weightError != null) 
         }
     }
 
