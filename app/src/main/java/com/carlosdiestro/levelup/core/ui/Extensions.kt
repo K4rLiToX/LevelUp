@@ -1,6 +1,5 @@
 package com.carlosdiestro.levelup.core.ui
 
-import android.opengl.Visibility
 import android.text.Editable
 import android.view.View
 import androidx.lifecycle.Lifecycle
@@ -38,9 +37,12 @@ fun <T, U> Flow<T>.diff(
 }
 
 fun View.visible(visibility: Boolean = true) {
-    if(visibility) this.visibility = View.VISIBLE
+    if (visibility) this.visibility = View.VISIBLE
     else this.visibility = View.INVISIBLE
 }
-fun View.gone() { this.visibility = View.GONE }
+
+fun View.gone() {
+    this.visibility = View.GONE
+}
 
 fun Editable?.toTrimmedString(): String = this.toString().trim()
