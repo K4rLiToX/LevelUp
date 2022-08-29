@@ -61,24 +61,25 @@ class BodyWeightProgressFragment : Fragment() {
 
     private fun collectUIState() {
         launchAndCollect(viewModel.state) {
-            handleData(it.bodyWeightList)
+            handleNoData(it.noData)
+            handleBodyWeightList(it.bodyWeightList)
             handleBodyWeightForm(it.bodyWeightFormState)
         }
     }
 
-    private fun handleData(list: List<BodyWeightPLO>) {
-        if (list.isNotEmpty()) {
-            recyclerAdapter.submitList(list)
-            binding.lNoData.root.gone()
-        } else {
-            binding.lNoData.root.visible()
-        }
+    private fun handleNoData(noData: Boolean) {
+        binding.lNoData.root.visible(noData)
+    }
+
+    private fun handleBodyWeightList(list: List<BodyWeightPLO>) {
+        recyclerAdapter.submitList(list)
     }
 
     private fun handleBodyWeightForm(response: BodyWeightProgressContract.BodyWeightFormState) {
         binding.apply {
             etNewWeight.setText(response.weight)
             ilNewWeight.error = response.weightError?.let { getString(it.resId) }
+            if(response.weightError != null) 
         }
     }
 

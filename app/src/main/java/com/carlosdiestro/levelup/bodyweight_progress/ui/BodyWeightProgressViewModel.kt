@@ -44,8 +44,8 @@ class BodyWeightProgressViewModel @Inject constructor(
                     is Response.Error -> Unit
                     is Response.Success -> _state.update {
                         it.copy(
-                            noData = false,
-                            bodyWeightList = response.data!!
+                            noData = response.data!!.isEmpty(),
+                            bodyWeightList = response.data
                         )
                     }
                 }
