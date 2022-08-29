@@ -1,4 +1,4 @@
-package com.carlosdiestro.levelup.core.ui
+package com.carlosdiestro.levelup.core.ui.extensions
 
 import android.text.Editable
 import android.view.View

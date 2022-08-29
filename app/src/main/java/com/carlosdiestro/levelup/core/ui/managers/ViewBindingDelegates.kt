@@ -1,4 +1,4 @@
-package com.carlosdiestro.levelup.core.ui
+package com.carlosdiestro.levelup.core.ui.managers
 
 import android.view.LayoutInflater
 import android.view.View

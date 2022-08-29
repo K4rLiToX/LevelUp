@@ -7,7 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.carlosdiestro.levelup.bodyweight_progress.ui.models.BodyWeightPLO
 import com.carlosdiestro.levelup.core.ui.*
+import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
+import com.carlosdiestro.levelup.core.ui.extensions.toTrimmedString
+import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.databinding.FragmentBodyWeightProgressBinding
 import dagger.hilt.android.AndroidEntryPoint
 

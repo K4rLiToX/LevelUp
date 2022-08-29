@@ -1,4 +1,4 @@
-package com.carlosdiestro.levelup.core.ui
+package com.carlosdiestro.levelup.core.ui.managers
 
 import java.text.SimpleDateFormat
 import java.time.LocalDate

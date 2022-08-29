@@ -2,7 +2,7 @@ package com.carlosdiestro.levelup.bodyweight_progress.domain.usecases
 
 import com.carlosdiestro.levelup.bodyweight_progress.domain.models.BodyWeight
 import com.carlosdiestro.levelup.bodyweight_progress.domain.repositories.BodyWeightRepository
-import com.carlosdiestro.levelup.core.ui.TimeManager
+import com.carlosdiestro.levelup.core.ui.managers.TimeManager
 import javax.inject.Inject
 
 class NoteDownBodyWeightUseCase @Inject constructor(

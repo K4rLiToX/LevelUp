@@ -2,7 +2,7 @@ package com.carlosdiestro.levelup.bodyweight_progress.domain.usecases
 
 import com.carlosdiestro.levelup.bodyweight_progress.domain.models.BodyWeight
 import com.carlosdiestro.levelup.bodyweight_progress.domain.repositories.BodyWeightRepository
-import com.carlosdiestro.levelup.bodyweight_progress.ui.BodyWeightPLO
+import com.carlosdiestro.levelup.bodyweight_progress.ui.models.BodyWeightPLO
 import com.carlosdiestro.levelup.core.domain.Response
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

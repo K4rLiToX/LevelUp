@@ -5,7 +5,7 @@ import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.GetWeightLi
 import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.NoteDownBodyWeightUseCase
 import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.ValidateNewWeightUseCase
 import com.carlosdiestro.levelup.core.domain.Response
-import com.carlosdiestro.levelup.core.ui.BaseViewModel
+import com.carlosdiestro.levelup.core.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

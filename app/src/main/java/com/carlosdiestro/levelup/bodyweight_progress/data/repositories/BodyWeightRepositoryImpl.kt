@@ -5,7 +5,7 @@ import com.carlosdiestro.levelup.bodyweight_progress.domain.repositories.BodyWei
 import com.carlosdiestro.levelup.bodyweight_progress.framework.BodyWeightDAO
 import com.carlosdiestro.levelup.bodyweight_progress.framework.BodyWeightEntity
 import com.carlosdiestro.levelup.core.data.IoDispatcher
-import com.carlosdiestro.levelup.core.ui.TimeManager
+import com.carlosdiestro.levelup.core.ui.managers.TimeManager
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn

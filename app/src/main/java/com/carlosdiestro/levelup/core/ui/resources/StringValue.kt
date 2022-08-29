@@ -1,4 +1,4 @@
-package com.carlosdiestro.levelup.core.ui
+package com.carlosdiestro.levelup.core.ui.resources
 
 import android.content.Context
 import com.carlosdiestro.levelup.R

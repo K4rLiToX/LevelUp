@@ -1,4 +1,4 @@
-package com.carlosdiestro.levelup.core.ui
+package com.carlosdiestro.levelup.core.ui.managers
 
 import android.os.Bundle
 import android.view.View
@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import com.carlosdiestro.levelup.core.ui.base.BaseViewModel
+import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 
 class NavigationManager(private val viewModel: BaseViewModel) :
     FragmentManager.FragmentLifecycleCallbacks() {

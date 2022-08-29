@@ -1,8 +1,8 @@
-package com.carlosdiestro.levelup.bodyweight_progress.ui
+package com.carlosdiestro.levelup.bodyweight_progress.ui.models
 
 import androidx.recyclerview.widget.DiffUtil
-import com.carlosdiestro.levelup.core.ui.StringValue
-import com.carlosdiestro.levelup.core.ui.TimeManager
+import com.carlosdiestro.levelup.core.ui.managers.TimeManager
+import com.carlosdiestro.levelup.core.ui.resources.StringValue
 
 data class BodyWeightPLO(
     val date: String,
