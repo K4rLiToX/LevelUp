@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.carlosdiestro.levelup.bodyweight_progress.ui.models.BodyWeightPLO
-import com.carlosdiestro.levelup.core.ui.StringValue
-import com.carlosdiestro.levelup.core.ui.toText
+import com.carlosdiestro.levelup.core.ui.resources.StringValue
+import com.carlosdiestro.levelup.core.ui.resources.toText
 import com.carlosdiestro.levelup.databinding.ItemBodyWeightBinding
 
 class BodyWeightAdapter :

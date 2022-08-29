@@ -1,7 +1,7 @@
 package com.carlosdiestro.levelup.bodyweight_progress.ui
 
 import com.carlosdiestro.levelup.bodyweight_progress.ui.models.BodyWeightPLO
-import com.carlosdiestro.levelup.core.ui.StringValue
+import com.carlosdiestro.levelup.core.ui.resources.StringValue
 
 class BodyWeightProgressContract {
 

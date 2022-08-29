@@ -2,7 +2,7 @@ package com.carlosdiestro.levelup.bodyweight_progress.domain.usecases
 
 import com.carlosdiestro.levelup.bodyweight_progress.domain.repositories.BodyWeightRepository
 import com.carlosdiestro.levelup.core.domain.ValidationResult
-import com.carlosdiestro.levelup.core.ui.StringValue
+import com.carlosdiestro.levelup.core.ui.resources.StringValue
 import com.carlosdiestro.levelup.core.ui.managers.TimeManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
