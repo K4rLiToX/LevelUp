@@ -8,6 +8,7 @@
     <string name="title_exercise">Exercises</string>
     <string name="title_set">Set</string>
     <string name="title_set_drop">Drop set</string>
+    <string name="title_new_weight">New Body Weight</string>
 
     <string name="exercise_category_push">Push</string>
     <string name="exercise_category_pull">Pull</string>
@@ -20,6 +21,10 @@
     <string name="action_add_exercise">Add Exercises</string>
     <string name="action_add">Add</string>
     <string name="action_note_down">Note down</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_save">Save</string>
+    <string name="action_accept">Accept</string>
+    <string name="action_ok">OK</string>
 
     <string name="form_input_text_title">Title</string>
     <string name="form_input_text_range">Range</string>
@@ -27,5 +32,11 @@
     <string name="form_input_text_repetitions">Reps</string>
     <string name="form_input_text_repetitions_partials">Partials</string>
 
-    <string name="placeholder_weight">%d kg</string>
+    <string name="placeholder_weight">%s kg</string>
+
+    <string name="error_blank_input">Please, fill in this field</string>
+    <string name="error_incorrect_structure">Make sure the input follows the pattern X.X</string>
+    <string name="error_weight_negative_value">Really, negative weight? Does that have any sense?</string>
+    <string name="error_weight_zero_value">Only light can be weightless</string>
+    <string name="error_weight_exists">A weight already exists for today, but you can modify it</string>
 </resources>

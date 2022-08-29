@@ -2,6 +2,8 @@ package com.carlosdiestro.levelup.bodyweight_progress.ui
 
 import androidx.lifecycle.viewModelScope
 import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.GetWeightListUseCase
+import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.NoteDownBodyWeightUseCase
+import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.ValidateNewWeightUseCase
 import com.carlosdiestro.levelup.core.domain.Response
 import com.carlosdiestro.levelup.core.ui.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,35 +15,37 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BodyWeightProgressViewModel @Inject constructor(
-    private val getWeightListUseCase: GetWeightListUseCase
+    private val getWeightListUseCase: GetWeightListUseCase,
+    private val noteDownBodyWeightUseCase: NoteDownBodyWeightUseCase,
+    private val validateNewWeightUseCase: ValidateNewWeightUseCase
 ) : BaseViewModel() {
 
-    private val _state: MutableStateFlow<BodyWeightUIState> = MutableStateFlow(
-        BodyWeightUIState()
-    )
+    private val _state: MutableStateFlow<BodyWeightProgressContract.BodyWeightProgressState> =
+        MutableStateFlow(
+            BodyWeightProgressContract.BodyWeightProgressState()
+        )
     val state = _state.asStateFlow()
 
     init {
-        initBodyWeights()
+        fetchBodyWeights()
     }
 
-    private fun initBodyWeights() {
+    fun onEvent(event: BodyWeightProgressContract.BodyWeightProgressEvent) {
+        when (event) {
+            is BodyWeightProgressContract.BodyWeightProgressEvent.Submit -> submitNewWeight(event.weight)
+        }
+    }
+
+    private fun fetchBodyWeights() {
         viewModelScope.launch {
             getWeightListUseCase().collect { response ->
                 when (response) {
-                    is Response.Loading -> _state.update { it.copy(isLoading = true) }
-                    is Response.Error -> _state.update {
-                        it.copy(
-                            isLoading = false,
-                            noData = true,
-                            weightList = emptyList()
-                        )
-                    }
+                    is Response.Loading -> Unit
+                    is Response.Error -> Unit
                     is Response.Success -> _state.update {
                         it.copy(
-                            isLoading = false,
                             noData = false,
-                            weightList = response.data!!
+                            bodyWeightList = response.data!!
                         )
                     }
                 }
@@ -49,9 +53,30 @@ class BodyWeightProgressViewModel @Inject constructor(
         }
     }
 
-    data class BodyWeightUIState(
-        val isLoading: Boolean = false,
-        val noData: Boolean = false,
-        val weightList: List<BodyWeightPLO> = emptyList()
-    )
+    private fun submitNewWeight(input: String) {
+        viewModelScope.launch {
+            validateNewWeightUseCase(input).collect { response ->
+                if (!response.isSuccessful) {
+                    _state.update {
+                        it.copy(
+                            bodyWeightFormState = it.bodyWeightFormState.copy(
+                                weight = input,
+                                weightError = response.errorMessage
+                            )
+                        )
+                    }
+                } else {
+                    noteDownBodyWeightUseCase(input.toDouble())
+                    _state.update {
+                        it.copy(
+                            bodyWeightFormState = it.bodyWeightFormState.copy(
+                                weight = "",
+                                weightError = null
+                            )
+                        )
+                    }
+                }
+            }
+        }
+    }
 }

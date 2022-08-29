@@ -14,6 +14,7 @@ sealed class StringValue(val resId: Int) {
         object Exercise : Title(R.string.title_exercise)
         object Set : Title(R.string.title_set)
         object DropSet : Title(R.string.title_set_drop)
+        object NewWeight : Title(R.string.title_new_weight)
     }
 
     sealed class ExerciseCategory(resId: Int) : StringValue(resId) {
@@ -32,6 +33,10 @@ sealed class StringValue(val resId: Int) {
         object AddExercise : Action(R.string.action_add_exercise)
         object Add : Action(R.string.action_add)
         object NoteDown : Action(R.string.action_note_down)
+        object Cancel : Action(R.string.action_cancel)
+        object Save : Action(R.string.action_save)
+        object Accept : Action(R.string.action_accept)
+        object Ok : Action(R.string.action_ok)
     }
 
     sealed class FormInput(resId: Int) : StringValue(resId) {
@@ -45,7 +50,13 @@ sealed class StringValue(val resId: Int) {
     sealed class Placeholder(resId: Int) : StringValue(resId) {
         object Kg : Placeholder(R.string.placeholder_weight)
     }
+
+    sealed class Error(resId: Int) : StringValue(resId) {
+        object BlankInput : Error(R.string.error_blank_input)
+        object ZeroValue : Error(R.string.error_weight_zero_value)
+        object WeightExists : Error(R.string.error_weight_exists)
+    }
 }
 
 fun StringValue.toText(context: Context): String = context.getString(this.resId)
-fun StringValue.toText(context: Context, value: Double): String = context.getString(this.resId, value)
+fun StringValue.toText(context: Context, value: String): String = context.getString(this.resId, value)

@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.carlosdiestro.levelup.core.ui.gone
 import com.carlosdiestro.levelup.core.ui.launchAndCollect
+import com.carlosdiestro.levelup.core.ui.toTrimmedString
 import com.carlosdiestro.levelup.core.ui.visible
 import com.carlosdiestro.levelup.databinding.FragmentBodyWeightProgressBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,7 +45,7 @@ class BodyWeightProgressFragment : Fragment() {
     }
 
     private fun setUpClickListeners() {
-        binding.btnNoteDown.setOnClickListener { openDialog() }
+        binding.btnNoteDown.setOnClickListener { submitNewWeight() }
     }
 
     private fun setUpRecyclerView() {
@@ -60,7 +61,8 @@ class BodyWeightProgressFragment : Fragment() {
 
     private fun collectUIState() {
         launchAndCollect(viewModel.state) {
-            handleData(it.weightList)
+            handleData(it.bodyWeightList)
+            handleBodyWeightForm(it.bodyWeightFormState)
         }
     }
 
@@ -73,5 +75,19 @@ class BodyWeightProgressFragment : Fragment() {
         }
     }
 
-    private fun openDialog() = Unit
+    private fun handleBodyWeightForm(response: BodyWeightProgressContract.BodyWeightFormState) {
+        binding.apply {
+            etNewWeight.setText(response.weight)
+            ilNewWeight.error = response.weightError?.let { getString(it.resId) }
+        }
+    }
+
+    private fun submitNewWeight() {
+        val newBodyWeightText = binding.etNewWeight.text.toTrimmedString()
+        viewModel.onEvent(
+            BodyWeightProgressContract.BodyWeightProgressEvent.Submit(
+                newBodyWeightText
+            )
+        )
+    }
 }

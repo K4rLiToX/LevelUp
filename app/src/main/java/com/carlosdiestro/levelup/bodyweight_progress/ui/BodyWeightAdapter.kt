@@ -1,5 +1,6 @@
 package com.carlosdiestro.levelup.bodyweight_progress.ui
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,9 @@ class BodyWeightAdapter :
     ListAdapter<BodyWeightPLO, BodyWeightAdapter.ViewHolder>(BodyWeightPLO.BodyWeightDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(parent)
+        val binding =
+            ItemBodyWeightBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -19,19 +22,18 @@ class BodyWeightAdapter :
         holder.bind(item)
     }
 
-    class ViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent) {
-
-        private val binding = ItemBodyWeightBinding.bind(itemView)
+    class ViewHolder(private val binding: ItemBodyWeightBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: BodyWeightPLO) {
             binding.apply {
                 tvDate.text = bindDate(item)
-                tvWeight.text = StringValue.Placeholder.Kg.toText(binding.root.context, item.weight)
+                tvWeight.text = StringValue.Placeholder.Kg.toText(binding.root.context, item.weight.toString())
             }
         }
 
         private fun bindDate(item: BodyWeightPLO): String {
-            return if(item.dateLabelId != -1) binding.root.context.getString(item.dateLabelId)
+            return if (item.dateLabelId != -1) binding.root.context.getString(item.dateLabelId)
             else item.date
         }
     }
