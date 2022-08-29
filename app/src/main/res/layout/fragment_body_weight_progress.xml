@@ -34,7 +34,7 @@
             android:id="@+id/etNewWeight"
             android:inputType="numberDecimal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -46,7 +46,7 @@
         app:icon="@drawable/ic_add"
         app:layout_constraintTop_toTopOf="@id/ilNewWeight"
         app:layout_constraintBottom_toBottomOf="@id/ilNewWeight"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -63,6 +63,6 @@
 
     <include
         android:id="@+id/lNoData"
-        layout="@layout/layout_no_data"/>
+        layout="@layout/layout_no_data" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,5 +12,5 @@ import dagger.hilt.components.SingletonComponent
 abstract class DataModule {
 
     @Binds
-    abstract fun bindBodyWeightRepository(bodyWeightRepositoryImpl: BodyWeightRepositoryImpl) : BodyWeightRepository
+    abstract fun bindBodyWeightRepository(bodyWeightRepositoryImpl: BodyWeightRepositoryImpl): BodyWeightRepository
 }

@@ -19,5 +19,5 @@ interface BodyWeightDAO {
     fun getAll(): Flow<List<BodyWeightEntity>?>
 
     @Query("SELECT * FROM body_weight_table WHERE date = :date")
-    suspend fun getByDate(date: Long) : BodyWeightEntity?
+    suspend fun getByDate(date: Long): BodyWeightEntity?
 }

@@ -29,7 +29,8 @@ class BodyWeightAdapter :
         fun bind(item: BodyWeightPLO) {
             binding.apply {
                 tvDate.text = bindDate(item)
-                tvWeight.text = StringValue.Placeholder.Kg.toText(binding.root.context, item.weight.toString())
+                tvWeight.text =
+                    StringValue.Placeholder.Kg.toText(binding.root.context, item.weight.toString())
             }
         }
 

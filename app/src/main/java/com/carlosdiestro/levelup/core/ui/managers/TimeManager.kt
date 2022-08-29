@@ -18,7 +18,9 @@ object TimeManager {
         DateTimeFormatter.ofPattern(DateFormat.DDMMYYYY.value)
     )
 
-    fun toMillis(date: String): Long = SimpleDateFormat(DateFormat.DDMMYYYY.value, Locale.getDefault()).parse(date)!!.time
+    fun toMillis(date: String): Long =
+        SimpleDateFormat(DateFormat.DDMMYYYY.value, Locale.getDefault()).parse(date)!!.time
 
-    fun toText(date: Long) : String = SimpleDateFormat(DateFormat.DDMMYYYY.value, Locale.getDefault()).format(Date(date))
+    fun toText(date: Long): String =
+        SimpleDateFormat(DateFormat.DDMMYYYY.value, Locale.getDefault()).format(Date(date))
 }

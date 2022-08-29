@@ -3,5 +3,5 @@
     <item
         android:id="@+id/bodyWeightProgressFragment"
         android:title="@string/section_body_weight"
-        android:icon="@drawable/ic_weight_scale"/>
+        android:icon="@drawable/ic_weight_scale" />
 </menu>

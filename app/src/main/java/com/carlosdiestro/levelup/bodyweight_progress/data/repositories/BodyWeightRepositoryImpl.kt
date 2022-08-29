@@ -18,7 +18,8 @@ class BodyWeightRepositoryImpl @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : BodyWeightRepository {
 
-    override fun getAll(): Flow<List<BodyWeight>> = dao.getAll().map { it?.toDomain() ?: emptyList() }.flowOn(ioDispatcher)
+    override fun getAll(): Flow<List<BodyWeight>> =
+        dao.getAll().map { it?.toDomain() ?: emptyList() }.flowOn(ioDispatcher)
 
     override suspend fun exists(date: String): Boolean = withContext(ioDispatcher) {
         dao.getByDate(TimeManager.toMillis(date)) != null
