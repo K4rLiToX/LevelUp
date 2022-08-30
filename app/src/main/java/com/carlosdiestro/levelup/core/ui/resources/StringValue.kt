@@ -59,5 +59,5 @@ sealed class StringValue(val resId: Int) {
 }
 
 fun StringValue.toText(context: Context): String = context.getString(this.resId)
-fun StringValue.toText(context: Context, value: String): String =
-    context.getString(this.resId, value)
+fun StringValue.toText(context: Context, vararg args: Any): String =
+    context.getString(this.resId, *args)
