@@ -11,8 +11,6 @@ P
 [app/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/domain/models/BodyWeight.kt,9\2\920fd7a98f9a0804a7d9058fc67fe50a17f745f8
 }
 Mapp/src/main/java/com/carlosdiestro/levelup/core/framework/FrameworkModule.kt,6\f\6f3a70ba3246c739a6d06f780289661cc4a31463
-}
-Mapp/src/main/java/com/carlosdiestro/levelup/core/framework/LevelUpDatabase.kt,9\7\97716f82e45ab91cbeb3a07dfbe4d916c7f5376e
 ç
 ]app/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/framework/BodyWeightEntity.kt,d\3\d3c9983fa2042bbaf8c385e9d0d394de23045875
 k
