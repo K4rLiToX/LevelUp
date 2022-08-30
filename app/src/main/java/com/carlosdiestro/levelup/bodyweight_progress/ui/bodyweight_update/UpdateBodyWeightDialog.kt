@@ -35,7 +35,6 @@ class UpdateBodyWeightDialog(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpClickListeners()
-        setUpViews()
         collectUIState()
         collectCallbacks()
     }
@@ -50,10 +49,6 @@ class UpdateBodyWeightDialog(
             btnSave.setOnClickListener { saveUpdatedBodyWeight() }
             btnCancel.setOnClickListener { dismiss() }
         }
-    }
-
-    private fun setUpViews() {
-        binding.etUpdateBodyWeight.setText(item.weight.toString())
     }
 
     private fun collectUIState() {
