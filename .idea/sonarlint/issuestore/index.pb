@@ -21,10 +21,6 @@ y
 Iapp/src/main/java/com/carlosdiestro/levelup/core/data/DispatcherModule.kt,c\2\c2499cef665830dc620dd31e841ce335a1b23381
 s
 Capp/src/main/java/com/carlosdiestro/levelup/core/data/DataModule.kt,4\4\44d0602f6f145c16f62968cfcb89ddc0bb3336a0
-õ
-kapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/domain/repositories/BodyWeightRepository.kt,3\c\3cec54247558eaa5949f53ba012878613fa78ac8
-ù
-mapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/data/repositories/BodyWeightRepositoryImpl.kt,5\9\59325a0df3f51a0c234557151eea8d13c6dd7c7c
 s
 Capp/src/main/java/com/carlosdiestro/levelup/core/domain/Response.kt,5\a\5a6a2a8712048f1165e761338510133292b0175a
 ó

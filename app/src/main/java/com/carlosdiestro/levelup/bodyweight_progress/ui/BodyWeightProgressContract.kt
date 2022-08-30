@@ -7,6 +7,7 @@ class BodyWeightProgressContract {
 
     sealed class BodyWeightProgressEvent {
         data class NoteDown(val weight: String) : BodyWeightProgressEvent()
+        data class Update(val bodyWeightPLO: BodyWeightPLO): BodyWeightProgressEvent()
     }
 
     data class BodyWeightProgressState(

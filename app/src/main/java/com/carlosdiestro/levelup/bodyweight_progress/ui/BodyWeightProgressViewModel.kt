@@ -3,7 +3,9 @@ package com.carlosdiestro.levelup.bodyweight_progress.ui
 import androidx.lifecycle.viewModelScope
 import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.GetWeightListUseCase
 import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.NoteDownBodyWeightUseCase
+import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.UpdateBodyWeightUseCase
 import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.ValidateNewWeightUseCase
+import com.carlosdiestro.levelup.bodyweight_progress.ui.models.BodyWeightPLO
 import com.carlosdiestro.levelup.core.domain.Response
 import com.carlosdiestro.levelup.core.ui.base.BaseViewModel
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
@@ -18,7 +20,8 @@ import javax.inject.Inject
 class BodyWeightProgressViewModel @Inject constructor(
     private val getWeightListUseCase: GetWeightListUseCase,
     private val noteDownBodyWeightUseCase: NoteDownBodyWeightUseCase,
-    private val validateNewWeightUseCase: ValidateNewWeightUseCase
+    private val validateNewWeightUseCase: ValidateNewWeightUseCase,
+    private val updateBodyWeightUseCase: UpdateBodyWeightUseCase
 ) : BaseViewModel() {
 
     private val _state: MutableStateFlow<BodyWeightProgressContract.BodyWeightProgressState> =
@@ -34,6 +37,7 @@ class BodyWeightProgressViewModel @Inject constructor(
     fun onEvent(event: BodyWeightProgressContract.BodyWeightProgressEvent) {
         when (event) {
             is BodyWeightProgressContract.BodyWeightProgressEvent.NoteDown -> submitNewWeight(event.weight)
+            is BodyWeightProgressContract.BodyWeightProgressEvent.Update -> updateBodyWeight(event.bodyWeightPLO)
         }
     }
 
@@ -64,6 +68,12 @@ class BodyWeightProgressViewModel @Inject constructor(
                     updateBodyWeightFormState()
                 }
             }
+        }
+    }
+
+    private fun updateBodyWeight(item: BodyWeightPLO) {
+        viewModelScope.launch {
+            updateBodyWeightUseCase(item)
         }
     }
 

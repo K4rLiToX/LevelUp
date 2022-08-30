@@ -24,4 +24,6 @@
     <dimen name="margin_4">@dimen/d4</dimen>
     <dimen name="margin_8">@dimen/d8</dimen>
     <dimen name="margin_16">@dimen/d16</dimen>
+    <dimen name="margin_24">@dimen/d24</dimen>
+    <dimen name="margin_32">@dimen/d32</dimen>
 </resources>

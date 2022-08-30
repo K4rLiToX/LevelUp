@@ -9,6 +9,7 @@
     <string name="title_set">Set</string>
     <string name="title_set_drop">Drop set</string>
     <string name="title_new_weight">New Body Weight</string>
+    <string name="title_update_body_weight">Update Body Weight</string>
 
     <string name="exercise_category_push">Push</string>
     <string name="exercise_category_pull">Pull</string>

@@ -28,6 +28,10 @@ class BodyWeightRepositoryImpl @Inject constructor(
     override suspend fun insert(bodyWeight: BodyWeight) = withContext(ioDispatcher) {
         dao.insert(bodyWeight.toEntity())
     }
+
+    override suspend fun update(bodyWeight: BodyWeight) = withContext(ioDispatcher) {
+        dao.update(bodyWeight.toEntity())
+    }
 }
 
 fun List<BodyWeightEntity>.toDomain(): List<BodyWeight> = this.map { it.toDomain() }

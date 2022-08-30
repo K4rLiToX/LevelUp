@@ -19,7 +19,11 @@ class BodyWeightProgressFragment : Fragment(R.layout.fragment_body_weight_progre
 
     private val binding by viewBinding(FragmentBodyWeightProgressBinding::bind)
     private val viewModel by viewModels<BodyWeightProgressViewModel>()
-    private val recyclerAdapter: BodyWeightAdapter by lazy { BodyWeightAdapter() }
+    private val recyclerAdapter: BodyWeightAdapter by lazy {
+        BodyWeightAdapter {
+            openWeightDialogEditor(it)
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -73,5 +77,11 @@ class BodyWeightProgressFragment : Fragment(R.layout.fragment_body_weight_progre
                 newBodyWeightText
             )
         )
+    }
+
+    private fun openWeightDialogEditor(item: BodyWeightPLO) {
+        UpdateBodyWeightDialog(item) {
+            viewModel.onEvent(BodyWeightProgressContract.BodyWeightProgressEvent.Update(it))
+        }.show(requireActivity().supportFragmentManager, UpdateBodyWeightDialog.TAG)
     }
 }

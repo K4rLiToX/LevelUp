@@ -7,4 +7,5 @@ interface BodyWeightRepository {
     fun getAll(): Flow<List<BodyWeight>>
     suspend fun exists(date: String): Boolean
     suspend fun insert(bodyWeight: BodyWeight)
+    suspend fun update(bodyWeight: BodyWeight)
 }

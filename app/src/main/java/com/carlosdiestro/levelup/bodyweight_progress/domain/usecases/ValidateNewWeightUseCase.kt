@@ -12,12 +12,12 @@ class ValidateNewWeightUseCase @Inject constructor(
     private val repository: BodyWeightRepository
 ) {
 
-    operator fun invoke(input: String): Flow<ValidationResult> = flow {
+    operator fun invoke(input: String, isUpdate: Boolean = false): Flow<ValidationResult> = flow {
         val weightAlreadyExists = repository.exists(TimeManager.now())
         when {
             input.isBlank() -> emit(ValidationResult(false, StringResource.BlankInput))
             input.startsWith("0") -> emit(ValidationResult(false, StringResource.ZeroValue))
-            weightAlreadyExists -> emit(ValidationResult(false, StringResource.WeightExists))
+            weightAlreadyExists && !isUpdate -> emit(ValidationResult(false, StringResource.WeightExists))
             else -> emit(ValidationResult(true))
         }
     }

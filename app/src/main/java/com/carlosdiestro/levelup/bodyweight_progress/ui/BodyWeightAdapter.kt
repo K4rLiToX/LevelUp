@@ -9,13 +9,17 @@ import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import com.carlosdiestro.levelup.core.ui.resources.toText
 import com.carlosdiestro.levelup.databinding.ItemBodyWeightBinding
 
-class BodyWeightAdapter :
+class BodyWeightAdapter(
+    private val onItemLongClicked: (BodyWeightPLO) -> Unit
+) :
     ListAdapter<BodyWeightPLO, BodyWeightAdapter.ViewHolder>(BodyWeightPLO.BodyWeightDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
             ItemBodyWeightBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(binding) {
+            onItemLongClicked(getItem(it))
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -23,8 +27,17 @@ class BodyWeightAdapter :
         holder.bind(item)
     }
 
-    class ViewHolder(private val binding: ItemBodyWeightBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(
+        private val binding: ItemBodyWeightBinding,
+        private val onItemLongClicked: (Int) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnLongClickListener {
+                onItemLongClicked(bindingAdapterPosition)
+                true
+            }
+        }
 
         fun bind(item: BodyWeightPLO) {
             binding.apply {
