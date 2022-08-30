@@ -16,8 +16,6 @@ k
 y
 Iapp/src/main/java/com/carlosdiestro/levelup/core/data/DispatcherModule.kt,c\2\c2499cef665830dc620dd31e841ce335a1b23381
 s
-Capp/src/main/java/com/carlosdiestro/levelup/core/data/DataModule.kt,4\4\44d0602f6f145c16f62968cfcb89ddc0bb3336a0
-s
 Capp/src/main/java/com/carlosdiestro/levelup/core/domain/Response.kt,5\a\5a6a2a8712048f1165e761338510133292b0175a
 —
 gapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/domain/usecases/GetWeightListUseCase.kt,1\e\1e594e9ead9b0252b07462a2a38f508c8e0d9892
