@@ -1,7 +1,5 @@
-*.iml
-.gradle
 /local.properties
-/.idea/sonarlint
+/.idea/sonarlint/*
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
@@ -11,9 +9,7 @@
 .DS_Store
 /build
 /captures
-.externalNativeBuild
 .cxx
-local.properties
 
 ### AndroidStudio ###
 # Covers files to be ignored for android development using Android Studio.
