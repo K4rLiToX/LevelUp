@@ -26,8 +26,6 @@ s
 Capp/src/main/java/com/carlosdiestro/levelup/core/data/DataModule.kt,4\4\44d0602f6f145c16f62968cfcb89ddc0bb3336a0
 õ
 kapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/domain/repositories/BodyWeightRepository.kt,3\c\3cec54247558eaa5949f53ba012878613fa78ac8
-ä
-Zapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/framework/BodyWeightDAO.kt,7\9\79775e84cc34d1a9a869929915c9756a0589382b
 ù
 mapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/data/repositories/BodyWeightRepositoryImpl.kt,5\9\59325a0df3f51a0c234557151eea8d13c6dd7c7c
 s

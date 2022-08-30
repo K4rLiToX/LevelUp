@@ -15,7 +15,7 @@ interface BodyWeightDAO {
     @Delete
     suspend fun delete(entity: BodyWeightEntity)
 
-    @Query("SELECT * FROM body_weight_table ORDER BY date ASC")
+    @Query("SELECT * FROM body_weight_table ORDER BY date DESC")
     fun getAll(): Flow<List<BodyWeightEntity>?>
 
     @Query("SELECT * FROM body_weight_table WHERE date = :date")
