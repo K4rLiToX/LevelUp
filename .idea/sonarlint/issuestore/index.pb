@@ -1,7 +1,4 @@
 
-:
-
-.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 i
 9app/src/main/java/com/carlosdiestro/levelup/LevelUpApp.kt,c\b\cb7ebc8e4820d5e3c78e4f69a4551aa81cc475bc
 P
