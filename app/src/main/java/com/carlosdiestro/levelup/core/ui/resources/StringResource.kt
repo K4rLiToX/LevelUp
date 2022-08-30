@@ -5,7 +5,7 @@ import com.carlosdiestro.levelup.R
 
 sealed class StringResource(val resId: Int) {
     object Workout : StringResource(R.string.section_workout)
-    object ExerciseAndProgress : StringResource(R.string.section_exercises_and_progress)
+    object ExerciseLibrary : StringResource(R.string.section_exercise_library)
     object BodyWeight : StringResource(R.string.section_body_weight)
     object Exercise : StringResource(R.string.title_exercise)
     object Set : StringResource(R.string.title_set)
