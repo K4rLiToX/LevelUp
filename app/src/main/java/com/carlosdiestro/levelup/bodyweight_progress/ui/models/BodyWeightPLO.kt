@@ -2,7 +2,7 @@ package com.carlosdiestro.levelup.bodyweight_progress.ui.models
 
 import androidx.recyclerview.widget.DiffUtil
 import com.carlosdiestro.levelup.core.ui.managers.TimeManager
-import com.carlosdiestro.levelup.core.ui.resources.StringValue
+import com.carlosdiestro.levelup.core.ui.resources.StringResource
 
 data class BodyWeightPLO(
     val date: String,
@@ -11,8 +11,8 @@ data class BodyWeightPLO(
     val dateLabelId: Int
         get() {
             return when (date) {
-                TimeManager.now() -> StringValue.Time.Today.resId
-                TimeManager.yesterday() -> StringValue.Time.Yesterday.resId
+                TimeManager.now() -> StringResource.Today.resId
+                TimeManager.yesterday() -> StringResource.Yesterday.resId
                 else -> -1
             }
         }

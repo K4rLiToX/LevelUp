@@ -1,7 +1,7 @@
 package com.carlosdiestro.levelup.bodyweight_progress.ui
 
 import com.carlosdiestro.levelup.bodyweight_progress.ui.models.BodyWeightPLO
-import com.carlosdiestro.levelup.core.ui.resources.StringValue
+import com.carlosdiestro.levelup.core.ui.resources.StringResource
 
 class BodyWeightProgressContract {
 
@@ -17,6 +17,6 @@ class BodyWeightProgressContract {
 
     data class BodyWeightFormState(
         val weight: String = "",
-        val weightError: StringValue? = null
+        val weightError: StringResource? = null
     )
 }

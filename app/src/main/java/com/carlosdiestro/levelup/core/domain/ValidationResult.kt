@@ -1,8 +1,8 @@
 package com.carlosdiestro.levelup.core.domain
 
-import com.carlosdiestro.levelup.core.ui.resources.StringValue
+import com.carlosdiestro.levelup.core.ui.resources.StringResource
 
 data class ValidationResult(
     val isSuccessful: Boolean,
-    val errorMessage: StringValue? = null
+    val errorMessage: StringResource? = null
 )
