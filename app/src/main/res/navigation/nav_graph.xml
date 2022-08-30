@@ -10,4 +10,9 @@
         android:name="com.carlosdiestro.levelup.bodyweight_progress.ui.bodyweight_list.BodyWeightProgressFragment"
         android:label="fragment_body_weight_progress"
         tools:layout="@layout/fragment_body_weight_progress" />
+    <fragment
+        android:id="@+id/exerciseLibraryFragment"
+        android:name="com.carlosdiestro.levelup.exercise_library.ui.ExerciseLibraryFragment"
+        android:label="fragment_exercise_library"
+        tools:layout="@layout/fragment_exercise_library" />
 </navigation>

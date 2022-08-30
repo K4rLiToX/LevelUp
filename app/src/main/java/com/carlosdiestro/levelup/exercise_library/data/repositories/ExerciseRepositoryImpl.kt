@@ -2,7 +2,7 @@ package com.carlosdiestro.levelup.exercise_library.data.repositories
 
 import com.carlosdiestro.levelup.core.data.IoDispatcher
 import com.carlosdiestro.levelup.exercise_library.domain.models.Exercise
-import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseGroup
+import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
 import com.carlosdiestro.levelup.exercise_library.domain.models.toExerciseGroup
 import com.carlosdiestro.levelup.exercise_library.domain.models.toValue
 import com.carlosdiestro.levelup.exercise_library.domain.repositories.ExerciseRepository
@@ -35,21 +35,21 @@ class ExerciseRepositoryImpl @Inject constructor(
     override fun getAll(): Flow<List<Exercise>> =
         dao.getAll().map { it?.toDomain() ?: emptyList() }.flowOn(ioDispatcher)
 
-    override fun getByGroup(group: ExerciseGroup): Flow<List<Exercise>> =
+    override fun getByGroup(group: ExerciseCategory): Flow<List<Exercise>> =
         dao.getByGroup(group.toValue()).map { it?.toDomain() ?: emptyList() }
 }
 
 fun Exercise.toEntity(): ExerciseEntity = ExerciseEntity(
     name = name,
     isUnilateral = isUnilateral,
-    group = group.toValue(),
+    group = category.toValue(),
 )
 
 fun ExerciseEntity.toDomain(): Exercise = Exercise(
     id = id!!,
     name = name,
     isUnilateral = isUnilateral,
-    group = group.toExerciseGroup()
+    category = group.toExerciseGroup()
 )
 
 fun List<ExerciseEntity>.toDomain(): List<Exercise> = this.map { it.toDomain() }

@@ -4,5 +4,5 @@ data class Exercise(
     val id: Int,
     val name: String,
     val isUnilateral: Boolean,
-    val group: ExerciseGroup
+    val category: ExerciseCategory
 )
