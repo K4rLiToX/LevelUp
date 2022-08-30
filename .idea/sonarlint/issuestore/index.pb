@@ -35,5 +35,3 @@ lapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/domain/usecases
 Tapp/src/main/java/com/carlosdiestro/levelup/core/ui/managers/ViewBindingDelegates.kt,a\e\ae1d76465ef766dc0355c02b6ec620abfa8ebcf4
 y
 Iapp/src/main/java/com/carlosdiestro/levelup/core/ui/base/BaseViewModel.kt,6\b\6b3df0d58157231b765bbec7c553e722561de3aa
-‘
-aapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/BodyWeightProgressViewModel.kt,e\9\e9d1c6a2daa2dfb8af9dd8750d9759499c6ebdac

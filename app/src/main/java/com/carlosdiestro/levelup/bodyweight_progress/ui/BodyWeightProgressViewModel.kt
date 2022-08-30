@@ -6,6 +6,7 @@ import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.NoteDownBod
 import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.ValidateNewWeightUseCase
 import com.carlosdiestro.levelup.core.domain.Response
 import com.carlosdiestro.levelup.core.ui.base.BaseViewModel
+import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -57,26 +58,23 @@ class BodyWeightProgressViewModel @Inject constructor(
         viewModelScope.launch {
             validateNewWeightUseCase(input).collect { response ->
                 if (!response.isSuccessful) {
-                    _state.update {
-                        it.copy(
-                            bodyWeightFormState = it.bodyWeightFormState.copy(
-                                weight = input,
-                                weightError = response.errorMessage
-                            )
-                        )
-                    }
+                    updateBodyWeightFormState(input, response.errorMessage)
                 } else {
                     noteDownBodyWeightUseCase(input.toDouble())
-                    _state.update {
-                        it.copy(
-                            bodyWeightFormState = it.bodyWeightFormState.copy(
-                                weight = "",
-                                weightError = null
-                            )
-                        )
-                    }
+                    updateBodyWeightFormState()
                 }
             }
+        }
+    }
+
+    private fun updateBodyWeightFormState(input: String = "", errorMessage: StringResource? = null) {
+        _state.update {
+            it.copy(
+                bodyWeightFormState = it.bodyWeightFormState.copy(
+                    weight = input,
+                    weightError = errorMessage
+                )
+            )
         }
     }
 }
