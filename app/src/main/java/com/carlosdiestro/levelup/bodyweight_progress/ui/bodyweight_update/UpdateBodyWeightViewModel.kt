@@ -1,4 +1,4 @@
-package com.carlosdiestro.levelup.bodyweight_progress.ui
+package com.carlosdiestro.levelup.bodyweight_progress.ui.bodyweight_update
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

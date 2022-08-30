@@ -1,4 +1,4 @@
-package com.carlosdiestro.levelup.bodyweight_progress.ui
+package com.carlosdiestro.levelup.bodyweight_progress.ui.bodyweight_list
 
 import androidx.lifecycle.viewModelScope
 import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.GetWeightListUseCase

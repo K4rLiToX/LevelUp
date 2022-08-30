@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/bodyWeightProgressFragment"
-        android:name="com.carlosdiestro.levelup.bodyweight_progress.ui.BodyWeightProgressFragment"
+        android:name="com.carlosdiestro.levelup.bodyweight_progress.ui.bodyweight_list.BodyWeightProgressFragment"
         android:label="fragment_body_weight_progress"
         tools:layout="@layout/fragment_body_weight_progress" />
 </navigation>

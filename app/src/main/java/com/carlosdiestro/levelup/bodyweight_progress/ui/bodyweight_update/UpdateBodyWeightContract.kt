@@ -1,4 +1,4 @@
-package com.carlosdiestro.levelup.bodyweight_progress.ui
+package com.carlosdiestro.levelup.bodyweight_progress.ui.bodyweight_update
 
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
 
