@@ -34,12 +34,8 @@ Capp/src/main/java/com/carlosdiestro/levelup/core/domain/Response.kt,5\a\5a6a2a
 gapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/domain/usecases/GetWeightListUseCase.kt,1\e\1e594e9ead9b0252b07462a2a38f508c8e0d9892
 ú
 lapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/domain/usecases/NoteDownBodyWeightUseCase.kt,6\b\6b8a39a0302af57ca558a84b9270b2ed887724bc
-Å
-Qapp/src/main/java/com/carlosdiestro/levelup/core/ui/managers/NavigationManager.kt,a\c\acaa2458f3fbb99f512b0e15bea5c815526331fc
 Ñ
 Tapp/src/main/java/com/carlosdiestro/levelup/core/ui/managers/ViewBindingDelegates.kt,a\e\ae1d76465ef766dc0355c02b6ec620abfa8ebcf4
-{
-Kapp/src/main/java/com/carlosdiestro/levelup/core/ui/managers/TimeManager.kt,f\6\f614402aea24b31ac4434cfdf4f619fa58741094
 y
 Iapp/src/main/java/com/carlosdiestro/levelup/core/ui/base/BaseViewModel.kt,6\b\6b3df0d58157231b765bbec7c553e722561de3aa
 ë

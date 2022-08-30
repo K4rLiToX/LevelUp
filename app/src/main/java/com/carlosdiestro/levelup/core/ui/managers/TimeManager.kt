@@ -19,8 +19,11 @@ object TimeManager {
     )
 
     fun toMillis(date: String): Long =
-        SimpleDateFormat(DateFormat.DDMMYYYY.value, Locale.getDefault()).parse(date)!!.time
+        getSimpleDateFormat(DateFormat.DDMMYYYY).parse(date)!!.time
 
     fun toText(date: Long): String =
-        SimpleDateFormat(DateFormat.DDMMYYYY.value, Locale.getDefault()).format(Date(date))
+        getSimpleDateFormat(DateFormat.DDMMYYYY).format(Date(date))
+
+    private fun getSimpleDateFormat(format: DateFormat): SimpleDateFormat =
+        SimpleDateFormat(format.value, Locale.getDefault())
 }
