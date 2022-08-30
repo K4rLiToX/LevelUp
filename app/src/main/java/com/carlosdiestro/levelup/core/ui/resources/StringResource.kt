@@ -11,6 +11,7 @@ sealed class StringResource(val resId: Int) {
     object Set : StringResource(R.string.title_set)
     object DropSet : StringResource(R.string.title_set_drop)
     object NewWeight : StringResource(R.string.title_new_weight)
+    object All : StringResource(R.string.exercise_category_all)
     object Push : StringResource(R.string.exercise_category_push)
     object Pull : StringResource(R.string.exercise_category_pull)
     object Legs : StringResource(R.string.exercise_category_legs)
