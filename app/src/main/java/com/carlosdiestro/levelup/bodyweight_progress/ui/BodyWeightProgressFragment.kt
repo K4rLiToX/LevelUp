@@ -1,47 +1,31 @@
 package com.carlosdiestro.levelup.bodyweight_progress.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.bodyweight_progress.ui.models.BodyWeightPLO
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.core.ui.extensions.toTrimmedString
 import com.carlosdiestro.levelup.core.ui.extensions.visible
+import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.databinding.FragmentBodyWeightProgressBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class BodyWeightProgressFragment : Fragment() {
+class BodyWeightProgressFragment : Fragment(R.layout.fragment_body_weight_progress) {
 
-    private var _binding: FragmentBodyWeightProgressBinding? = null
-    private val binding get() = _binding!!
-
+    private val binding by viewBinding(FragmentBodyWeightProgressBinding::bind)
     private val viewModel by viewModels<BodyWeightProgressViewModel>()
-
     private val recyclerAdapter: BodyWeightAdapter by lazy { BodyWeightAdapter() }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentBodyWeightProgressBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpClickListeners()
         setUpRecyclerView()
         collectUIState()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun setUpClickListeners() {
