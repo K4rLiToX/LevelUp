@@ -32,7 +32,7 @@ class BodyWeightProgressViewModel @Inject constructor(
 
     fun onEvent(event: BodyWeightProgressContract.BodyWeightProgressEvent) {
         when (event) {
-            is BodyWeightProgressContract.BodyWeightProgressEvent.Submit -> submitNewWeight(event.weight)
+            is BodyWeightProgressContract.BodyWeightProgressEvent.NoteDown -> submitNewWeight(event.weight)
         }
     }
 

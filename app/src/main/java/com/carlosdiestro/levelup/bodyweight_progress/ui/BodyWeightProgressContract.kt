@@ -6,7 +6,7 @@ import com.carlosdiestro.levelup.core.ui.resources.StringValue
 class BodyWeightProgressContract {
 
     sealed class BodyWeightProgressEvent {
-        data class Submit(val weight: String) : BodyWeightProgressEvent()
+        data class NoteDown(val weight: String) : BodyWeightProgressEvent()
     }
 
     data class BodyWeightProgressState(
