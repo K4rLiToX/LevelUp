@@ -40,8 +40,6 @@ k
 ;app/src/main/java/com/carlosdiestro/levelup/MainActivity.kt,6\6\667823cd483095ebc5c8723ee5f25b9ca0a583d0
 {
 Kapp/src/main/java/com/carlosdiestro/levelup/core/ui/managers/TimeManager.kt,f\6\f614402aea24b31ac4434cfdf4f619fa58741094
- 
-papp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/bodyweight_list/BodyWeightProgressContract.kt,a\e\ae7ad564518f8434498393cc88bfc75ee1dea8a8
 Š
 Zapp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/ExerciseLibraryFragment.kt,5\6\562a93c2a179cfbd93613277d7087f31bc2c30f9
 ž

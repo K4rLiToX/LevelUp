@@ -82,10 +82,8 @@ class BodyWeightProgressViewModel @Inject constructor(
     ) {
         _state.update {
             it.copy(
-                bodyWeightFormState = it.bodyWeightFormState.copy(
-                    weight = input,
-                    weightError = errorMessage
-                )
+                weight = input,
+                weightError = errorMessage
             )
         }
     }

@@ -13,10 +13,6 @@ class BodyWeightProgressContract {
     data class BodyWeightProgressState(
         val noData: Boolean = false,
         val bodyWeightList: List<BodyWeightPLO> = emptyList(),
-        val bodyWeightFormState: BodyWeightFormState = BodyWeightFormState()
-    )
-
-    data class BodyWeightFormState(
         val weight: String = "",
         val weightError: StringResource? = null
     )
