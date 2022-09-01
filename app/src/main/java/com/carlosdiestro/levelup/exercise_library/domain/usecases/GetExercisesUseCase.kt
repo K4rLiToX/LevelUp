@@ -3,7 +3,7 @@ package com.carlosdiestro.levelup.exercise_library.domain.usecases
 import com.carlosdiestro.levelup.exercise_library.domain.models.Exercise
 import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
 import com.carlosdiestro.levelup.exercise_library.domain.repositories.ExerciseRepository
-import com.carlosdiestro.levelup.exercise_library.ui.ExercisePLO
+import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

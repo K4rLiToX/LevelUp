@@ -14,5 +14,13 @@
         android:id="@+id/exerciseLibraryFragment"
         android:name="com.carlosdiestro.levelup.exercise_library.ui.ExerciseLibraryFragment"
         android:label="fragment_exercise_library"
-        tools:layout="@layout/fragment_exercise_library" />
+        tools:layout="@layout/fragment_exercise_library">
+        <action
+            android:id="@+id/toNewExerciseFragment"
+            app:destination="@id/newExerciseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newExerciseFragment"
+        android:name="com.carlosdiestro.levelup.exercise_library.ui.exercise_add.NewExerciseFragment"
+        android:label="NewExerciseFragment" />
 </navigation>

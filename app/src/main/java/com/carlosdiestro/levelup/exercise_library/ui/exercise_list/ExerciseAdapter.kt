@@ -1,4 +1,4 @@
-package com.carlosdiestro.levelup.exercise_library.ui
+package com.carlosdiestro.levelup.exercise_library.ui.exercise_list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.databinding.ItemExerciseBinding
+import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
 
 class ExerciseAdapter(
     private val isSelectionMode: Boolean = false,

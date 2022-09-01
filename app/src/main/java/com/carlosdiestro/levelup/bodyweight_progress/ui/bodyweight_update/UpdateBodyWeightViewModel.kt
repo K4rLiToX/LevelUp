@@ -35,13 +35,12 @@ class UpdateBodyWeightViewModel @Inject constructor(
 
     private fun updateNewWeight(input: String) {
         viewModelScope.launch {
-            validateNewWeightUseCase(input, true).collect { response ->
-                if (!response.isSuccessful) {
-                    updateBodyWeightFormState(input, response.errorMessage)
-                } else {
-                    updateBodyWeightFormState()
-                    _callbackChannel.send(input)
-                }
+            val response = validateNewWeightUseCase(input, true)
+            if (!response.isSuccessful) {
+                updateBodyWeightFormState(input, response.errorMessage)
+            } else {
+                updateBodyWeightFormState()
+                _callbackChannel.send(input)
             }
         }
     }

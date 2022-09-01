@@ -1,4 +1,4 @@
-package com.carlosdiestro.levelup.exercise_library.ui
+package com.carlosdiestro.levelup.exercise_library.ui.models
 
 import androidx.recyclerview.widget.DiffUtil
 import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory

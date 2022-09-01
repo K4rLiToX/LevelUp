@@ -1,4 +1,4 @@
-package com.carlosdiestro.levelup.exercise_library.ui
+package com.carlosdiestro.levelup.exercise_library.ui.exercise_list
 
 import android.os.Bundle
 import android.view.View
@@ -10,6 +10,7 @@ import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.databinding.FragmentExerciseCategoryBinding
+import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

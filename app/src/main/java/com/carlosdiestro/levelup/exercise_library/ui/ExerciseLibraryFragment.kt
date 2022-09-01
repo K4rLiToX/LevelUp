@@ -3,7 +3,8 @@ package com.carlosdiestro.levelup.exercise_library.ui
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
@@ -16,10 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class ExerciseLibraryFragment : Fragment(R.layout.fragment_exercise_library) {
 
     private val binding by viewBinding(FragmentExerciseLibraryBinding::bind)
-    private val viewModel by viewModels<ExerciseLibraryViewModel>()
-    private val viewPagerAdapter: ExerciseCategoryFragmentAdapter by lazy {
-        ExerciseCategoryFragmentAdapter(this)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,12 +25,12 @@ class ExerciseLibraryFragment : Fragment(R.layout.fragment_exercise_library) {
     }
 
     private fun setUpClickListeners() {
-        binding.btnAdd.setOnClickListener { openAddExerciseDialog() }
+        binding.btnAdd.setOnClickListener { navigateToAddExerciseFragment() }
     }
 
     private fun setUpViewPagerWithTabLayout() {
         binding.apply {
-            vpExercises.adapter = viewPagerAdapter
+            vpExercises.adapter = ExerciseCategoryFragmentAdapter(this@ExerciseLibraryFragment)
             vpExercises.isUserInputEnabled = false
             TabLayoutMediator(tabExerciseGroup, vpExercises) { tab, position ->
                 tab.text = getTabTitle(position)
@@ -51,5 +48,12 @@ class ExerciseLibraryFragment : Fragment(R.layout.fragment_exercise_library) {
         }
     }
 
-    private fun openAddExerciseDialog() = Unit
+    private fun navigateToAddExerciseFragment() {
+        findNavController().navigate(
+            ExerciseLibraryFragmentDirections.toNewExerciseFragment(),
+            FragmentNavigatorExtras(
+                binding.btnAdd to "transition_fab"
+            )
+        )
+    }
 }

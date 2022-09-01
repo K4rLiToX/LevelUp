@@ -15,9 +15,9 @@ interface ExerciseDAO {
     @Delete
     suspend fun delete(exerciseEntity: ExerciseEntity)
 
-    @Query("SELECT * FROM exercise_table")
+    @Query("SELECT * FROM exercise_table ORDER BY name ASC")
     fun getAll(): Flow<List<ExerciseEntity>?>
 
-    @Query("SELECT * FROM exercise_table WHERE `group` = :group")
+    @Query("SELECT * FROM exercise_table WHERE `group` = :group ORDER BY name ASC")
     fun getByGroup(group: Int): Flow<List<ExerciseEntity>?>
 }

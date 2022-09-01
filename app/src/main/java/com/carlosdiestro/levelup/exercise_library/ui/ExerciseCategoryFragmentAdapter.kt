@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
 import com.carlosdiestro.levelup.exercise_library.domain.models.toValue
+import com.carlosdiestro.levelup.exercise_library.ui.exercise_list.ExerciseCategoryFragment
 
 class ExerciseCategoryFragmentAdapter(
     fragment: Fragment

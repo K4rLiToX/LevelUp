@@ -1,5 +1,6 @@
 package com.carlosdiestro.levelup.bodyweight_progress.ui.bodyweight_list
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.GetWeightListUseCase
 import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.NoteDownBodyWeightUseCase
@@ -7,7 +8,6 @@ import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.UpdateBodyW
 import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.ValidateNewWeightUseCase
 import com.carlosdiestro.levelup.bodyweight_progress.ui.models.BodyWeightPLO
 import com.carlosdiestro.levelup.core.domain.Response
-import com.carlosdiestro.levelup.core.ui.base.BaseViewModel
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +22,7 @@ class BodyWeightProgressViewModel @Inject constructor(
     private val noteDownBodyWeightUseCase: NoteDownBodyWeightUseCase,
     private val validateNewWeightUseCase: ValidateNewWeightUseCase,
     private val updateBodyWeightUseCase: UpdateBodyWeightUseCase
-) : BaseViewModel() {
+) : ViewModel() {
 
     private val _state: MutableStateFlow<BodyWeightProgressContract.BodyWeightProgressState> =
         MutableStateFlow(
@@ -60,13 +60,12 @@ class BodyWeightProgressViewModel @Inject constructor(
 
     private fun submitNewWeight(input: String) {
         viewModelScope.launch {
-            validateNewWeightUseCase(input).collect { response ->
-                if (!response.isSuccessful) {
-                    updateBodyWeightFormState(input, response.errorMessage)
-                } else {
-                    noteDownBodyWeightUseCase(input.toDouble())
-                    updateBodyWeightFormState()
-                }
+            val response = validateNewWeightUseCase(input)
+            if (!response.isSuccessful) {
+                updateBodyWeightFormState(input, response.errorMessage)
+            } else {
+                noteDownBodyWeightUseCase(input.toDouble())
+                updateBodyWeightFormState()
             }
         }
     }

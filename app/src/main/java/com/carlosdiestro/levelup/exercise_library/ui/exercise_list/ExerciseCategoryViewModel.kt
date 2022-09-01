@@ -1,10 +1,11 @@
-package com.carlosdiestro.levelup.exercise_library.ui
+package com.carlosdiestro.levelup.exercise_library.ui.exercise_list
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.carlosdiestro.levelup.core.ui.base.BaseViewModel
 import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
 import com.carlosdiestro.levelup.exercise_library.domain.models.toExerciseGroup
 import com.carlosdiestro.levelup.exercise_library.domain.usecases.GetExercisesUseCase
+import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ExerciseCategoryViewModel @Inject constructor(
     private val getExercisesUseCase: GetExercisesUseCase
-) : BaseViewModel() {
+) : ViewModel() {
 
     private var _state: MutableStateFlow<ExerciseCategoryState> =
         MutableStateFlow(ExerciseCategoryState())
