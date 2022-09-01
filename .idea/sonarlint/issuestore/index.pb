@@ -18,8 +18,6 @@ Capp/src/main/java/com/carlosdiestro/levelup/core/domain/Response.kt,5\a\5a6a2a
 Zapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/framework/BodyWeightDAO.kt,7\9\79775e84cc34d1a9a869929915c9756a0589382b
 ù
 mapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/data/repositories/BodyWeightRepositoryImpl.kt,5\9\59325a0df3f51a0c234557151eea8d13c6dd7c7c
-†
-papp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/bodyweight_update/UpdateBodyWeightContract.kt,2\2\225a3eaccbaec3fb10ea5973896227ff119f2c64
 à
 Xapp/src/main/java/com/carlosdiestro/levelup/exercise_library/framework/ExerciseEntity.kt,e\2\e264d6d453651984efec9bd2c7beae8b21ef2412
 }
@@ -42,8 +40,6 @@ k
 Kapp/src/main/java/com/carlosdiestro/levelup/core/ui/managers/TimeManager.kt,f\6\f614402aea24b31ac4434cfdf4f619fa58741094
 ä
 Zapp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/ExerciseLibraryFragment.kt,5\6\562a93c2a179cfbd93613277d7087f31bc2c30f9
-û
-napp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/bodyweight_update/UpdateBodyWeightDialog.kt,b\8\b82ebc4cf83dc8e77e13e63d08cfe239c550324d
 ò
 happ/src/main/java/com/carlosdiestro/levelup/exercise_library/data/repositories/ExerciseRepositoryImpl.kt,4\f\4f282895eff176e7e24d828445365e9809ce339d
 ñ
@@ -56,7 +52,5 @@ Uapp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/models/Exercise
 iapp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_list/ExerciseCategoryFragment.kt,3\1\3118055a67a9aeb9b825abd29d6eec840ee2c03a
 ê
 `app/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_list/ExerciseAdapter.kt,4\4\440f1a39ae032b555bfbee213bf8a2524fabd21e
-ö
-japp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_list/ExerciseCategoryViewModel.kt,9\2\9217da94baaa9e468d680901f4178fb03d6358a0
 Ö
 Uapp/src/main/java/com/carlosdiestro/levelup/exercise_library/framework/ExerciseDAO.kt,9\6\9692434312dc8d2fd7b74e1e72f1d8a284b11942

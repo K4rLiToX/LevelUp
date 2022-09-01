@@ -71,12 +71,10 @@ class UpdateBodyWeightDialog(
 
     private fun saveUpdatedBodyWeight() {
         val newBodyWeightText = binding.etUpdateBodyWeight.text.toTrimmedString()
-        viewModel.onEvent(
-            UpdateBodyWeightContract.UpdateBodyWeightEvent.Save(newBodyWeightText)
-        )
+        viewModel.onEvent(UpdateBodyWeightEvent.Save(newBodyWeightText))
     }
 
-    private fun handleBodyWeightForm(response: UpdateBodyWeightContract.UpdateBodyWeightState) {
+    private fun handleBodyWeightForm(response: UpdateBodyWeightState) {
         binding.apply {
             etUpdateBodyWeight.setText(response.weight)
             ilUpdateBodyWeight.error = response.weightError?.let { getString(it.resId) }

@@ -24,20 +24,18 @@ class BodyWeightProgressViewModel @Inject constructor(
     private val updateBodyWeightUseCase: UpdateBodyWeightUseCase
 ) : ViewModel() {
 
-    private val _state: MutableStateFlow<BodyWeightProgressContract.BodyWeightProgressState> =
-        MutableStateFlow(
-            BodyWeightProgressContract.BodyWeightProgressState()
-        )
+    private val _state: MutableStateFlow<BodyWeightProgressState> =
+        MutableStateFlow(BodyWeightProgressState())
     val state = _state.asStateFlow()
 
     init {
         fetchBodyWeights()
     }
 
-    fun onEvent(event: BodyWeightProgressContract.BodyWeightProgressEvent) {
+    fun onEvent(event: BodyWeightProgressEvent) {
         when (event) {
-            is BodyWeightProgressContract.BodyWeightProgressEvent.NoteDown -> submitNewWeight(event.weight)
-            is BodyWeightProgressContract.BodyWeightProgressEvent.Update -> updateBodyWeight(event.bodyWeightPLO)
+            is BodyWeightProgressEvent.NoteDown -> submitNewWeight(event.weight)
+            is BodyWeightProgressEvent.Update -> updateBodyWeight(event.bodyWeightPLO)
         }
     }
 

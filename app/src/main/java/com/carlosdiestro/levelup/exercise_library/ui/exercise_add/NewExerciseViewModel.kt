@@ -18,18 +18,17 @@ class NewExerciseViewModel @Inject constructor(
     private val addNewExerciseUseCase: AddNewExerciseUseCase
 ) : ViewModel() {
 
-    private var _state: MutableStateFlow<NewExerciseContract.NewExerciseState> =
-        MutableStateFlow(NewExerciseContract.NewExerciseState())
+    private var _state: MutableStateFlow<NewExerciseState> = MutableStateFlow(NewExerciseState())
     val state = _state.asStateFlow()
 
-    fun onEvent(event: NewExerciseContract.NewExerciseEvent) {
+    fun onEvent(event: NewExerciseEvent) {
         when (event) {
-            is NewExerciseContract.NewExerciseEvent.SaveNewExercise -> submitNewExercise(
+            is NewExerciseEvent.SaveNewExercise -> submitNewExercise(
                 event.name,
                 event.category,
                 event.isUnilateral
             )
-            NewExerciseContract.NewExerciseEvent.ResetNewExerciseState -> _state.update {
+            NewExerciseEvent.ResetNewExerciseState -> _state.update {
                 it.copy(
                     exerciseName = "",
                     exerciseNameError = null,

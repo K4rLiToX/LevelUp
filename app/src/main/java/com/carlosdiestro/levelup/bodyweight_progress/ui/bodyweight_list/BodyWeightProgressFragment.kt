@@ -75,16 +75,12 @@ class BodyWeightProgressFragment : Fragment(R.layout.fragment_body_weight_progre
 
     private fun submitNewWeight() {
         val newBodyWeightText = binding.etNewWeight.text.toTrimmedString()
-        viewModel.onEvent(
-            BodyWeightProgressContract.BodyWeightProgressEvent.NoteDown(
-                newBodyWeightText
-            )
-        )
+        viewModel.onEvent(BodyWeightProgressEvent.NoteDown(newBodyWeightText))
     }
 
     private fun openWeightDialogEditor(item: BodyWeightPLO) {
         UpdateBodyWeightDialog(item) {
-            viewModel.onEvent(BodyWeightProgressContract.BodyWeightProgressEvent.Update(it))
+            viewModel.onEvent(BodyWeightProgressEvent.Update(it))
         }.show(requireActivity().supportFragmentManager, UpdateBodyWeightDialog.TAG)
     }
 }

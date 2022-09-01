@@ -55,7 +55,7 @@ class NewExerciseFragment : Fragment(R.layout.fragment_new_exercise) {
     private fun collectUIState() {
         launchAndCollect(viewModel.state) {
             handleNameInput(it.exerciseName, it.exerciseNameError)
-            if(it.isSubmitSuccessful) {
+            if (it.isSubmitSuccessful) {
                 handleIsUnilateral()
                 handleCategory()
                 handleIsSubmitSuccessful()
@@ -75,7 +75,7 @@ class NewExerciseFragment : Fragment(R.layout.fragment_new_exercise) {
         val exerciseCategory = getCategoryChecked(binding.cgCategories)
 
         viewModel.onEvent(
-            NewExerciseContract.NewExerciseEvent.SaveNewExercise(
+            NewExerciseEvent.SaveNewExercise(
                 exerciseName,
                 isUnilateral,
                 exerciseCategory
@@ -99,7 +99,7 @@ class NewExerciseFragment : Fragment(R.layout.fragment_new_exercise) {
     }
 
     private fun handleIsSubmitSuccessful() {
-        viewModel.onEvent(NewExerciseContract.NewExerciseEvent.ResetNewExerciseState)
+        viewModel.onEvent(NewExerciseEvent.ResetNewExerciseState)
     }
 
     private fun getCategoryChecked(group: ChipGroup): ExerciseCategory {
