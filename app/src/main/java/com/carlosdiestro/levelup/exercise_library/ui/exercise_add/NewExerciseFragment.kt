@@ -55,9 +55,12 @@ class NewExerciseFragment : Fragment(R.layout.fragment_new_exercise) {
     private fun collectUIState() {
         launchAndCollect(viewModel.state) {
             handleNameInput(it.exerciseName, it.exerciseNameError)
-            handleIsUnilateral(it.isSubmitSuccessful)
-            handleCategory(it.isSubmitSuccessful)
-            handleIsSubmitSuccessful(it.isSubmitSuccessful)
+            if(it.isSubmitSuccessful) {
+                handleIsUnilateral()
+                handleCategory()
+                handleIsSubmitSuccessful()
+            }
+
         }
     }
 
@@ -87,16 +90,16 @@ class NewExerciseFragment : Fragment(R.layout.fragment_new_exercise) {
         }
     }
 
-    private fun handleIsUnilateral(isSubmitSuccessful: Boolean) {
-        if (isSubmitSuccessful) binding.sUnilateral.isChecked = false
+    private fun handleIsUnilateral() {
+        binding.sUnilateral.isChecked = false
     }
 
-    private fun handleCategory(isSubmitSuccessful: Boolean) {
-        if (isSubmitSuccessful) binding.cgCategories.check(R.id.cPush)
+    private fun handleCategory() {
+        binding.cgCategories.check(R.id.cPush)
     }
 
-    private fun handleIsSubmitSuccessful(isSubmitSuccessful: Boolean) {
-        if (isSubmitSuccessful) viewModel.onEvent(NewExerciseContract.NewExerciseEvent.ResetNewExerciseState)
+    private fun handleIsSubmitSuccessful() {
+        viewModel.onEvent(NewExerciseContract.NewExerciseEvent.ResetNewExerciseState)
     }
 
     private fun getCategoryChecked(group: ChipGroup): ExerciseCategory {
