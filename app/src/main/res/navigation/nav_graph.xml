@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/bodyWeightProgressFragment">
+    app:startDestination="@id/workoutsFragment">
 
     <fragment
         android:id="@+id/bodyWeightProgressFragment"
@@ -23,4 +23,9 @@
         android:id="@+id/newExerciseFragment"
         android:name="com.carlosdiestro.levelup.exercise_library.ui.exercise_add.NewExerciseFragment"
         android:label="NewExerciseFragment" />
+    <fragment
+        android:id="@+id/workoutsFragment"
+        android:name="com.carlosdiestro.levelup.workouts.ui.WorkoutsFragment"
+        android:label="fragment_workouts"
+        tools:layout="@layout/fragment_workouts" />
 </navigation>
