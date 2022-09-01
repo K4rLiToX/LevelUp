@@ -2,7 +2,7 @@
     <string name="app_name">LevelUp</string>
 
     <string name="section_workout">Workouts</string>
-    <string name="section_exercises_and_progress">Exercises &amp; Progress</string>
+    <string name="section_exercise_library">Exercise Library</string>
     <string name="section_body_weight">Body Weight</string>
 
     <string name="title_exercise">Exercises</string>
@@ -10,7 +10,10 @@
     <string name="title_set_drop">Drop set</string>
     <string name="title_new_weight">New Body Weight</string>
     <string name="title_update_body_weight">Update Body Weight</string>
+    <string name="title_new_exercise">New Exercise</string>
+    <string name="title_exercise_category">Exercise Category</string>
 
+    <string name="exercise_category_all">All</string>
     <string name="exercise_category_push">Push</string>
     <string name="exercise_category_pull">Pull</string>
     <string name="exercise_category_legs">Legs</string>
@@ -32,6 +35,10 @@
     <string name="form_input_text_weight">Weight</string>
     <string name="form_input_text_repetitions">Reps</string>
     <string name="form_input_text_repetitions_partials">Partials</string>
+    <string name="form_input_text_name">Exercise name</string>
+    <string name="form_text_unilateral">Unilateral</string>
+
+    <string name="message_unilateral">By enabling this, you will have to write down weights and reps for each arm/leg</string>
 
     <string name="placeholder_weight">%s kg</string>
 
@@ -40,4 +47,6 @@
     <string name="error_weight_negative_value">Really, negative weight? Does that have any sense?</string>
     <string name="error_weight_zero_value">Only light can be weightless</string>
     <string name="error_weight_exists">A weight already exists for today, but you can modify it</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

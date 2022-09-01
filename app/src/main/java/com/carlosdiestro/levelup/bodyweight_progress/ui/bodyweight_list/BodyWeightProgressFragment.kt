@@ -12,6 +12,8 @@ import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.core.ui.extensions.toTrimmedString
 import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
+import com.carlosdiestro.levelup.core.ui.resources.StringResource
+import com.carlosdiestro.levelup.core.ui.resources.toText
 import com.carlosdiestro.levelup.databinding.FragmentBodyWeightProgressBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,7 +54,7 @@ class BodyWeightProgressFragment : Fragment(R.layout.fragment_body_weight_progre
         launchAndCollect(viewModel.state) {
             handleNoData(it.noData)
             handleBodyWeightList(it.bodyWeightList)
-            handleBodyWeightForm(it.bodyWeightFormState)
+            handleBodyWeightForm(it.weight, it.weightError)
         }
     }
 
@@ -64,25 +66,21 @@ class BodyWeightProgressFragment : Fragment(R.layout.fragment_body_weight_progre
         recyclerAdapter.submitList(list)
     }
 
-    private fun handleBodyWeightForm(response: BodyWeightProgressContract.BodyWeightFormState) {
+    private fun handleBodyWeightForm(weight: String, weightError: StringResource?) {
         binding.apply {
-            etNewWeight.setText(response.weight)
-            ilNewWeight.error = response.weightError?.let { getString(it.resId) }
+            etNewWeight.setText(weight)
+            ilNewWeight.error = weightError?.toText(requireContext())
         }
     }
 
     private fun submitNewWeight() {
         val newBodyWeightText = binding.etNewWeight.text.toTrimmedString()
-        viewModel.onEvent(
-            BodyWeightProgressContract.BodyWeightProgressEvent.NoteDown(
-                newBodyWeightText
-            )
-        )
+        viewModel.onEvent(BodyWeightProgressEvent.NoteDown(newBodyWeightText))
     }
 
     private fun openWeightDialogEditor(item: BodyWeightPLO) {
         UpdateBodyWeightDialog(item) {
-            viewModel.onEvent(BodyWeightProgressContract.BodyWeightProgressEvent.Update(it))
+            viewModel.onEvent(BodyWeightProgressEvent.Update(it))
         }.show(requireActivity().supportFragmentManager, UpdateBodyWeightDialog.TAG)
     }
 }

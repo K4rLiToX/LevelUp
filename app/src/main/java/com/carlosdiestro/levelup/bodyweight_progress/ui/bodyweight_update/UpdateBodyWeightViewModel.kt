@@ -18,30 +18,27 @@ class UpdateBodyWeightViewModel @Inject constructor(
     private val validateNewWeightUseCase: ValidateNewWeightUseCase
 ) : ViewModel() {
 
-    private var _state: MutableStateFlow<UpdateBodyWeightContract.UpdateBodyWeightState> =
-        MutableStateFlow(
-            UpdateBodyWeightContract.UpdateBodyWeightState()
-        )
+    private var _state: MutableStateFlow<UpdateBodyWeightState> =
+        MutableStateFlow(UpdateBodyWeightState())
     val state = _state.asStateFlow()
 
     private val _callbackChannel: Channel<String> = Channel()
     val callbackChannel = _callbackChannel.receiveAsFlow()
 
-    fun onEvent(event: UpdateBodyWeightContract.UpdateBodyWeightEvent) {
+    fun onEvent(event: UpdateBodyWeightEvent) {
         when (event) {
-            is UpdateBodyWeightContract.UpdateBodyWeightEvent.Save -> updateNewWeight(event.weight)
+            is UpdateBodyWeightEvent.Save -> updateNewWeight(event.weight)
         }
     }
 
     private fun updateNewWeight(input: String) {
         viewModelScope.launch {
-            validateNewWeightUseCase(input, true).collect { response ->
-                if (!response.isSuccessful) {
-                    updateBodyWeightFormState(input, response.errorMessage)
-                } else {
-                    updateBodyWeightFormState()
-                    _callbackChannel.send(input)
-                }
+            val response = validateNewWeightUseCase(input, true)
+            if (!response.isSuccessful) {
+                updateBodyWeightFormState(input, response.errorMessage)
+            } else {
+                updateBodyWeightFormState()
+                _callbackChannel.send(input)
             }
         }
     }

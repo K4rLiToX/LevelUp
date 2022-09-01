@@ -1,16 +1,18 @@
 package com.carlosdiestro.levelup.core.ui.resources
 
 import android.content.Context
+import androidx.annotation.StringRes
 import com.carlosdiestro.levelup.R
 
-sealed class StringResource(val resId: Int) {
+sealed class StringResource(@StringRes val resId: Int) {
     object Workout : StringResource(R.string.section_workout)
-    object ExerciseAndProgress : StringResource(R.string.section_exercises_and_progress)
+    object ExerciseLibrary : StringResource(R.string.section_exercise_library)
     object BodyWeight : StringResource(R.string.section_body_weight)
     object Exercise : StringResource(R.string.title_exercise)
     object Set : StringResource(R.string.title_set)
     object DropSet : StringResource(R.string.title_set_drop)
     object NewWeight : StringResource(R.string.title_new_weight)
+    object All : StringResource(R.string.exercise_category_all)
     object Push : StringResource(R.string.exercise_category_push)
     object Pull : StringResource(R.string.exercise_category_pull)
     object Legs : StringResource(R.string.exercise_category_legs)

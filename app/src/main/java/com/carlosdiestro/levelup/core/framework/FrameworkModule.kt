@@ -3,6 +3,7 @@ package com.carlosdiestro.levelup.core.framework
 import android.content.Context
 import androidx.room.Room
 import com.carlosdiestro.levelup.bodyweight_progress.framework.BodyWeightDAO
+import com.carlosdiestro.levelup.exercise_library.framework.ExerciseDAO
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,5 +32,11 @@ object FrameworkModule {
     @Singleton
     fun provideBodyWeightDAO(db: LevelUpDatabase): BodyWeightDAO {
         return db.bodyWeightDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideExerciseDEO(db: LevelUpDatabase): ExerciseDAO {
+        return db.exerciseDao()
     }
 }

@@ -20,6 +20,5 @@ class GetWeightListUseCase @Inject constructor(
 }
 
 fun List<BodyWeight>.toPLO(): List<BodyWeightPLO> = this.map { it.toPLO() }
-fun List<BodyWeightPLO>.toDomain(): List<BodyWeight> = this.map { it.toDomain() }
 fun BodyWeight.toPLO(): BodyWeightPLO = BodyWeightPLO(date = date, weight = weight)
 fun BodyWeightPLO.toDomain(): BodyWeight = BodyWeight(date = date, weight = weight)
