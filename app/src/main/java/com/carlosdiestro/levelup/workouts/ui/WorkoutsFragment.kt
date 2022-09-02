@@ -1,19 +1,60 @@
 package com.carlosdiestro.levelup.workouts.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.carlosdiestro.levelup.R
+import com.carlosdiestro.levelup.core.ui.extensions.gone
+import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
+import com.carlosdiestro.levelup.core.ui.extensions.visible
+import com.carlosdiestro.levelup.core.ui.managers.viewBinding
+import com.carlosdiestro.levelup.databinding.FragmentWorkoutsBinding
+import com.carlosdiestro.levelup.workouts.ui.models.WorkoutPLO
+import dagger.hilt.android.AndroidEntryPoint
 
-class WorkoutsFragment : Fragment() {
+@AndroidEntryPoint
+class WorkoutsFragment : Fragment(R.layout.fragment_workouts) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_workouts, container, false)
+    private val binding by viewBinding(FragmentWorkoutsBinding::bind)
+    private val viewModel by viewModels<WorkoutsViewModel>()
+    private lateinit var recyclerAdapter: WorkoutAdapter
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpClickListeners()
+        setUpRecyclerView()
+        collectUIState()
     }
+
+    private fun setUpClickListeners() {
+        binding.btnCreate.setOnClickListener { navigateToAddNewWorkout() }
+    }
+
+    private fun setUpRecyclerView() {
+        binding.rvWorkouts.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            adapter = WorkoutAdapter { navigateToWorkoutDetails(it) }
+        }
+    }
+
+    private fun collectUIState() {
+        launchAndCollect(viewModel.state) {
+            handleNoData(it.noData)
+            handleWorkoutList(it.workoutList)
+        }
+    }
+
+    private fun handleNoData(noData: Boolean) {
+        binding.lNoData.root.visible(noData)
+    }
+
+    private fun handleWorkoutList(list: List<WorkoutPLO>) {
+        recyclerAdapter.submitList(list)
+    }
+
+    private fun navigateToWorkoutDetails(id: Int) = Unit
+
+    private fun navigateToAddNewWorkout() = Unit
 }
