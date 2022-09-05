@@ -2,10 +2,14 @@ package com.carlosdiestro.levelup.workouts.framework
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "workout_drop_set_table",
+    indices = [
+        Index(value = ["setId"], unique = false)
+    ],
     foreignKeys = [ForeignKey(
         entity = WorkoutSetEntity::class,
         parentColumns = arrayOf("id"),

@@ -10,8 +10,8 @@ data class ExerciseWithSets(
     val exercise: WorkoutExerciseEntity? = null,
     @Relation(
         parentColumn = "id",
-        entityColumn = "id",
-        entity = SetWithDropSets::class
+        entityColumn = "exerciseId",
+        entity = WorkoutSetEntity::class
     )
     val sets: List<SetWithDropSets> = emptyList()
 )
