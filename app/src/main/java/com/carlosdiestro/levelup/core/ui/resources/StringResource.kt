@@ -35,6 +35,7 @@ sealed class StringResource(@StringRes val resId: Int) {
     object BlankInput : StringResource(R.string.error_blank_input)
     object ZeroValue : StringResource(R.string.error_weight_zero_value)
     object WeightExists : StringResource(R.string.error_weight_exists)
+    object RepRange : StringResource(R.string.placeholder_range)
 }
 
 fun StringResource.toText(context: Context): String = context.getString(this.resId)

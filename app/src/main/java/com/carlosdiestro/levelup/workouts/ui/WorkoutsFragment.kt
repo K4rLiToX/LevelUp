@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.gone
@@ -24,6 +27,7 @@ class WorkoutsFragment : Fragment(R.layout.fragment_workouts) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpClickListeners()
+        setUpRecyclerAdapter()
         setUpRecyclerView()
         collectUIState()
     }
@@ -32,10 +36,14 @@ class WorkoutsFragment : Fragment(R.layout.fragment_workouts) {
         binding.btnCreate.setOnClickListener { navigateToAddNewWorkout() }
     }
 
+    private fun setUpRecyclerAdapter() {
+        recyclerAdapter = WorkoutAdapter { navigateToWorkoutDetails(it) }
+    }
+
     private fun setUpRecyclerView() {
         binding.rvWorkouts.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = WorkoutAdapter { navigateToWorkoutDetails(it) }
+            adapter = recyclerAdapter
         }
     }
 
@@ -56,5 +64,12 @@ class WorkoutsFragment : Fragment(R.layout.fragment_workouts) {
 
     private fun navigateToWorkoutDetails(id: Int) = Unit
 
-    private fun navigateToAddNewWorkout() = Unit
+    private fun navigateToAddNewWorkout() {
+        findNavController().navigate(
+            WorkoutsFragmentDirections.toNewWorkoutFragment(),
+            FragmentNavigatorExtras(
+                binding.btnCreate to "fab_to_new_workout_transition"
+            )
+        )
+    }
 }

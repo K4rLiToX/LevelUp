@@ -8,7 +8,7 @@ import com.carlosdiestro.levelup.exercise_library.domain.models.toValue
 import com.carlosdiestro.levelup.exercise_library.ui.exercise_list.ExerciseCategoryFragment
 
 class ExerciseCategoryFragmentAdapter(
-    fragment: Fragment
+    fragment: Fragment,
 ) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = EXERCISE_CATEGORIES
@@ -17,7 +17,9 @@ class ExerciseCategoryFragmentAdapter(
         val category = getExerciseCategory(position)
         return ExerciseCategoryFragment().apply {
             arguments =
-                Bundle().apply { putInt(ExerciseCategoryFragment.EXERCISE_CATEGORY_KEY, category) }
+                Bundle().apply {
+                    putInt(ExerciseCategoryFragment.EXERCISE_CATEGORY_KEY, category)
+                }
         }
     }
 

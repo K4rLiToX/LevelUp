@@ -8,7 +8,7 @@ data class ExercisePLO(
     val name: String,
     val isUnilateral: Boolean,
     val category: ExerciseCategory,
-    val isSelected: Boolean = false
+    var isSelected: Boolean = false
 ) {
 
     class ExerciseDiffCallback : DiffUtil.ItemCallback<ExercisePLO>() {

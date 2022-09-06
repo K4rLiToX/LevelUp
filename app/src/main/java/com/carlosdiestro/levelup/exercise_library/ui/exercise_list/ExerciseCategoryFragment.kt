@@ -18,13 +18,12 @@ class ExerciseCategoryFragment : Fragment(R.layout.fragment_exercise_category) {
 
     private val binding by viewBinding(FragmentExerciseCategoryBinding::bind)
     private val viewModel by viewModels<ExerciseCategoryViewModel>()
-    private val recyclerAdapter: ExerciseAdapter by lazy {
-        ExerciseAdapter()
-    }
+    private lateinit var recyclerAdapter: ExerciseAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         collectArguments()
+        initializeRecyclerAdapter()
         setUpRecyclerView()
         collectUIState()
         collectExercises()
@@ -34,6 +33,10 @@ class ExerciseCategoryFragment : Fragment(R.layout.fragment_exercise_category) {
         arguments?.takeIf { it.containsKey(EXERCISE_CATEGORY_KEY) }?.apply {
             viewModel.setExerciseCategory(getInt(EXERCISE_CATEGORY_KEY))
         }
+    }
+
+    private fun initializeRecyclerAdapter() {
+        recyclerAdapter = ExerciseAdapter()
     }
 
     private fun setUpRecyclerView() {

@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        tools:listitem="@layout/item_body_weight" />
+        tools:listitem="@layout/item_workout" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnCreate"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_16"
         android:layout_marginBottom="@dimen/margin_32"
-        android:transitionName="transition_fab"
+        android:transitionName="fab_to_new_workout_transition"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add" />

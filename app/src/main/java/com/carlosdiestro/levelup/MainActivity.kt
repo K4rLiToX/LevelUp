@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.newExerciseFragment -> binding.bottomNavigation.gone()
+                R.id.newWorkoutFragment -> binding.bottomNavigation.gone()
                 else -> binding.bottomNavigation.visible()
             }
         }

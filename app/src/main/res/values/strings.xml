@@ -12,6 +12,11 @@
     <string name="title_update_body_weight">Update Body Weight</string>
     <string name="title_new_exercise">New Exercise</string>
     <string name="title_exercise_category">Exercise Category</string>
+    <string name="title_new_workout">New Workout</string>
+    <string name="title_range_minimum">Min.</string>
+    <string name="title_range_maximum">Max.</string>
+    <string name="title_range">Range</string>
+    <string name="title_choose_exercises">Choose Exercise</string>
 
     <string name="exercise_category_all">All</string>
     <string name="exercise_category_push">Push</string>
@@ -22,25 +27,29 @@
     <string name="time_today">Today</string>
     <string name="time_yesterday">Yesterday</string>
 
-    <string name="action_add_exercise">Add Exercises</string>
+    <string name="action_add_exercise">Add Exercise</string>
     <string name="action_add">Add</string>
     <string name="action_note_down">Note down</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_save">Save</string>
     <string name="action_accept">Accept</string>
     <string name="action_ok">OK</string>
+    <string name="action_add_set">Set</string>
+    <string name="action_add_drop_set">Drop set</string>
 
     <string name="form_input_text_title">Title</string>
     <string name="form_input_text_range">Range</string>
     <string name="form_input_text_weight">Weight</string>
     <string name="form_input_text_repetitions">Reps</string>
     <string name="form_input_text_repetitions_partials">Partials</string>
-    <string name="form_input_text_name">Exercise name</string>
+    <string name="form_input_text_name_exercise">Exercise name</string>
     <string name="form_text_unilateral">Unilateral</string>
+    <string name="form_input_text_name_workout">Workout name</string>
 
     <string name="message_unilateral">By enabling this, you will have to write down weights and reps for each arm/leg</string>
 
     <string name="placeholder_weight">%s kg</string>
+    <string name="placeholder_range">%s - %s</string>
 
     <string name="error_blank_input">Please, fill in this field</string>
     <string name="error_incorrect_structure">Make sure the input follows the pattern X.X</string>

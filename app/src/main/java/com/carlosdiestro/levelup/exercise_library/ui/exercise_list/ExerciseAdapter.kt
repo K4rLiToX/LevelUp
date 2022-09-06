@@ -37,8 +37,10 @@ class ExerciseAdapter(
             binding.root.setOnClickListener {
                 if (isSelectionMode) {
                     onItemClicked?.let { block ->
+                        val item = getItem(bindingAdapterPosition)
+                        item.isSelected = !item.isSelected
+                        binding.root.isChecked = item.isSelected
                         block(bindingAdapterPosition)
-                        binding.root.isChecked = !getItem(bindingAdapterPosition).isSelected
                     }
                 }
             }

@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:menu="@menu/menu_save"
-            app:navigationIcon="@drawable/ic_close"
+            app:navigationIcon="@drawable/ic_back"
             app:title="@string/title_new_exercise" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -28,7 +28,7 @@
         android:id="@+id/ilName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/form_input_text_name"
+        android:hint="@string/form_input_text_name_exercise"
         android:padding="@dimen/margin_16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
