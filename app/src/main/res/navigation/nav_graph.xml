@@ -27,7 +27,7 @@
         android:id="@+id/workoutsFragment"
         android:name="com.carlosdiestro.levelup.workouts.ui.WorkoutsFragment"
         android:label="fragment_workouts"
-        tools:layout="@layout/fragment_workouts" >
+        tools:layout="@layout/fragment_workouts">
         <action
             android:id="@+id/toNewWorkoutFragment"
             app:destination="@id/newWorkoutFragment" />

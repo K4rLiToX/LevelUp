@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.carlosdiestro.levelup.R
-import com.carlosdiestro.levelup.core.ui.extensions.gone
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
@@ -42,7 +40,8 @@ class WorkoutsFragment : Fragment(R.layout.fragment_workouts) {
 
     private fun setUpRecyclerView() {
         binding.rvWorkouts.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = recyclerAdapter
         }
     }

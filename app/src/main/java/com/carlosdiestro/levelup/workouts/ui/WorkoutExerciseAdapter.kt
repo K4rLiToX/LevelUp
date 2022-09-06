@@ -7,13 +7,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.databinding.ItemExerciseWithSetsBinding
-import com.carlosdiestro.levelup.workouts.domain.models.RepRange
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutSetPLO
 
 class WorkoutExerciseAdapter(
     private val onAddSetClicked: (List<WorkoutSetPLO>, Int) -> Unit,
-    private val onRemoveSetClicked:(WorkoutExercisePLO, WorkoutSetPLO) -> Unit
+    private val onRemoveSetClicked: (WorkoutExercisePLO, WorkoutSetPLO) -> Unit
 ) :
     ListAdapter<WorkoutExercisePLO, WorkoutExerciseAdapter.ViewHolder>(WorkoutExercisePLO.WorkoutExerciseDiffCallback()) {
 

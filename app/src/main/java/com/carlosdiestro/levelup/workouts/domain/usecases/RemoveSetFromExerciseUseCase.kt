@@ -27,13 +27,17 @@ class RemoveSetFromExerciseUseCase @Inject constructor(
         )
     }.flowOn(defaultDispatcher)
 
-    private fun removeSetAndRearrangeList(set: WorkoutSetPLO, list: List<WorkoutSetPLO>): List<WorkoutSetPLO> {
-        return when(set.setOrder) {
+    private fun removeSetAndRearrangeList(
+        set: WorkoutSetPLO,
+        list: List<WorkoutSetPLO>
+    ): List<WorkoutSetPLO> {
+        return when (set.setOrder) {
             1 -> list.filter { it.setOrder != 1 }.map { it.copy(setOrder = it.setOrder - 1) }
             list.size -> list.take(list.size - 1)
             else -> {
                 val firstHalf = list.take(set.setOrder - 1)
-                val secondHalf = list.takeLastWhile { it.setOrder > set.setOrder }.map { it.copy(setOrder = it.setOrder - 1) }
+                val secondHalf = list.takeLastWhile { it.setOrder > set.setOrder }
+                    .map { it.copy(setOrder = it.setOrder - 1) }
                 firstHalf.plus(secondHalf)
             }
         }
