@@ -116,14 +116,6 @@ class NewWorkoutViewModel @Inject constructor(
             }
 
             addNewWorkoutUseCase(name, exerciseList)
-            exerciseList = mutableListOf()
-            _state.update {
-                it.copy(
-                    noData = true,
-                    workoutNameError = null,
-                    exerciseList = emptyList()
-                )
-            }
             channel.send(NewWorkoutEventResponse.PopBackStack)
         }
     }
