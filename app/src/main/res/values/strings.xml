@@ -52,6 +52,8 @@
 
     <string name="placeholder_weight">%s kg</string>
     <string name="placeholder_range">%s - %s</string>
+    <string name="placeholder_exercise_with_number">%s exercises</string>
+    <string name="placeholder_one_variable">%s</string>
 
     <string name="error_blank_input">Please, fill in this field</string>
     <string name="error_incorrect_structure">Make sure the input follows the pattern X.X</string>

@@ -40,6 +40,8 @@ sealed class StringResource(@StringRes val resId: Int) {
     object NoExercisesAdded : StringResource(R.string.error_no_exercises_added)
     object NoSetsAdded : StringResource(R.string.error_no_sets_added_to_exercise)
     object Warning : StringResource(R.string.title_warning)
+    object ExerciseWithNumber : StringResource(R.string.placeholder_exercise_with_number)
+    object OneVariablePlaceHolder : StringResource(R.string.placeholder_one_variable)
 }
 
 fun StringResource.toText(context: Context): String = context.getString(this.resId)

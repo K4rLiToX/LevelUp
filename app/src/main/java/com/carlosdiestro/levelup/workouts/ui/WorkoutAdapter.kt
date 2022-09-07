@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.carlosdiestro.levelup.core.ui.resources.StringResource
+import com.carlosdiestro.levelup.core.ui.resources.toText
 import com.carlosdiestro.levelup.databinding.ItemWorkoutBinding
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutPLO
 
@@ -37,7 +39,7 @@ class WorkoutAdapter(
         fun bind(item: WorkoutPLO) {
             binding.apply {
                 tvName.text = item.name
-                tvNumberOfExercises.text = item.numberOfExercises
+                tvNumberOfExercises.text = StringResource.ExerciseWithNumber.toText(binding.root.context, item.numberOfExercises)
             }
         }
     }
