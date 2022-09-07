@@ -1,7 +1,7 @@
 package com.carlosdiestro.levelup.exercise_library.ui.exercise_list
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
 import com.carlosdiestro.levelup.exercise_library.domain.models.toExerciseGroup
 import com.carlosdiestro.levelup.exercise_library.domain.usecases.GetExercisesUseCase
@@ -10,7 +10,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,14 +24,12 @@ class ExerciseCategoryViewModel @Inject constructor(
     private var exerciseCategory: ExerciseCategory = ExerciseCategory.ALL
 
     fun getExercises() {
-        viewModelScope.launch {
-            getExercisesUseCase(exerciseCategory).collect { response ->
-                _state.update {
-                    it.copy(
-                        noData = response.isEmpty(),
-                        exerciseList = response
-                    )
-                }
+        launchAndCollect(getExercisesUseCase(exerciseCategory)) { response ->
+            _state.update {
+                it.copy(
+                    noData = response.isEmpty(),
+                    exerciseList = response
+                )
             }
         }
     }

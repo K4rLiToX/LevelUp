@@ -3,7 +3,6 @@ package com.carlosdiestro.levelup.bodyweight_progress.domain.usecases
 import com.carlosdiestro.levelup.bodyweight_progress.domain.models.BodyWeight
 import com.carlosdiestro.levelup.bodyweight_progress.domain.repositories.BodyWeightRepository
 import com.carlosdiestro.levelup.bodyweight_progress.ui.models.BodyWeightPLO
-import com.carlosdiestro.levelup.core.domain.Response
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -11,10 +10,9 @@ import javax.inject.Inject
 class GetWeightListUseCase @Inject constructor(
     private val repository: BodyWeightRepository
 ) {
-    operator fun invoke(): Flow<Response<List<BodyWeightPLO>>> = flow {
-        emit(Response.Loading())
+    operator fun invoke(): Flow<List<BodyWeightPLO>> = flow {
         repository.getAll().collect { list ->
-            emit(Response.Success(list.toPLO()))
+            emit(list.toPLO())
         }
     }
 }

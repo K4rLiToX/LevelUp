@@ -2,6 +2,7 @@ package com.carlosdiestro.levelup.workouts.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.workouts.domain.usecases.DeleteWorkoutUseCase
 import com.carlosdiestro.levelup.workouts.domain.usecases.GetWorkoutListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,14 +32,12 @@ class WorkoutsViewModel @Inject constructor(
     }
 
     private fun fetchWorkouts() {
-        viewModelScope.launch {
-            getWorkoutListUseCase().collect { response ->
-                _state.update {
-                    it.copy(
-                        noData = response.isEmpty(),
-                        workoutList = response
-                    )
-                }
+        launchAndCollect(getWorkoutListUseCase()) { response ->
+            _state.update {
+                it.copy(
+                    noData = response.isEmpty(),
+                    workoutList = response
+                )
             }
         }
     }

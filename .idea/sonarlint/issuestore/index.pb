@@ -9,8 +9,6 @@ P
 ]app/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/framework/BodyWeightEntity.kt,d\3\d3c9983fa2042bbaf8c385e9d0d394de23045875
 y
 Iapp/src/main/java/com/carlosdiestro/levelup/core/data/DispatcherModule.kt,c\2\c2499cef665830dc620dd31e841ce335a1b23381
-s
-Capp/src/main/java/com/carlosdiestro/levelup/core/domain/Response.kt,5\a\5a6a2a8712048f1165e761338510133292b0175a
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
@@ -38,22 +36,14 @@ Kapp/src/main/java/com/carlosdiestro/levelup/core/domain/ValidationResult.kt,0\
 japp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/domain/usecases/UpdateBodyWeightUseCase.kt,c\a\caf966d3a57bbd1dcad200dc2f5fdd890052b795
 ›
 kapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/domain/usecases/ValidateNewWeightUseCase.kt,6\7\670fb13abcb1966e5847055d48cfb7e05e3e7f8b
-—
-gapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/domain/usecases/GetWeightListUseCase.kt,1\e\1e594e9ead9b0252b07462a2a38f508c8e0d9892
 œ
 lapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/domain/usecases/NoteDownBodyWeightUseCase.kt,6\b\6b8a39a0302af57ca558a84b9270b2ed887724bc
  
 papp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/bodyweight_list/BodyWeightProgressContract.kt,a\e\ae7ad564518f8434498393cc88bfc75ee1dea8a8
  
 papp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/bodyweight_update/UpdateBodyWeightContract.kt,2\2\225a3eaccbaec3fb10ea5973896227ff119f2c64
-¡
-qapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/bodyweight_update/UpdateBodyWeightViewModel.kt,5\3\53b135d2c4610f630a1bd2aea974f4d312d6c4c7
 “
 capp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_add/NewExerciseContract.kt,b\8\b8b06f94d50182ddae0063d1f24a318aeb2c3ee4
-”
-dapp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_add/NewExerciseViewModel.kt,0\e\0e160ad220b077ea095395fa70db44cdbdd8a9b7
-¡
-qapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/bodyweight_list/BodyWeightProgressViewModel.kt,1\b\1b5e23864c4b69ddf78b4f78aa2dec8316caebac
 Š
 Zapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/models/BodyWeightPLO.kt,7\0\70d4a1cee5f096afebaa73fc1743b637696a6f6c
 —

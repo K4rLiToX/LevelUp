@@ -2,10 +2,7 @@ package com.carlosdiestro.levelup.core.ui.extensions
 
 import android.text.Editable
 import android.view.View
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
@@ -34,6 +31,15 @@ fun <T, U> Flow<T>.diff(
         flow = map(mapf).distinctUntilChanged(),
         body = body
     )
+}
+
+fun <T> ViewModel.launchAndCollect(
+    flow: Flow<T>,
+    body: (T) -> Unit
+) {
+    viewModelScope.launch {
+        flow.collect(body)
+    }
 }
 
 fun View.visible(visibility: Boolean = true) {

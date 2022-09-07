@@ -2,6 +2,7 @@ package com.carlosdiestro.levelup.workouts.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.exercise_library.domain.usecases.BlankStringValidatorUseCase
 import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
 import com.carlosdiestro.levelup.workouts.domain.usecases.*
@@ -50,52 +51,52 @@ class NewWorkoutViewModel @Inject constructor(
     }
 
     private fun addExerciseToWorkout(exercisePLO: ExercisePLO) {
-        viewModelScope.launch {
+        launchAndCollect(
             addNewWorkoutExerciseUseCase(
                 exercisePLO,
                 exerciseList.toList()
-            ).collect { response ->
-                exerciseList = response.toMutableList()
-                _state.update {
-                    it.copy(
-                        noData = response.isEmpty(),
-                        exerciseList = response
-                    )
-                }
+            )
+        ) { response ->
+            exerciseList = response.toMutableList()
+            _state.update {
+                it.copy(
+                    noData = response.isEmpty(),
+                    exerciseList = response
+                )
             }
         }
     }
 
     private fun addNewSetToExercise(newSet: WorkoutSetPLO, position: Int) {
-        viewModelScope.launch {
+        launchAndCollect(
             addSetToWorkoutExerciseUseCase(
                 newSet,
                 position,
                 exerciseList.toList()
-            ).collect { response ->
-                exerciseList = response.toMutableList()
-                _state.update {
-                    it.copy(
-                        exerciseList = response
-                    )
-                }
+            )
+        ) { response ->
+            exerciseList = response.toMutableList()
+            _state.update {
+                it.copy(
+                    exerciseList = response
+                )
             }
         }
     }
 
     private fun removeSetFromExercise(exercise: WorkoutExercisePLO, set: WorkoutSetPLO) {
-        viewModelScope.launch {
+        launchAndCollect(
             removeSetFromExerciseUseCase(
                 exercise,
                 set,
                 exerciseList.toList()
-            ).collect { response ->
-                exerciseList = response.toMutableList()
-                _state.update {
-                    it.copy(
-                        exerciseList = response
-                    )
-                }
+            )
+        ) { response ->
+            exerciseList = response.toMutableList()
+            _state.update {
+                it.copy(
+                    exerciseList = response
+                )
             }
         }
     }

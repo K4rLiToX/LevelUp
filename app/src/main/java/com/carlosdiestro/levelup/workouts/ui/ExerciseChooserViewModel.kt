@@ -1,7 +1,7 @@
 package com.carlosdiestro.levelup.workouts.ui
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
 import com.carlosdiestro.levelup.exercise_library.domain.usecases.GetExercisesUseCase
 import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
@@ -10,7 +10,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,29 +35,25 @@ class ExerciseChooserViewModel @Inject constructor(
     }
 
     private fun fetchExercises() {
-        viewModelScope.launch {
-            getExerciseListUseCase(ExerciseCategory.ALL).collect { response ->
-                originalList = response.toMutableList()
-                _state.update {
-                    it.copy(
-                        noData = response.isEmpty(),
-                        exerciseList = response,
-                        filter = ExerciseCategory.ALL
-                    )
-                }
+        launchAndCollect(getExerciseListUseCase(ExerciseCategory.ALL)) { response ->
+            originalList = response.toMutableList()
+            _state.update {
+                it.copy(
+                    noData = response.isEmpty(),
+                    exerciseList = response,
+                    filter = ExerciseCategory.ALL
+                )
             }
         }
     }
 
     private fun updateExerciseCategoryFilter(newFilter: ExerciseCategory) {
-        viewModelScope.launch {
-            filterExerciseListUseCase(newFilter, originalList).collect { newList ->
-                _state.update {
-                    it.copy(
-                        filter = newFilter,
-                        exerciseList = newList
-                    )
-                }
+        launchAndCollect(filterExerciseListUseCase(newFilter, originalList)) { response ->
+            _state.update {
+                it.copy(
+                    filter = newFilter,
+                    exerciseList = response
+                )
             }
         }
     }
