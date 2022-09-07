@@ -82,8 +82,6 @@ class WorkoutExerciseAdapter(
             onAddSetClicked(bindingAdapterPosition)
         }
 
-        private fun openNewDropSetDialog() = Unit
-
         private fun removeSet(item: WorkoutSetPLO) {
             onRemoveSetClicked(bindingAdapterPosition, item)
         }
