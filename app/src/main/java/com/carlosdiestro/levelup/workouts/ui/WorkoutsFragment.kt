@@ -1,7 +1,9 @@
 package com.carlosdiestro.levelup.workouts.ui
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
+import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -35,7 +37,10 @@ class WorkoutsFragment : Fragment(R.layout.fragment_workouts) {
     }
 
     private fun setUpRecyclerAdapter() {
-        recyclerAdapter = WorkoutAdapter { navigateToWorkoutDetails(it) }
+        recyclerAdapter = WorkoutAdapter(
+            { navigateToWorkoutDetails(it) },
+            { id, view -> openMoreMenu(id, view) }
+        )
     }
 
     private fun setUpRecyclerView() {
@@ -63,6 +68,22 @@ class WorkoutsFragment : Fragment(R.layout.fragment_workouts) {
 
     private fun navigateToWorkoutDetails(id: Int) = Unit
 
+    private fun openMoreMenu(id: Int, view: View) {
+        PopupMenu(requireContext(), view).apply {
+            menuInflater.inflate(R.menu.menu_object_manager, this.menu)
+            gravity = Gravity.END
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.action_update -> navigateToUpdateWorkout(id)
+                    else -> deleteWorkout(id)
+                }
+                true
+            }
+        }.also {
+            it.show()
+        }
+    }
+
     private fun navigateToAddNewWorkout() {
         findNavController().navigate(
             WorkoutsFragmentDirections.toNewWorkoutFragment(),
@@ -70,5 +91,11 @@ class WorkoutsFragment : Fragment(R.layout.fragment_workouts) {
                 binding.btnCreate to "fab_to_new_workout_transition"
             )
         )
+    }
+
+    private fun navigateToUpdateWorkout(id: Int) = Unit
+
+    private fun deleteWorkout(id: Int) {
+        viewModel.onEvent(WorkoutEvent.OnDeleteWorkout(id))
     }
 }

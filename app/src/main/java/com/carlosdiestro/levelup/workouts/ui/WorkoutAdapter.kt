@@ -1,6 +1,7 @@
 package com.carlosdiestro.levelup.workouts.ui
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,14 +11,21 @@ import com.carlosdiestro.levelup.databinding.ItemWorkoutBinding
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutPLO
 
 class WorkoutAdapter(
-    private val onItemClicked: (Int) -> Unit
+    private val onItemClicked: (Int) -> Unit,
+    private val onMoreClicked: (Int, View) -> Unit
 ) : ListAdapter<WorkoutPLO, WorkoutAdapter.ViewHolder>(WorkoutPLO.WorkoutDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemWorkoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding) {
-            onItemClicked(getItem(it).id)
-        }
+        return ViewHolder(
+            binding,
+            {
+                onItemClicked(getItem(it).id)
+            },
+            { pos, view ->
+                onMoreClicked(getItem(pos).id, view)
+            }
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -27,12 +35,18 @@ class WorkoutAdapter(
 
     inner class ViewHolder(
         private val binding: ItemWorkoutBinding,
-        private val onItemClicked: (Int) -> Unit
+        private val onItemClicked: (Int) -> Unit,
+        private val onMoreClicked: (Int, View) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.root.setOnClickListener {
-                onItemClicked(bindingAdapterPosition)
+            binding.apply {
+                root.setOnClickListener {
+                    onItemClicked(bindingAdapterPosition)
+                }
+                btnMore.setOnClickListener {
+                    onMoreClicked(bindingAdapterPosition, it)
+                }
             }
         }
 

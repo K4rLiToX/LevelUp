@@ -54,8 +54,6 @@ capp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_add/Ne
 dapp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_add/NewExerciseViewModel.kt,0\e\0e160ad220b077ea095395fa70db44cdbdd8a9b7
 °
 qapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/bodyweight_list/BodyWeightProgressViewModel.kt,1\b\1b5e23864c4b69ddf78b4f78aa2dec8316caebac
-{
-Kapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutsContract.kt,c\d\cd89594ea65ea9d72f526271a0134f287a8f56af
 ä
 Zapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/models/BodyWeightPLO.kt,7\0\70d4a1cee5f096afebaa73fc1743b637696a6f6c
 ó
@@ -86,8 +84,6 @@ Vapp/src/main/java/com/carlosdiestro/levelup/workouts/framework/WorkoutDropSetEn
 _app/src/main/java/com/carlosdiestro/levelup/workouts/framework/middle_tables/SetWithDropSets.kt,7\a\7a039b4053564645e6fbf47c6c6d3932b7e400f4
 â
 Yapp/src/main/java/com/carlosdiestro/levelup/workouts/data/WorkoutDropSetRepositoryImpl.kt,0\9\09af2b011113179f64d1e837862da7b3f03b5c72
-|
-Lapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutsViewModel.kt,8\d\8d381cf90e6e29d2a4e95e01e7639505071dc27e
 ç
 ]app/src/main/java/com/carlosdiestro/levelup/workouts/domain/usecases/GetWorkoutListUseCase.kt,1\d\1d5cfab78c9e2b0b3221314cef033251ea61494d
 |
