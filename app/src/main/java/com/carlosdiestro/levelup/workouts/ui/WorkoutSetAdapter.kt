@@ -38,7 +38,10 @@ class WorkoutSetAdapter(
 
         fun bind(item: WorkoutSetPLO) {
             binding.apply {
-                tvSetNumber.text = (bindingAdapterPosition + 1).toString()
+                tvSetNumber.text = StringResource.OneVariablePlaceHolder.toText(
+                    binding.root.context,
+                    (bindingAdapterPosition + 1).toString()
+                )
                 tvRepRange.text = StringResource.RepRange.toText(
                     root.context,
                     item.repRange.lower.toString(),

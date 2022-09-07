@@ -39,7 +39,10 @@ class WorkoutAdapter(
         fun bind(item: WorkoutPLO) {
             binding.apply {
                 tvName.text = item.name
-                tvNumberOfExercises.text = StringResource.ExerciseWithNumber.toText(binding.root.context, item.numberOfExercises)
+                tvNumberOfExercises.text = StringResource.ExerciseWithNumber.toText(
+                    binding.root.context,
+                    item.numberOfExercises
+                )
             }
         }
     }

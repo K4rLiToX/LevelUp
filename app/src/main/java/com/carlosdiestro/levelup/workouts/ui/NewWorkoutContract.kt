@@ -13,7 +13,7 @@ sealed class NewWorkoutEvent {
 }
 
 sealed class NewWorkoutEventResponse {
-    class ShowWarningDialog(val message: StringResource?): NewWorkoutEventResponse()
+    class ShowWarningDialog(val message: StringResource?) : NewWorkoutEventResponse()
     object PopBackStack : NewWorkoutEventResponse()
 }
 

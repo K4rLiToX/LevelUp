@@ -12,13 +12,17 @@ class ValidateExercisesToAddUseCase @Inject constructor(
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
 ) {
 
-    suspend operator fun invoke(list: List<WorkoutExercisePLO>): ValidationResult = withContext(defaultDispatcher) {
-        val noExercises = list.isEmpty()
-        val noSetsAdded = list.find { it.sets.isEmpty() } != null
+    suspend operator fun invoke(list: List<WorkoutExercisePLO>): ValidationResult =
+        withContext(defaultDispatcher) {
+            val noExercises = list.isEmpty()
+            val noSetsAdded = list.find { it.sets.isEmpty() } != null
 
-        if(noExercises) return@withContext ValidationResult(false, StringResource.NoExercisesAdded)
-        if(noSetsAdded) return@withContext ValidationResult(false, StringResource.NoSetsAdded)
+            if (noExercises) return@withContext ValidationResult(
+                false,
+                StringResource.NoExercisesAdded
+            )
+            if (noSetsAdded) return@withContext ValidationResult(false, StringResource.NoSetsAdded)
 
-        return@withContext ValidationResult(true)
-    }
+            return@withContext ValidationResult(true)
+        }
 }

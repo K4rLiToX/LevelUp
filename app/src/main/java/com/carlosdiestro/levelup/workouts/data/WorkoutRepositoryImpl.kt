@@ -1,7 +1,8 @@
 package com.carlosdiestro.levelup.workouts.data
 
 import com.carlosdiestro.levelup.core.data.IoDispatcher
-import com.carlosdiestro.levelup.workouts.domain.models.*
+import com.carlosdiestro.levelup.workouts.domain.models.Workout
+import com.carlosdiestro.levelup.workouts.domain.models.WorkoutExercise
 import com.carlosdiestro.levelup.workouts.domain.repositories.WorkoutExerciseRepository
 import com.carlosdiestro.levelup.workouts.domain.repositories.WorkoutRepository
 import com.carlosdiestro.levelup.workouts.framework.WorkoutDAO
@@ -61,6 +62,6 @@ fun ExerciseWithSets.toDomain(): WorkoutExercise = WorkoutExercise(
 fun List<ExerciseWithSets>.toDomain(): List<WorkoutExercise> = this.map { it.toDomain() }
 
 fun Workout.toEntity(): WorkoutEntity = WorkoutEntity(
-    id = if(id == -1) null else id,
+    id = if (id == -1) null else id,
     name = name
 )
