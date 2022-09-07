@@ -53,7 +53,6 @@ class WorkoutExerciseAdapter(
         private fun setUpClickListeners() {
             binding.apply {
                 btnAddSet.setOnClickListener { openNewSetDialog() }
-                btnAddDropSet.setOnClickListener { openNewDropSetDialog() }
             }
         }
 

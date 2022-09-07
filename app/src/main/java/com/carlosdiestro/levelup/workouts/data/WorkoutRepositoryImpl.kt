@@ -5,10 +5,8 @@ import com.carlosdiestro.levelup.workouts.domain.models.*
 import com.carlosdiestro.levelup.workouts.domain.repositories.WorkoutExerciseRepository
 import com.carlosdiestro.levelup.workouts.domain.repositories.WorkoutRepository
 import com.carlosdiestro.levelup.workouts.framework.WorkoutDAO
-import com.carlosdiestro.levelup.workouts.framework.WorkoutDropSetEntity
 import com.carlosdiestro.levelup.workouts.framework.WorkoutEntity
 import com.carlosdiestro.levelup.workouts.framework.middle_tables.ExerciseWithSets
-import com.carlosdiestro.levelup.workouts.framework.middle_tables.SetWithDropSets
 import com.carlosdiestro.levelup.workouts.framework.middle_tables.WorkoutWithExercises
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -61,26 +59,6 @@ fun ExerciseWithSets.toDomain(): WorkoutExercise = WorkoutExercise(
 
 @JvmName("toDomainExerciseWithSets")
 fun List<ExerciseWithSets>.toDomain(): List<WorkoutExercise> = this.map { it.toDomain() }
-
-fun SetWithDropSets.toDomain(): WorkoutSet = WorkoutSet(
-    id = this.set!!.id!!,
-    exerciseId = this.set.exerciseId,
-    setOrder = this.set.setOrder,
-    repRange = this.set.repRange.toRepRange(),
-    dropSets = this.dropSets.toDomain()
-)
-
-@JvmName("toDomainSetWithDropSets")
-fun List<SetWithDropSets>.toDomain(): List<WorkoutSet> = this.map { it.toDomain() }
-
-fun WorkoutDropSetEntity.toDomain(): WorkoutDropSet = WorkoutDropSet(
-    id = id!!,
-    setId = setId,
-    dropSetOrder = dropSetOrder,
-    repRange = repRange.toRepRange()
-)
-
-fun List<WorkoutDropSetEntity>.toDomain(): List<WorkoutDropSet> = this.map { it.toDomain() }
 
 fun Workout.toEntity(): WorkoutEntity = WorkoutEntity(
     id = id,

@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.newExerciseFragment -> binding.bottomNavigation.gone()
                 R.id.newWorkoutFragment -> binding.bottomNavigation.gone()
+                R.id.exerciseChooserFragment -> binding.bottomNavigation.gone()
                 else -> binding.bottomNavigation.visible()
             }
         }

@@ -6,8 +6,7 @@ import com.carlosdiestro.levelup.workouts.domain.models.RepRange
 data class WorkoutSetPLO(
     val id: Int,
     val setOrder: Int,
-    val repRange: RepRange,
-    val dropSets: List<WorkoutDropSetPLO> = emptyList()
+    val repRange: RepRange
 ) {
 
     class WorkoutSetDiffCallback : DiffUtil.ItemCallback<WorkoutSetPLO>() {

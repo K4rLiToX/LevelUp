@@ -5,7 +5,6 @@ import androidx.room.Room
 import com.carlosdiestro.levelup.bodyweight_progress.framework.BodyWeightDAO
 import com.carlosdiestro.levelup.exercise_library.framework.ExerciseDAO
 import com.carlosdiestro.levelup.workouts.framework.WorkoutDAO
-import com.carlosdiestro.levelup.workouts.framework.WorkoutDropSetDAO
 import com.carlosdiestro.levelup.workouts.framework.WorkoutExerciseDAO
 import com.carlosdiestro.levelup.workouts.framework.WorkoutSetDAO
 import dagger.Module
@@ -60,11 +59,5 @@ object FrameworkModule {
     @Singleton
     fun provideWorkoutSetDAO(db: LevelUpDatabase): WorkoutSetDAO {
         return db.workoutSetDao()
-    }
-
-    @Provides
-    @Singleton
-    fun provideWorkoutDropSetDAO(db: LevelUpDatabase): WorkoutDropSetDAO {
-        return db.workoutDropSetDao()
     }
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.databinding.FragmentNewWorkoutBinding
+import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutSetPLO
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +27,16 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout) {
     private val binding by viewBinding(FragmentNewWorkoutBinding::bind)
     private val viewModel by viewModels<NewWorkoutViewModel>()
     private lateinit var recyclerAdapter: WorkoutExerciseAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setFragmentResultListener(
+            ExerciseChooserFragment.ITEM_CLICKED_KEY
+        ) { requestKey, bundle ->
+            val result = bundle.getParcelable<ExercisePLO>(requestKey)
+            result?.let { viewModel.onEvent(NewWorkoutEvent.OnExerciseClicked(it)) }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +62,7 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout) {
                 submitNewWorkout()
                 true
             }
-            btnAddExercise.setOnClickListener { openExerciseChooserDialog() }
+            btnAddExercise.setOnClickListener { navigateToExerciseChooserFragment() }
         }
     }
 
@@ -97,22 +109,8 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout) {
 
     private fun submitNewWorkout() = Unit
 
-    private fun openExerciseChooserDialog() {
-        ExerciseChooserDialog {
-            viewModel.onEvent(NewWorkoutEvent.OnExerciseClicked(it))
-        }.show(requireActivity().supportFragmentManager, ExerciseChooserDialog.TAG)
-//        requireActivity().supportFragmentManager.beginTransaction().apply {
-//            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-//            add(
-//                android.R.id.content,
-//                ExerciseChooserDialog {
-//                    viewModel.onEvent(NewWorkoutEvent.OnExerciseClicked(it))
-//                }
-//            )
-//            addToBackStack(null)
-//        }.also {
-//            it.commit()
-//        }
+    private fun navigateToExerciseChooserFragment() {
+        findNavController().navigate(NewWorkoutFragmentDirections.toExerciseChooserFragment())
     }
 
     private fun getSharedElementTransition(): Transition? {

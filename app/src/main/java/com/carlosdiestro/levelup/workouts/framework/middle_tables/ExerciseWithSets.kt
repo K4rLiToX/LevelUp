@@ -13,5 +13,5 @@ data class ExerciseWithSets(
         entityColumn = "exerciseId",
         entity = WorkoutSetEntity::class
     )
-    val sets: List<SetWithDropSets> = emptyList()
+    val sets: List<WorkoutSetEntity> = emptyList()
 )

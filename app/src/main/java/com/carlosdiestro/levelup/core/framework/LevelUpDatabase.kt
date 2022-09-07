@@ -15,7 +15,6 @@ import com.carlosdiestro.levelup.workouts.framework.*
         WorkoutEntity::class,
         WorkoutExerciseEntity::class,
         WorkoutSetEntity::class,
-        WorkoutDropSetEntity::class
     ],
     version = 1,
     exportSchema = false
@@ -26,5 +25,4 @@ abstract class LevelUpDatabase : RoomDatabase() {
     abstract fun workoutDao(): WorkoutDAO
     abstract fun workoutExerciseDao(): WorkoutExerciseDAO
     abstract fun workoutSetDao(): WorkoutSetDAO
-    abstract fun workoutDropSetDao(): WorkoutDropSetDAO
 }
