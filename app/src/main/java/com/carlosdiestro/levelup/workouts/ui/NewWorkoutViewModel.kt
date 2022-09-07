@@ -109,6 +109,8 @@ class NewWorkoutViewModel @Inject constructor(
             if (!isValidName.isSuccessful) {
                 _state.update { it.copy(workoutNameError = isValidName.errorMessage) }
                 return@launch
+            } else {
+                _state.update { it.copy(workoutNameError = null) }
             }
             if (!isExerciseListValid.isSuccessful) {
                 channel.send(NewWorkoutEventResponse.ShowWarningDialog(isExerciseListValid.errorMessage))
