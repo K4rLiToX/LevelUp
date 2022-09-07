@@ -26,14 +26,19 @@ class WorkoutExerciseRepositoryImpl @Inject constructor(
             dao.getWorkoutExercisesWithSets(workoutId).map { it.toDomain() }
         }.flowOn(ioDispatcher)
 
-    override suspend fun insert(list: List<WorkoutExercise>) = withContext(ioDispatcher) {
-        dao.insert(list.toEntity())
-        workoutSetRepository.insert(list.flatMap { it.sets })
+    override suspend fun insert(workoutId: Int, list: List<WorkoutExercise>) = withContext(ioDispatcher) {
+        val exercisesIds = dao.insert(list.toEntityInsert(workoutId))
+        val exercisesWithIds = list.mapIndexed { i, e -> Pair(exercisesIds[i].toInt(), e) }
+        val newExerciseList = exercisesWithIds.map { (workoutId, exercise) ->
+            exercise.copy(sets = exercise.sets.map { it.copy(exerciseId = workoutId) })
+        }
+        workoutSetRepository.insert(newExerciseList.flatMap { it.sets })
     }
 
-    override suspend fun insert(workoutExercise: WorkoutExercise) = withContext(ioDispatcher) {
-        dao.insert(workoutExercise.toEntity())
-        workoutSetRepository.insert(workoutExercise.sets)
+    override suspend fun insert(workoutId: Int, workoutExercise: WorkoutExercise) = withContext(ioDispatcher) {
+        val exerciseId = dao.insert(workoutExercise.toEntityInsert(workoutId))
+        val newExercise = workoutExercise.copy(sets = workoutExercise.sets.map { it.copy(exerciseId = exerciseId.toInt()) })
+        workoutSetRepository.insert(newExercise.sets)
     }
 
     override suspend fun update(list: List<WorkoutExercise>) = withContext(ioDispatcher) {
@@ -53,12 +58,21 @@ class WorkoutExerciseRepositoryImpl @Inject constructor(
     }
 }
 
+fun WorkoutExercise.toEntityInsert(realWorkoutId: Int): WorkoutExerciseEntity = WorkoutExerciseEntity(
+    workoutId = realWorkoutId,
+    name = name,
+    isUnilateral = isUnilateral,
+    orderPosition = exerciseOrder
+)
+
 fun WorkoutExercise.toEntity(): WorkoutExerciseEntity = WorkoutExerciseEntity(
     id = id,
     workoutId = workoutId,
     name = name,
     isUnilateral = isUnilateral,
-    orderPosition = orderPosition
+    orderPosition = exerciseOrder
 )
+
+fun List<WorkoutExercise>.toEntityInsert(workoutId: Int): List<WorkoutExerciseEntity> = this.map { it.toEntityInsert(workoutId) }
 
 fun List<WorkoutExercise>.toEntity(): List<WorkoutExerciseEntity> = this.map { it.toEntity() }

@@ -17,6 +17,7 @@
     <string name="title_range_maximum">Max.</string>
     <string name="title_range">Range</string>
     <string name="title_choose_exercises">Choose Exercise</string>
+    <string name="title_warning">Warning!</string>
 
     <string name="exercise_category_all">All</string>
     <string name="exercise_category_push">Push</string>
@@ -34,6 +35,7 @@
     <string name="action_save">Save</string>
     <string name="action_accept">Accept</string>
     <string name="action_ok">OK</string>
+    <string name="action_close">Close</string>
     <string name="action_add_set">Set</string>
     <string name="action_add_drop_set">Drop set</string>
 
@@ -56,6 +58,8 @@
     <string name="error_weight_negative_value">Really, negative weight? Does that have any sense?</string>
     <string name="error_weight_zero_value">Only light can be weightless</string>
     <string name="error_weight_exists">A weight already exists for today, but you can modify it</string>
+    <string name="error_no_exercises_added">Workout without exercises? Don\'t be lazy, add a few of them</string>
+    <string name="error_no_sets_added_to_exercise">Make sure to add sets to each exercise!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

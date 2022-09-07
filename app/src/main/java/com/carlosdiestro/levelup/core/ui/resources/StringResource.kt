@@ -26,6 +26,7 @@ sealed class StringResource(@StringRes val resId: Int) {
     object Save : StringResource(R.string.action_save)
     object Accept : StringResource(R.string.action_accept)
     object Ok : StringResource(R.string.action_ok)
+    object Close : StringResource(R.string.action_close)
     object Title : StringResource(R.string.form_input_text_title)
     object Range : StringResource(R.string.form_input_text_range)
     object Weight : StringResource(R.string.form_input_text_weight)
@@ -36,6 +37,9 @@ sealed class StringResource(@StringRes val resId: Int) {
     object ZeroValue : StringResource(R.string.error_weight_zero_value)
     object WeightExists : StringResource(R.string.error_weight_exists)
     object RepRange : StringResource(R.string.placeholder_range)
+    object NoExercisesAdded : StringResource(R.string.error_no_exercises_added)
+    object NoSetsAdded : StringResource(R.string.error_no_sets_added_to_exercise)
+    object Warning : StringResource(R.string.title_warning)
 }
 
 fun StringResource.toText(context: Context): String = context.getString(this.resId)

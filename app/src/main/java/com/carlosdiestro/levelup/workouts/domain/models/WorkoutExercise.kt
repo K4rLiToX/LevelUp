@@ -5,6 +5,6 @@ data class WorkoutExercise(
     val workoutId: Int,
     val name: String,
     val isUnilateral: Boolean,
-    val orderPosition: Int,
+    val exerciseOrder: Int,
     val sets: List<WorkoutSet>
 )

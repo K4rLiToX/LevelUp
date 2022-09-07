@@ -60,7 +60,7 @@ fun WorkoutSetEntity.toDomain(): WorkoutSet = WorkoutSet(
 fun List<WorkoutSetEntity>.toDomain(): List<WorkoutSet> = this.map { it.toDomain() }
 
 fun WorkoutSet.toEntity(): WorkoutSetEntity = WorkoutSetEntity(
-    id = id,
+    id = if(id == -1) null else id,
     exerciseId = exerciseId,
     setOrder = setOrder,
     repRange = repRange.toStringValue()

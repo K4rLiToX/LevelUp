@@ -2,15 +2,16 @@ package com.carlosdiestro.levelup.workouts.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.carlosdiestro.levelup.exercise_library.domain.usecases.BlankStringValidatorUseCase
 import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
-import com.carlosdiestro.levelup.workouts.domain.usecases.AddNewWorkoutExerciseUseCase
-import com.carlosdiestro.levelup.workouts.domain.usecases.AddSetToWorkoutExerciseUseCase
-import com.carlosdiestro.levelup.workouts.domain.usecases.RemoveSetFromExerciseUseCase
+import com.carlosdiestro.levelup.workouts.domain.usecases.*
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutSetPLO
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,7 +20,10 @@ import javax.inject.Inject
 class NewWorkoutViewModel @Inject constructor(
     private val addNewWorkoutExerciseUseCase: AddNewWorkoutExerciseUseCase,
     private val addSetToWorkoutExerciseUseCase: AddSetToWorkoutExerciseUseCase,
-    private val removeSetFromExerciseUseCase: RemoveSetFromExerciseUseCase
+    private val removeSetFromExerciseUseCase: RemoveSetFromExerciseUseCase,
+    private val blankStringValidatorUseCase: BlankStringValidatorUseCase,
+    private val validateExercisesToAddUseCase: ValidateExercisesToAddUseCase,
+    private val addNewWorkoutUseCase: AddNewWorkoutUseCase
 ) : ViewModel() {
 
     private var exerciseList: MutableList<WorkoutExercisePLO> = mutableListOf()
@@ -27,9 +31,12 @@ class NewWorkoutViewModel @Inject constructor(
     private var _state: MutableStateFlow<NewWorkoutState> = MutableStateFlow(NewWorkoutState())
     val state = _state.asStateFlow()
 
+    private val channel: Channel<NewWorkoutEventResponse> = Channel()
+    val eventChannel = channel.receiveAsFlow()
+
     fun onEvent(event: NewWorkoutEvent) {
         when (event) {
-            is NewWorkoutEvent.OnExerciseClicked -> handleExercise(event.exercisePLO)
+            is NewWorkoutEvent.OnExerciseClicked -> addExerciseToWorkout(event.exercisePLO)
             is NewWorkoutEvent.OnNewSetClicked -> addNewSetToExercise(
                 event.newSet,
                 event.exercisePosition
@@ -38,10 +45,11 @@ class NewWorkoutViewModel @Inject constructor(
                 event.exercise,
                 event.set
             )
+            is NewWorkoutEvent.AddNewWorkout -> submitNewWorkout(event.name)
         }
     }
 
-    private fun handleExercise(exercisePLO: ExercisePLO) {
+    private fun addExerciseToWorkout(exercisePLO: ExercisePLO) {
         viewModelScope.launch {
             addNewWorkoutExerciseUseCase(
                 exercisePLO,
@@ -89,6 +97,33 @@ class NewWorkoutViewModel @Inject constructor(
                     )
                 }
             }
+        }
+    }
+
+    private fun submitNewWorkout(name: String) {
+        viewModelScope.launch {
+            val isValidName = blankStringValidatorUseCase(name)
+            val isExerciseListValid = validateExercisesToAddUseCase(exerciseList)
+
+            if (!isValidName.isSuccessful) {
+                _state.update { it.copy(workoutNameError = isValidName.errorMessage) }
+                return@launch
+            }
+            if (!isExerciseListValid.isSuccessful) {
+                channel.send(NewWorkoutEventResponse.ShowWarningDialog(isExerciseListValid.errorMessage))
+                return@launch
+            }
+
+            addNewWorkoutUseCase(name, exerciseList)
+            exerciseList = mutableListOf()
+            _state.update {
+                it.copy(
+                    noData = true,
+                    workoutNameError = null,
+                    exerciseList = emptyList()
+                )
+            }
+            channel.send(NewWorkoutEventResponse.PopBackStack)
         }
     }
 }

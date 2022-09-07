@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
 import com.carlosdiestro.levelup.exercise_library.domain.usecases.AddNewExerciseUseCase
-import com.carlosdiestro.levelup.exercise_library.domain.usecases.ValidateExerciseNameUseCase
+import com.carlosdiestro.levelup.exercise_library.domain.usecases.BlankStringValidatorUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewExerciseViewModel @Inject constructor(
-    private val validateExerciseNameUseCase: ValidateExerciseNameUseCase,
+    private val blankStringValidatorUseCase: BlankStringValidatorUseCase,
     private val addNewExerciseUseCase: AddNewExerciseUseCase
 ) : ViewModel() {
 
@@ -40,7 +40,7 @@ class NewExerciseViewModel @Inject constructor(
 
     private fun submitNewExercise(name: String, category: ExerciseCategory, isUnilateral: Boolean) {
         viewModelScope.launch {
-            val response = validateExerciseNameUseCase(name)
+            val response = blankStringValidatorUseCase(name)
             if (!response.isSuccessful) _state.update {
                 it.copy(
                     exerciseName = name,

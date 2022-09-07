@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.Flow
 interface WorkoutExerciseRepository {
 
     fun getWorkoutExercisesWithSets(workoutId: Int): Flow<List<ExerciseWithSets>>
-    suspend fun insert(list: List<WorkoutExercise>)
-    suspend fun insert(workoutExercise: WorkoutExercise)
+    suspend fun insert(workoutId: Int, list: List<WorkoutExercise>)
+    suspend fun insert(workoutId: Int, workoutExercise: WorkoutExercise)
     suspend fun update(list: List<WorkoutExercise>)
     suspend fun update(workoutExercise: WorkoutExercise)
     suspend fun delete(list: List<WorkoutExercise>)

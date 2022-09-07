@@ -13,12 +13,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
+import com.carlosdiestro.levelup.core.ui.extensions.toTrimmedString
 import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
+import com.carlosdiestro.levelup.core.ui.resources.StringResource
+import com.carlosdiestro.levelup.core.ui.resources.toText
 import com.carlosdiestro.levelup.databinding.FragmentNewWorkoutBinding
 import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutSetPLO
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,6 +57,7 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout) {
         setUpRecyclerAdapter()
         setUpRecyclerView()
         collectUIState()
+        collectChannelEvents()
     }
 
     private fun setUpClickListeners() {
@@ -71,7 +76,7 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout) {
             { sets, pos ->
                 AddSetDialog {
                     val setToAdd = WorkoutSetPLO(
-                        id = sets.size + 1,
+                        id = -1,
                         setOrder = sets.size + 1,
                         repRange = it
                     )
@@ -96,6 +101,23 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout) {
         launchAndCollect(viewModel.state) {
             handleNoData(it.noData)
             handleWorkoutExerciseList(it.exerciseList)
+            handleNameError(it.workoutNameError)
+        }
+    }
+
+    private fun collectChannelEvents() {
+        launchAndCollect(viewModel.eventChannel) { event ->
+            when (event) {
+                NewWorkoutEventResponse.PopBackStack -> findNavController().popBackStack()
+                is NewWorkoutEventResponse.ShowWarningDialog -> event.message?.let {
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(StringResource.Warning.resId)
+                        .setMessage(it.resId)
+                        .setNegativeButton(StringResource.Close.resId) { d, _ -> d.dismiss() }
+                        .create()
+                        .show()
+                }
+            }
         }
     }
 
@@ -107,7 +129,14 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout) {
         recyclerAdapter.submitList(list)
     }
 
-    private fun submitNewWorkout() = Unit
+    private fun handleNameError(error: StringResource?) {
+        binding.ilName.error = error?.toText(requireContext())
+    }
+
+    private fun submitNewWorkout() {
+        val workoutName = binding.etName.text.toTrimmedString()
+        viewModel.onEvent(NewWorkoutEvent.AddNewWorkout(workoutName))
+    }
 
     private fun navigateToExerciseChooserFragment() {
         findNavController().navigate(NewWorkoutFragmentDirections.toExerciseChooserFragment())

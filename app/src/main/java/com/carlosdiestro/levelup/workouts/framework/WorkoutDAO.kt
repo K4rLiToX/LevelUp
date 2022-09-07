@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface WorkoutDAO {
 
     @Insert
-    suspend fun insert(workoutEntity: WorkoutEntity)
+    suspend fun insert(workoutEntity: WorkoutEntity): Long
 
     @Update
     suspend fun update(workoutEntity: WorkoutEntity)
