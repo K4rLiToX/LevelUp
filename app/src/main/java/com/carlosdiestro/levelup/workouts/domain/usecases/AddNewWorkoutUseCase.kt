@@ -24,7 +24,7 @@ class AddNewWorkoutUseCase @Inject constructor(
 }
 
 fun WorkoutExercisePLO.toDomain(workoutId: Int? = null): WorkoutExercise = WorkoutExercise(
-    id = if(id != -1) id else -1,
+    id = if (id != -1) id else -1,
     workoutId = workoutId ?: id,
     name = name,
     isUnilateral = isUnilateral,
@@ -37,7 +37,7 @@ fun List<WorkoutExercisePLO>.toDomain(workoutId: Int? = null): List<WorkoutExerc
     this.map { it.toDomain(workoutId) }
 
 fun WorkoutSetPLO.toDomain(exerciseId: Int? = null): WorkoutSet = WorkoutSet(
-    id = if(id != -1) id else -1,
+    id = if (id != -1) id else -1,
     exerciseId = exerciseId ?: id,
     setOrder = setOrder,
     repRange = repRange

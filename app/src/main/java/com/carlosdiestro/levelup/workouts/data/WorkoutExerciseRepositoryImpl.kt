@@ -45,7 +45,7 @@ class WorkoutExerciseRepositoryImpl @Inject constructor(
         }
 
     override suspend fun update(list: List<WorkoutExercise>) = withContext(ioDispatcher) {
-        val newExercises = list.filter { it.id == -1}
+        val newExercises = list.filter { it.id == -1 }
         val formerExercises = (list subtract newExercises.toSet()).toList()
 
         dao.update(formerExercises.toEntity())
