@@ -17,11 +17,11 @@ class AddNewWorkoutExerciseUseCase @Inject constructor(
         newExercise: ExercisePLO,
         list: List<WorkoutExercisePLO>
     ): Flow<List<WorkoutExercisePLO>> = flow {
-        val isAlreadyAdded = list.find { it.id == newExercise.id } != null
+        val isAlreadyAdded = list.find { it.name == newExercise.name } != null
         if (!isAlreadyAdded) emit(
             list.plus(
                 WorkoutExercisePLO(
-                    id = newExercise.id,
+                    id = -1,
                     name = newExercise.name,
                     exerciseOrder = list.size + 1,
                     isUnilateral = newExercise.isUnilateral
