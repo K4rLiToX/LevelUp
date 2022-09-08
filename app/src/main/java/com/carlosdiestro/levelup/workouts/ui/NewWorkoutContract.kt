@@ -10,6 +10,8 @@ sealed class NewWorkoutEvent {
     class OnNewSetClicked(val newSet: WorkoutSetPLO, val exercisePosition: Int) : NewWorkoutEvent()
     class OnSetRemoved(val exercise: WorkoutExercisePLO, val set: WorkoutSetPLO) : NewWorkoutEvent()
     class AddNewWorkout(val name: String) : NewWorkoutEvent()
+    class OnUpdateSetClicked(val exercise: WorkoutExercisePLO, val set: WorkoutSetPLO) :
+        NewWorkoutEvent()
 }
 
 sealed class NewWorkoutEventResponse {
@@ -20,5 +22,7 @@ sealed class NewWorkoutEventResponse {
 data class NewWorkoutState(
     val noData: Boolean = true,
     val workoutNameError: StringResource? = null,
+    val workoutName: String = "",
+    val toolbarTitle: StringResource = StringResource.NewWorkout,
     val exerciseList: List<WorkoutExercisePLO> = emptyList()
 )

@@ -11,6 +11,7 @@ import com.carlosdiestro.levelup.workouts.domain.models.RepRange
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class AddSetDialog(
+    private val repRange: RepRange? = null,
     private val onPositiveClicked: (RepRange) -> Unit
 ) : DialogFragment(R.layout.dialog_add_set) {
 
@@ -19,6 +20,10 @@ class AddSetDialog(
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = DialogAddSetBinding.inflate(layoutInflater)
+        if (repRange != null) binding.apply {
+            etLowerRange.setText(repRange.lower.toString())
+            etUpperRange.setText(repRange.upper.toString())
+        }
         return MaterialAlertDialogBuilder(requireContext())
             .setTitle("New Set")
             .setView(binding.root)
@@ -35,7 +40,10 @@ class AddSetDialog(
             val lower = etLowerRange.text.toTrimmedString()
             val upper = etUpperRange.text.toTrimmedString()
 
-            onPositiveClicked(RepRange(lower.toInt(), upper.toInt()))
+            if (lower != repRange?.lower.toString() || upper != repRange?.upper.toString())
+                onPositiveClicked(
+                    RepRange(lower.toInt(), upper.toInt())
+                )
         }
     }
 

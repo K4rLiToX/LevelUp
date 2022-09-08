@@ -9,6 +9,8 @@ sealed class StringResource(@StringRes val resId: Int) {
     object ExerciseLibrary : StringResource(R.string.section_exercise_library)
     object BodyWeight : StringResource(R.string.section_body_weight)
     object Exercise : StringResource(R.string.title_exercise)
+    object NewWorkout : StringResource(R.string.title_new_workout)
+    object EditWorkout : StringResource(R.string.title_edit_workout)
     object Set : StringResource(R.string.title_set)
     object DropSet : StringResource(R.string.title_set_drop)
     object NewWeight : StringResource(R.string.title_new_weight)

@@ -12,7 +12,8 @@ import com.carlosdiestro.levelup.workouts.ui.models.WorkoutSetPLO
 
 class WorkoutExerciseAdapter(
     private val onAddSetClicked: (List<WorkoutSetPLO>, Int) -> Unit,
-    private val onRemoveSetClicked: (WorkoutExercisePLO, WorkoutSetPLO) -> Unit
+    private val onRemoveSetClicked: (WorkoutExercisePLO, WorkoutSetPLO) -> Unit,
+    private val onUpdateSetClicked: (WorkoutExercisePLO, WorkoutSetPLO) -> Unit
 ) :
     ListAdapter<WorkoutExercisePLO, WorkoutExerciseAdapter.ViewHolder>(WorkoutExercisePLO.WorkoutExerciseDiffCallback()) {
 
@@ -26,6 +27,9 @@ class WorkoutExerciseAdapter(
             },
             { i, s ->
                 onRemoveSetClicked(getItem(i), s)
+            },
+            { i, s ->
+                onUpdateSetClicked(getItem(i), s)
             }
         )
     }
@@ -38,7 +42,8 @@ class WorkoutExerciseAdapter(
     inner class ViewHolder(
         private val binding: ItemExerciseWithSetsBinding,
         private val onAddSetClicked: (Int) -> Unit,
-        private val onRemoveSetClicked: (Int, WorkoutSetPLO) -> Unit
+        private val onRemoveSetClicked: (Int, WorkoutSetPLO) -> Unit,
+        private val onUpdateSetClicked: (Int, WorkoutSetPLO) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var recyclerAdapter: WorkoutSetAdapter
@@ -52,14 +57,19 @@ class WorkoutExerciseAdapter(
 
         private fun setUpClickListeners() {
             binding.apply {
-                btnAddSet.setOnClickListener { openNewSetDialog() }
+                btnAddSet.setOnClickListener { onAddSetClicked(bindingAdapterPosition) }
             }
         }
 
         private fun setUpRecyclerAdapter() {
-            recyclerAdapter = WorkoutSetAdapter {
-                removeSet(it)
-            }
+            recyclerAdapter = WorkoutSetAdapter(
+                {
+                    onRemoveSetClicked(bindingAdapterPosition, it)
+                },
+                {
+                    onUpdateSetClicked(bindingAdapterPosition, it)
+                }
+            )
         }
 
         private fun setUpRecyclerView() {
@@ -76,14 +86,6 @@ class WorkoutExerciseAdapter(
                 tvName.text = item.name
                 ivUnilateral.visible(item.isUnilateral)
             }
-        }
-
-        private fun openNewSetDialog() {
-            onAddSetClicked(bindingAdapterPosition)
-        }
-
-        private fun removeSet(item: WorkoutSetPLO) {
-            onRemoveSetClicked(bindingAdapterPosition, item)
         }
     }
 }

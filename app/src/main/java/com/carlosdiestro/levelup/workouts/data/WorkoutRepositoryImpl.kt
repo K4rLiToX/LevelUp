@@ -25,6 +25,9 @@ class WorkoutRepositoryImpl @Inject constructor(
     override fun getAll(): Flow<List<Workout>> =
         dao.getAll().map { it?.toDomain() ?: emptyList() }.flowOn(ioDispatcher)
 
+    override fun getById(id: Int): Flow<Workout> =
+        dao.getById(id).map { it.toDomain() }.flowOn(ioDispatcher)
+
     override suspend fun insert(workout: Workout) = withContext(ioDispatcher) {
         val workoutId = dao.insert(workout.toEntity()).toInt()
         workoutExerciseRepository.insert(workoutId, workout.exercises)
@@ -32,7 +35,6 @@ class WorkoutRepositoryImpl @Inject constructor(
 
     override suspend fun update(workout: Workout) = withContext(ioDispatcher) {
         dao.update(workout.toEntity())
-        workoutExerciseRepository.update(workout.exercises)
     }
 
     override suspend fun delete(workout: Workout) = withContext(ioDispatcher) {

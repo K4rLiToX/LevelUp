@@ -23,24 +23,26 @@ class AddNewWorkoutUseCase @Inject constructor(
     }
 }
 
-fun WorkoutExercisePLO.toDomain(): WorkoutExercise = WorkoutExercise(
+fun WorkoutExercisePLO.toDomain(workoutId: Int? = null): WorkoutExercise = WorkoutExercise(
     id = id,
-    workoutId = id,
+    workoutId = workoutId ?: id,
     name = name,
     isUnilateral = isUnilateral,
     exerciseOrder = exerciseOrder,
-    sets = sets.toDomain()
+    sets = sets.toDomain(id)
 )
 
 @JvmName("toDomainWorkoutExercisePLO")
-fun List<WorkoutExercisePLO>.toDomain(): List<WorkoutExercise> = this.map { it.toDomain() }
+fun List<WorkoutExercisePLO>.toDomain(workoutId: Int? = null): List<WorkoutExercise> =
+    this.map { it.toDomain(workoutId) }
 
-fun WorkoutSetPLO.toDomain(): WorkoutSet = WorkoutSet(
+fun WorkoutSetPLO.toDomain(exerciseId: Int? = null): WorkoutSet = WorkoutSet(
     id = id,
-    exerciseId = id,
+    exerciseId = exerciseId ?: id,
     setOrder = setOrder,
     repRange = repRange
 )
 
 @JvmName("toDomainWorkoutSetPLO")
-fun List<WorkoutSetPLO>.toDomain(): List<WorkoutSet> = this.map { it.toDomain() }
+fun List<WorkoutSetPLO>.toDomain(exerciseId: Int? = null): List<WorkoutSet> =
+    this.map { it.toDomain(exerciseId) }

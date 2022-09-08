@@ -93,7 +93,11 @@ class WorkoutsFragment : Fragment(R.layout.fragment_workouts) {
         )
     }
 
-    private fun navigateToUpdateWorkout(id: Int) = Unit
+    private fun navigateToUpdateWorkout(id: Int) {
+        findNavController().navigate(
+            WorkoutsFragmentDirections.toNewWorkoutFragment(id)
+        )
+    }
 
     private fun deleteWorkout(id: Int) {
         viewModel.onEvent(WorkoutEvent.OnDeleteWorkout(id))

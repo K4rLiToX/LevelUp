@@ -19,4 +19,8 @@ interface WorkoutDAO {
     @Transaction
     @Query("SELECT * FROM workout_table ORDER BY name DESC")
     fun getAll(): Flow<List<WorkoutWithExercises>?>
+
+    @Transaction
+    @Query("SELECT * FROM workout_table WHERE id = :id ORDER BY name DESC")
+    fun getById(id: Int): Flow<WorkoutWithExercises>
 }

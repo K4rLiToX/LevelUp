@@ -85,6 +85,13 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout) {
             },
             { e, s ->
                 viewModel.onEvent(NewWorkoutEvent.OnSetRemoved(e, s))
+            },
+            { e, s ->
+                AddSetDialog(s.repRange) {
+                    val newSet = s.copy(repRange = it)
+                    viewModel.onEvent(NewWorkoutEvent.OnUpdateSetClicked(e, newSet))
+                }.show(requireActivity().supportFragmentManager, AddSetDialog.TAG)
+
             }
         )
     }
@@ -102,6 +109,8 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout) {
             handleNoData(it.noData)
             handleWorkoutExerciseList(it.exerciseList)
             handleNameError(it.workoutNameError)
+            handleWorkoutName(it.workoutName)
+            handleToolbarTitle(it.toolbarTitle)
         }
     }
 
@@ -131,6 +140,14 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout) {
 
     private fun handleNameError(error: StringResource?) {
         binding.ilName.error = error?.toText(requireContext())
+    }
+
+    private fun handleWorkoutName(name: String) {
+        binding.etName.setText(name)
+    }
+
+    private fun handleToolbarTitle(title: StringResource) {
+        binding.toolbar.title = title.toText(requireContext())
     }
 
     private fun submitNewWorkout() {

@@ -13,6 +13,7 @@
     <string name="title_new_exercise">New Exercise</string>
     <string name="title_exercise_category">Exercise Category</string>
     <string name="title_new_workout">New Workout</string>
+    <string name="title_edit_workout">Edit Workout</string>
     <string name="title_range_minimum">Min.</string>
     <string name="title_range_maximum">Max.</string>
     <string name="title_range">Range</string>

@@ -1,12 +1,15 @@
 package com.carlosdiestro.levelup.workouts.ui
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
+import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import com.carlosdiestro.levelup.exercise_library.domain.usecases.BlankStringValidatorUseCase
 import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
 import com.carlosdiestro.levelup.workouts.domain.usecases.*
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutExercisePLO
+import com.carlosdiestro.levelup.workouts.ui.models.WorkoutPLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutSetPLO
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -24,7 +27,11 @@ class NewWorkoutViewModel @Inject constructor(
     private val removeSetFromExerciseUseCase: RemoveSetFromExerciseUseCase,
     private val blankStringValidatorUseCase: BlankStringValidatorUseCase,
     private val validateExercisesToAddUseCase: ValidateExercisesToAddUseCase,
-    private val addNewWorkoutUseCase: AddNewWorkoutUseCase
+    private val addNewWorkoutUseCase: AddNewWorkoutUseCase,
+    private val getWorkoutUseCase: GetWorkoutUseCase,
+    private val updateWorkoutUseCase: UpdateWorkoutUseCase,
+    private val updateSetFromExerciseUseCase: UpdateSetFromExerciseUseCase,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private var exerciseList: MutableList<WorkoutExercisePLO> = mutableListOf()
@@ -34,6 +41,15 @@ class NewWorkoutViewModel @Inject constructor(
 
     private val channel: Channel<NewWorkoutEventResponse> = Channel()
     val eventChannel = channel.receiveAsFlow()
+
+    private val workoutId: Int = savedStateHandle.get<Int>("workoutId")!!
+    private var workoutToUpdate: WorkoutPLO? = null
+
+    init {
+        if (workoutId != -1) {
+            fetchWorkout()
+        }
+    }
 
     fun onEvent(event: NewWorkoutEvent) {
         when (event) {
@@ -46,7 +62,11 @@ class NewWorkoutViewModel @Inject constructor(
                 event.exercise,
                 event.set
             )
-            is NewWorkoutEvent.AddNewWorkout -> submitNewWorkout(event.name)
+            is NewWorkoutEvent.AddNewWorkout -> submitOrUpdateWorkout(event.name)
+            is NewWorkoutEvent.OnUpdateSetClicked -> updateSetFromExercise(
+                event.exercise,
+                event.set
+            )
         }
     }
 
@@ -101,24 +121,63 @@ class NewWorkoutViewModel @Inject constructor(
         }
     }
 
-    private fun submitNewWorkout(name: String) {
+    private fun updateSetFromExercise(exercise: WorkoutExercisePLO, set: WorkoutSetPLO) {
+        launchAndCollect(
+            updateSetFromExerciseUseCase(
+                exercise,
+                set,
+                exerciseList.toList()
+            )
+        ) { response ->
+            exerciseList = response.toMutableList()
+            _state.update {
+                it.copy(
+                    exerciseList = response
+                )
+            }
+        }
+    }
+
+    private fun submitOrUpdateWorkout(name: String) {
         viewModelScope.launch {
             val isValidName = blankStringValidatorUseCase(name)
             val isExerciseListValid = validateExercisesToAddUseCase(exerciseList)
+            val isNameChanged = name != workoutToUpdate?.name
 
             if (!isValidName.isSuccessful) {
                 _state.update { it.copy(workoutNameError = isValidName.errorMessage) }
                 return@launch
             } else {
-                _state.update { it.copy(workoutNameError = null) }
+                _state.update { it.copy(workoutNameError = null, workoutName = name) }
             }
             if (!isExerciseListValid.isSuccessful) {
                 channel.send(NewWorkoutEventResponse.ShowWarningDialog(isExerciseListValid.errorMessage))
                 return@launch
             }
 
-            addNewWorkoutUseCase(name, exerciseList)
+            if (workoutId != -1) {
+                updateWorkoutUseCase(
+                    isNameChanged,
+                    workoutToUpdate!!.copy(name = name),
+                    exerciseList
+                )
+            } else addNewWorkoutUseCase(name, exerciseList)
             channel.send(NewWorkoutEventResponse.PopBackStack)
+        }
+    }
+
+    private fun fetchWorkout() {
+        launchAndCollect(getWorkoutUseCase(workoutId)) { (workout, exercises) ->
+            exerciseList = exercises.toMutableList()
+            workoutToUpdate = workout
+            _state.update {
+                it.copy(
+                    noData = exercises.isEmpty(),
+                    exerciseList = exercises,
+                    workoutName = workout.name,
+                    toolbarTitle = StringResource.EditWorkout
+                )
+            }
         }
     }
 }

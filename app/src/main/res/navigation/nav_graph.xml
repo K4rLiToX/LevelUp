@@ -40,6 +40,10 @@
         <action
             android:id="@+id/toExerciseChooserFragment"
             app:destination="@id/exerciseChooserFragment" />
+        <argument
+            android:name="workoutId"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </fragment>
     <fragment
         android:id="@+id/exerciseChooserFragment"

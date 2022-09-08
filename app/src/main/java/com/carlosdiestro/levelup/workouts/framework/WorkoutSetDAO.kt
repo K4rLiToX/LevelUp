@@ -25,6 +25,6 @@ interface WorkoutSetDAO {
     suspend fun delete(workoutSetEntity: WorkoutSetEntity)
 
     @Transaction
-    @Query("SELECT * FROM workout_set_table WHERE exerciseId = :id ORDER BY setOrder DESC")
+    @Query("SELECT * FROM workout_set_table WHERE exerciseId = :id ORDER BY setOrder ASC")
     fun getExerciseSets(id: Int): Flow<List<WorkoutSetEntity>>
 }
