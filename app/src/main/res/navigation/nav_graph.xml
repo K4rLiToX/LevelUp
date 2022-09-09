@@ -31,6 +31,9 @@
         <action
             android:id="@+id/toNewWorkoutFragment"
             app:destination="@id/newWorkoutFragment" />
+        <action
+            android:id="@+id/toWorkoutDetailsFragment"
+            app:destination="@id/workoutDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/newWorkoutFragment"
@@ -50,4 +53,16 @@
         android:name="com.carlosdiestro.levelup.workouts.ui.ExerciseChooserFragment"
         android:label="fragment_exercise_chooser"
         tools:layout="@layout/fragment_exercise_chooser" />
+    <fragment
+        android:id="@+id/workoutDetailsFragment"
+        android:name="com.carlosdiestro.levelup.workouts.ui.WorkoutDetailsFragment"
+        android:label="fragment_workout_details"
+        tools:layout="@layout/fragment_workout_details">
+        <argument
+            android:name="workoutId"
+            app:argType="integer" />
+        <argument
+            android:name="workoutName"
+            app:argType="string" />
+    </fragment>
 </navigation>

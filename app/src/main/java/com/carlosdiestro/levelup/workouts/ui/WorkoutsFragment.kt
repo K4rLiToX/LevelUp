@@ -38,7 +38,7 @@ class WorkoutsFragment : Fragment(R.layout.fragment_workouts) {
 
     private fun setUpRecyclerAdapter() {
         recyclerAdapter = WorkoutAdapter(
-            { navigateToWorkoutDetails(it) },
+            { id, name -> navigateToWorkoutDetails(id, name) },
             { id, view -> openMoreMenu(id, view) }
         )
     }
@@ -66,7 +66,9 @@ class WorkoutsFragment : Fragment(R.layout.fragment_workouts) {
         recyclerAdapter.submitList(list)
     }
 
-    private fun navigateToWorkoutDetails(id: Int) = Unit
+    private fun navigateToWorkoutDetails(id: Int, name: String) {
+        findNavController().navigate(WorkoutsFragmentDirections.toWorkoutDetailsFragment(id, name))
+    }
 
     private fun openMoreMenu(id: Int, view: View) {
         PopupMenu(requireContext(), view).apply {

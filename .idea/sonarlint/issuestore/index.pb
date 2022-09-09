@@ -70,8 +70,6 @@ capp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_add/Ne
 app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
 Ö
 Uapp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/models/ExercisePLO.kt,1\4\1401e1408e4a4b94b8ef3f707a78bf9bf6863007
-k
-;app/src/main/java/com/carlosdiestro/levelup/MainActivity.kt,6\6\667823cd483095ebc5c8723ee5f25b9ca0a583d0
 ê
 `app/src/main/java/com/carlosdiestro/levelup/workouts/framework/middle_tables/ExerciseWithSets.kt,1\8\18c1183acb615aede536fe35c189a30641cf94cc
 s
@@ -109,10 +107,6 @@ Mapp/src/main/java/com/carlosdiestro/levelup/workouts/domain/models/Workout.kt,
 |
 Lapp/src/main/java/com/carlosdiestro/levelup/workouts/framework/WorkoutDAO.kt,d\d\dd5de501be6daf05f8afb9336e24090882dd28f0
 
-Oapp/src/main/java/com/carlosdiestro/levelup/core/ui/resources/StringResource.kt,9\7\97cd35efdf7a9fdbd33dc99ad62787bf02fc8249
-â
-Yapp/src/main/java/com/carlosdiestro/levelup/workouts/domain/usecases/GetWorkoutUseCase.kt,a\e\ae59d3893d0b19d3447cfb52e8f42b0d5d3eda53
-
 Oapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/models/WorkoutSetPLO.kt,9\4\94b64b61e6e0db17081bb35cbf478d2d72bec0e8
 Ñ
 Tapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/models/WorkoutExercisePLO.kt,0\d\0d979b77af37d760b9212a4d7bfa947b6d68b4c4
@@ -128,10 +122,6 @@ w
 Gapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/AddSetDialog.kt,e\6\e6f938f20397b3110c98fdc367dd97517f99d19b
 ñ
 fapp/src/main/java/com/carlosdiestro/levelup/workouts/domain/usecases/AddSetToWorkoutExerciseUseCase.kt,9\2\9226308d51e4b6bbfb9d5cc3064373eb979bee64
-y
-Iapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutAdapter.kt,a\e\aefbf6d11c53b289295a60671715e6bb96c27067
-{
-Kapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutsFragment.kt,a\b\ab8c6b94372c94141b1331c2fbcb3cff03c32710
 å
 \app/src/main/java/com/carlosdiestro/levelup/workouts/domain/usecases/AddNewWorkoutUseCase.kt,d\0\d029decde3f5dd1040542e4f80ee477db5d03d71
 î

@@ -11,7 +11,7 @@ import com.carlosdiestro.levelup.databinding.ItemWorkoutBinding
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutPLO
 
 class WorkoutAdapter(
-    private val onItemClicked: (Int) -> Unit,
+    private val onItemClicked: (Int, String) -> Unit,
     private val onMoreClicked: (Int, View) -> Unit
 ) : ListAdapter<WorkoutPLO, WorkoutAdapter.ViewHolder>(WorkoutPLO.WorkoutDiffCallback()) {
 
@@ -20,7 +20,7 @@ class WorkoutAdapter(
         return ViewHolder(
             binding,
             {
-                onItemClicked(getItem(it).id)
+                onItemClicked(getItem(it).id, getItem(it).name)
             },
             { pos, view ->
                 onMoreClicked(getItem(pos).id, view)
