@@ -2,17 +2,27 @@
     <!-- Base application theme. -->
     <style name="Theme.LevelUp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/secondary_500</item>
+        <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorSecondary">@color/cta_500</item>
         <item name="colorOnSecondary">@color/black</item>
+
+        <item name="android:background">@color/primary_500</item>
+        <item name="colorOnBackground">@color/black</item>
+
+        <item name="colorSurface">@color/secondary_500</item>
+        <item name="colorOnSurface">@color/white</item>
+
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?colorSecondaryContainer</item>
+        <item name="android:statusBarColor">?colorPrimary</item>
         <!-- Customize your theme here. -->
         <item name="android:windowContentTransitions">true</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightStatusBar">false</item>
+
+        <item name="floatingActionButtonPrimaryStyle">@style/Widget.LevelUp.FloatingActionButton</item>
+        <item name="materialButtonStyle">@style/Widget.LevelUp.IconButton.Filled</item>
+
+        <item name="bottomNavigationStyle">@style/Widget.LevelUp.BottomNavigation</item>
     </style>
 </resources>

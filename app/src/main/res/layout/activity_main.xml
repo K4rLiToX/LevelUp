@@ -16,7 +16,6 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/mainToolbar"
-            android:background="?colorSecondaryContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:titleCentered="true" />
@@ -37,10 +36,9 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
-        style="@style/Widget.Material3.BottomNavigationView"
+        style="?bottomNavigationStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:labelVisibilityMode="unlabeled"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

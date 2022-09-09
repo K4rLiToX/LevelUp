@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.LevelUp.FloatingActionButton" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="backgroundTint">?colorSecondary</item>
+        <item name="iconTint">?colorOnSecondary</item>
+    </style>
+
+    <style name="Widget.LevelUp.IconButton.Filled" parent="Widget.Material3.Button.ElevatedButton">
+        <item name="backgroundTint">?colorSecondary</item>
+        <item name="android:textColor">?colorOnSecondary</item>
+        <item name="iconTint">?colorOnSecondary</item>
+    </style>
+
+</resources>
