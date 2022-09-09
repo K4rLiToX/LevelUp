@@ -54,7 +54,7 @@ class WorkoutExerciseRepositoryImpl @Inject constructor(
             insert(workoutId, brandNewExercises)
             formerExercises.forEach { fe ->
                 val exists = existingExercises.find { it.id == fe.id } != null
-                if(!exists) dao.delete(fe)
+                if (!exists) dao.delete(fe)
                 else {
                     dao.update(existingExercises.toEntity())
                     workoutSetRepository.update(existingExercises.flatMap { it.sets })

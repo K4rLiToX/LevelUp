@@ -12,18 +12,15 @@ class RemoveExerciseFromWorkoutUseCase @Inject constructor(
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
 ) {
 
-    operator fun invoke(id: Int, list: List<WorkoutExercisePLO>): Flow<List<WorkoutExercisePLO>> = flow {
-        val exerciseToDelete = list.find { it.id == id }
-        if(exerciseToDelete != null) {
+    operator fun invoke(id: Int, list: List<WorkoutExercisePLO>): Flow<List<WorkoutExercisePLO>> =
+        flow {
             emit(
-                (list subtract listOf(exerciseToDelete).toSet())
+                (list subtract listOf(list.find { it.id == id }!!).toSet())
                     .toList()
                     .mapIndexed { i, e ->
-                        if(e.exerciseOrder == i + 1) e
+                        if (e.exerciseOrder == i + 1) e
                         else e.copy(exerciseOrder = i + 1)
                     }
             )
-        }
-
-    }.flowOn(defaultDispatcher)
+        }.flowOn(defaultDispatcher)
 }
