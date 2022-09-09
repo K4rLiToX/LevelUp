@@ -12,6 +12,7 @@ sealed class NewWorkoutEvent {
     class AddNewWorkout(val name: String) : NewWorkoutEvent()
     class OnUpdateSetClicked(val exercise: WorkoutExercisePLO, val set: WorkoutSetPLO) :
         NewWorkoutEvent()
+    class OnRemoveExerciseClicked(val id: Int) : NewWorkoutEvent()
 }
 
 sealed class NewWorkoutEventResponse {

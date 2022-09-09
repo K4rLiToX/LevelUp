@@ -8,10 +8,7 @@ import com.carlosdiestro.levelup.workouts.framework.WorkoutExerciseDAO
 import com.carlosdiestro.levelup.workouts.framework.WorkoutExerciseEntity
 import com.carlosdiestro.levelup.workouts.framework.middle_tables.ExerciseWithSets
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -25,6 +22,10 @@ class WorkoutExerciseRepositoryImpl @Inject constructor(
         flow<List<ExerciseWithSets>> {
             dao.getWorkoutExercisesWithSets(workoutId).map { it.toDomain() }
         }.flowOn(ioDispatcher)
+
+    override suspend fun deleteById(id: Int) = withContext(ioDispatcher) {
+        dao.deleteById(id)
+    }
 
     override suspend fun insert(workoutId: Int, list: List<WorkoutExercise>) =
         withContext(ioDispatcher) {
@@ -44,14 +45,22 @@ class WorkoutExerciseRepositoryImpl @Inject constructor(
             workoutSetRepository.insert(newExercise.sets)
         }
 
-    override suspend fun update(list: List<WorkoutExercise>) = withContext(ioDispatcher) {
-        val newExercises = list.filter { it.id == -1 }
-        val formerExercises = (list subtract newExercises.toSet()).toList()
+    override suspend fun update(workoutId: Int, newExercises: List<WorkoutExercise>) =
+        withContext(ioDispatcher) {
+            val formerExercises = dao.getWorkoutExercises(workoutId).first()
+            val brandNewExercises = newExercises.filter { it.id == -1 }
+            val existingExercises = (newExercises subtract brandNewExercises.toSet()).toList()
 
-        dao.update(formerExercises.toEntity())
-        workoutSetRepository.update(formerExercises.flatMap { it.sets })
-        insert(formerExercises[0].workoutId, newExercises)
-    }
+            insert(workoutId, brandNewExercises)
+            formerExercises.forEach { fe ->
+                val exists = existingExercises.find { it.id == fe.id } != null
+                if(!exists) dao.delete(fe)
+                else {
+                    dao.update(existingExercises.toEntity())
+                    workoutSetRepository.update(existingExercises.flatMap { it.sets })
+                }
+            }
+        }
 
     override suspend fun update(workoutExercise: WorkoutExercise) = withContext(ioDispatcher) {
         dao.update(workoutExercise.toEntity())

@@ -17,6 +17,6 @@ class UpdateWorkoutUseCase @Inject constructor(
         list: List<WorkoutExercisePLO>
     ) {
         if (isNameChanged) workoutRepository.update(workout.toDomain())
-        workoutExerciseRepository.update(list.toDomain(workout.id))
+        workoutExerciseRepository.update(workout.id, list.toDomain(workout.id))
     }
 }

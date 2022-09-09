@@ -31,6 +31,7 @@ class NewWorkoutViewModel @Inject constructor(
     private val getWorkoutUseCase: GetWorkoutUseCase,
     private val updateWorkoutUseCase: UpdateWorkoutUseCase,
     private val updateSetFromExerciseUseCase: UpdateSetFromExerciseUseCase,
+    private val removeExerciseFromWorkoutUseCase: RemoveExerciseFromWorkoutUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -67,6 +68,7 @@ class NewWorkoutViewModel @Inject constructor(
                 event.exercise,
                 event.set
             )
+            is NewWorkoutEvent.OnRemoveExerciseClicked -> removeExerciseFromWorkout(event.id)
         }
     }
 
@@ -163,6 +165,17 @@ class NewWorkoutViewModel @Inject constructor(
                 )
             } else addNewWorkoutUseCase(name, exerciseList)
             channel.send(NewWorkoutEventResponse.PopBackStack)
+        }
+    }
+
+    private fun removeExerciseFromWorkout(id: Int) {
+        launchAndCollect(
+            removeExerciseFromWorkoutUseCase(id, exerciseList.toList())
+        ) { response ->
+            exerciseList = response.toMutableList()
+            _state.update {
+                it.copy(exerciseList = response.toMutableList())
+            }
         }
     }
 

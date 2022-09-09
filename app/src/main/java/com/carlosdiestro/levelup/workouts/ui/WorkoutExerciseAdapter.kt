@@ -1,6 +1,7 @@
 package com.carlosdiestro.levelup.workouts.ui
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
@@ -13,7 +14,8 @@ import com.carlosdiestro.levelup.workouts.ui.models.WorkoutSetPLO
 class WorkoutExerciseAdapter(
     private val onAddSetClicked: (List<WorkoutSetPLO>, Int) -> Unit,
     private val onRemoveSetClicked: (WorkoutExercisePLO, WorkoutSetPLO) -> Unit,
-    private val onUpdateSetClicked: (WorkoutExercisePLO, WorkoutSetPLO) -> Unit
+    private val onUpdateSetClicked: (WorkoutExercisePLO, WorkoutSetPLO) -> Unit,
+    private val onMoreClicked: (Int, View) -> Unit
 ) :
     ListAdapter<WorkoutExercisePLO, WorkoutExerciseAdapter.ViewHolder>(WorkoutExercisePLO.WorkoutExerciseDiffCallback()) {
 
@@ -30,6 +32,9 @@ class WorkoutExerciseAdapter(
             },
             { i, s ->
                 onUpdateSetClicked(getItem(i), s)
+            },
+            { i, v ->
+                onMoreClicked(getItem(i).id, v)
             }
         )
     }
@@ -43,22 +48,23 @@ class WorkoutExerciseAdapter(
         private val binding: ItemExerciseWithSetsBinding,
         private val onAddSetClicked: (Int) -> Unit,
         private val onRemoveSetClicked: (Int, WorkoutSetPLO) -> Unit,
-        private val onUpdateSetClicked: (Int, WorkoutSetPLO) -> Unit
+        private val onUpdateSetClicked: (Int, WorkoutSetPLO) -> Unit,
+        private val onMoreClicked: (Int, View) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var recyclerAdapter: WorkoutSetAdapter
 
+        init {
+            binding.apply {
+                btnAddSet.setOnClickListener { onAddSetClicked(bindingAdapterPosition) }
+                btnMore.setOnClickListener { onMoreClicked(bindingAdapterPosition, it) }
+            }
+        }
+
         fun bind(item: WorkoutExercisePLO) {
-            setUpClickListeners()
             setUpRecyclerAdapter()
             setUpRecyclerView()
             bindViews(item)
-        }
-
-        private fun setUpClickListeners() {
-            binding.apply {
-                btnAddSet.setOnClickListener { onAddSetClicked(bindingAdapterPosition) }
-            }
         }
 
         private fun setUpRecyclerAdapter() {

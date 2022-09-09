@@ -70,7 +70,7 @@ class WorkoutsFragment : Fragment(R.layout.fragment_workouts) {
 
     private fun openMoreMenu(id: Int, view: View) {
         PopupMenu(requireContext(), view).apply {
-            menuInflater.inflate(R.menu.menu_object_manager, this.menu)
+            menuInflater.inflate(R.menu.menu_workout_manager, this.menu)
             gravity = Gravity.END
             setOnMenuItemClickListener {
                 when (it.itemId) {

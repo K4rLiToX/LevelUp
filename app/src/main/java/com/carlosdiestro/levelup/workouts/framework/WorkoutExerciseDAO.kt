@@ -25,7 +25,13 @@ interface WorkoutExerciseDAO {
     @Delete
     suspend fun delete(workoutExerciseEntity: WorkoutExerciseEntity)
 
+    @Query("DELETE FROM workout_exercise_table WHERE id = :id")
+    suspend fun deleteById(id: Int)
+
+    @Query("SELECT * FROM workout_exercise_table WHERE workoutId = :id ORDER BY orderPosition DESC")
+    fun getWorkoutExercises(id: Int): Flow<List<WorkoutExerciseEntity>>
+
     @Transaction
-    @Query("SELECT * FROM workout_exercise_table WHERE workoutId = :id ORDER by orderPosition DESC")
+    @Query("SELECT * FROM workout_exercise_table WHERE workoutId = :id ORDER BY orderPosition DESC")
     fun getWorkoutExercisesWithSets(id: Int): Flow<List<ExerciseWithSets>>
 }

@@ -41,6 +41,7 @@
     <string name="action_add_drop_set">Drop set</string>
     <string name="action_delete">Delete</string>
     <string name="action_update">Update</string>
+    <string name="action_replace">Replace</string>
 
     <string name="form_input_text_title">Title</string>
     <string name="form_input_text_range">Range</string>

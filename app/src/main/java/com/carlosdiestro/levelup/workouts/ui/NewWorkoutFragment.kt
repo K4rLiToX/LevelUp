@@ -3,9 +3,11 @@ package com.carlosdiestro.levelup.workouts.ui
 import android.os.Bundle
 import android.transition.Transition
 import android.transition.TransitionInflater
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -92,6 +94,9 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout) {
                     viewModel.onEvent(NewWorkoutEvent.OnUpdateSetClicked(e, newSet))
                 }.show(requireActivity().supportFragmentManager, AddSetDialog.TAG)
 
+            },
+            { id, view ->
+                openMoreMenu(id, view)
             }
         )
     }
@@ -157,6 +162,26 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout) {
 
     private fun navigateToExerciseChooserFragment() {
         findNavController().navigate(NewWorkoutFragmentDirections.toExerciseChooserFragment())
+    }
+
+    private fun openMoreMenu(id: Int, view: View) {
+        PopupMenu(requireContext(), view).apply {
+            menuInflater.inflate(R.menu.menu_workout_exercise_manager, this.menu)
+            gravity = Gravity.END
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.action_replace -> navigateToExerciseChooserFragment()
+                    else -> deleteExercise(id)
+                }
+                true
+            }
+        }.also {
+            it.show()
+        }
+    }
+
+    private fun deleteExercise(id: Int) {
+        viewModel.onEvent(NewWorkoutEvent.OnRemoveExerciseClicked(id))
     }
 
     private fun getSharedElementTransition(): Transition? {

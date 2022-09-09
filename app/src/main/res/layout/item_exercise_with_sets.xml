@@ -18,8 +18,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAppearance="?textAppearanceTitleMedium"
-            app:layout_constraintEnd_toEndOf="@id/ivUnilateral"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivUnilateral"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Press Pierna" />
 
@@ -27,10 +27,21 @@
             android:id="@+id/ivUnilateral"
             android:layout_width="18dp"
             android:layout_height="18dp"
+            android:layout_marginEnd="@dimen/margin_16"
             app:layout_constraintBottom_toBottomOf="@id/tvName"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnMore"
             app:layout_constraintTop_toTopOf="@id/tvName"
             app:srcCompat="@drawable/ic_fist" />
+
+        <Button
+            android:id="@+id/btnMore"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_more"
+            app:layout_constraintBottom_toBottomOf="@id/ivUnilateral"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivUnilateral" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divider"
