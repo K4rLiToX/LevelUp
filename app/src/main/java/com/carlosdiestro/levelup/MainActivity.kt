@@ -35,10 +35,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun onNavigationChangedListener() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            val isMainSection =
-                destination.id == (R.id.workoutsFragment or R.id.exerciseLibraryFragment or R.id.bodyWeightProgressFragment)
-            if (isMainSection) binding.bottomNavigation.visible()
+            if (isMainSection(destination.id)) binding.bottomNavigation.visible()
             else binding.bottomNavigation.gone()
         }
+    }
+
+    private fun isMainSection(id: Int): Boolean {
+        return id == R.id.workoutsFragment ||
+                id == R.id.exerciseLibraryFragment ||
+                id == R.id.bodyWeightProgressFragment
     }
 }
