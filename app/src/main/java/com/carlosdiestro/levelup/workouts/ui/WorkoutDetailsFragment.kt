@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import com.carlosdiestro.levelup.MainActivity
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
@@ -22,13 +22,8 @@ class WorkoutDetailsFragment : Fragment(R.layout.fragment_workout_details) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setOnClickListeners()
         setUpViewPagerWithTabLayout()
         collectUIState()
-    }
-
-    private fun setOnClickListeners() {
-        binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
     }
 
     private fun setUpViewPagerWithTabLayout() {
@@ -55,6 +50,6 @@ class WorkoutDetailsFragment : Fragment(R.layout.fragment_workout_details) {
     }
 
     private fun handleAppBarTitle(title: String) {
-        binding.toolbar.title = title.uppercase()
+        (requireActivity() as MainActivity).supportActionBar?.title = title.uppercase()
     }
 }

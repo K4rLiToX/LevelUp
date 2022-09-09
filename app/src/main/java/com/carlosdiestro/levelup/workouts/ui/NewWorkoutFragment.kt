@@ -3,16 +3,16 @@ package com.carlosdiestro.levelup.workouts.ui
 import android.os.Bundle
 import android.transition.Transition
 import android.transition.TransitionInflater
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.PopupMenu
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.carlosdiestro.levelup.MainActivity
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.core.ui.extensions.toTrimmedString
@@ -28,7 +28,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout) {
+class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider {
 
     private val binding by viewBinding(FragmentNewWorkoutBinding::bind)
     private val viewModel by viewModels<NewWorkoutViewModel>()
@@ -59,6 +59,7 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpMenu()
         setUpClickListeners()
         setUpRecyclerAdapter()
         setUpRecyclerView()
@@ -66,15 +67,26 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout) {
         collectChannelEvents()
     }
 
-    private fun setUpClickListeners() {
-        binding.apply {
-            toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
-            toolbar.menu.getItem(0).setOnMenuItemClickListener {
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.menu_save, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return when (menuItem.itemId) {
+            R.id.action_save -> {
                 submitNewWorkout()
                 true
             }
-            btnAddExercise.setOnClickListener { navigateToExerciseChooserFragment() }
+            else -> false
         }
+    }
+
+    private fun setUpMenu() {
+        requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    private fun setUpClickListeners() {
+        binding.btnAddExercise.setOnClickListener { navigateToExerciseChooserFragment() }
     }
 
     private fun setUpRecyclerAdapter() {
@@ -156,7 +168,7 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout) {
     }
 
     private fun handleToolbarTitle(title: StringResource) {
-        binding.toolbar.title = title.toText(requireContext())
+        (requireActivity() as MainActivity).supportActionBar?.title = title.toText(requireContext())
     }
 
     private fun submitNewWorkout() {

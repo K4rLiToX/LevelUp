@@ -64,10 +64,6 @@ dapp/src/main/java/com/carlosdiestro/levelup/workouts/framework/middle_tables/Wo
 Wapp/src/main/java/com/carlosdiestro/levelup/workouts/framework/WorkoutExerciseEntity.kt,1\5\15bd254ca540d00d9abb3e7d0f7fe6cf465d727f
 ç
 ]app/src/main/java/com/carlosdiestro/levelup/workouts/domain/usecases/GetWorkoutListUseCase.kt,1\d\1d5cfab78c9e2b0b3221314cef033251ea61494d
-ì
-capp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_add/NewExerciseFragment.kt,b\a\baf179659ee989fbce2c9b00a514767de23dc98e
-@
-app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
 Ö
 Uapp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/models/ExercisePLO.kt,1\4\1401e1408e4a4b94b8ef3f707a78bf9bf6863007
 ê

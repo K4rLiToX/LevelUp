@@ -3,12 +3,11 @@ package com.carlosdiestro.levelup.exercise_library.ui.exercise_add
 import android.os.Bundle
 import android.transition.Transition
 import android.transition.TransitionInflater
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.Lifecycle
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.core.ui.extensions.toTrimmedString
@@ -21,7 +20,7 @@ import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NewExerciseFragment : Fragment(R.layout.fragment_new_exercise) {
+class NewExerciseFragment : Fragment(R.layout.fragment_new_exercise), MenuProvider {
 
     private val binding by viewBinding(FragmentNewExerciseBinding::bind)
     private val viewModel by viewModels<NewExerciseViewModel>()
@@ -38,18 +37,26 @@ class NewExerciseFragment : Fragment(R.layout.fragment_new_exercise) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpClickListeners()
+        setUpMenu()
         collectUIState()
     }
 
-    private fun setUpClickListeners() {
-        binding.apply {
-            toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
-            toolbar.menu.getItem(0).setOnMenuItemClickListener {
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.menu_save, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return when (menuItem.itemId) {
+            R.id.action_save -> {
                 submitNewExercise()
                 true
             }
+            else -> false
         }
+    }
+
+    private fun setUpMenu() {
+        requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun collectUIState() {

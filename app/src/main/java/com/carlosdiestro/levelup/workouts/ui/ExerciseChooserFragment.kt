@@ -34,7 +34,6 @@ class ExerciseChooserFragment : Fragment(R.layout.fragment_exercise_chooser) {
 
     private fun setUpClickListeners() {
         binding.apply {
-            toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
             cgCategories.setOnCheckedStateChangeListener { _, checkedIds ->
                 if (checkedIds.isNotEmpty()) viewModel.onEvent(
                     ExerciseChooserEvent.OnFilterChanged(

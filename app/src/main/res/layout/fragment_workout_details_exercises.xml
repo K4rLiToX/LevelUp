@@ -6,37 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".workouts.ui.WorkoutDetailsExercisesFragment">
 
-    <include
-        android:id="@+id/recyclerHeader"
-        layout="@layout/item_header_exercise_set"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_16"
-        android:layout_marginHorizontal="@dimen/margin_16"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="@dimen/margin_8"
-        android:layout_marginVertical="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_16"
         app:layout_constraintBottom_toTopOf="@+id/btnStartWorkout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerHeader"
+        app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_simple_workout_exercise" />
 
     <Button
         android:id="@+id/btnStartWorkout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/action_start_workout"
         android:layout_marginHorizontal="@dimen/margin_16"
         android:layout_marginBottom="@dimen/margin_16"
+        android:text="@string/action_start_workout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

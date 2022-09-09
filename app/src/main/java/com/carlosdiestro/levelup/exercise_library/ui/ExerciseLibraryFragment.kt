@@ -31,7 +31,6 @@ class ExerciseLibraryFragment : Fragment(R.layout.fragment_exercise_library) {
     private fun setUpViewPagerWithTabLayout() {
         binding.apply {
             vpExercises.adapter = ExerciseCategoryFragmentAdapter(this@ExerciseLibraryFragment)
-            vpExercises.isUserInputEnabled = false
             TabLayoutMediator(tabExerciseGroup, vpExercises) { tab, position ->
                 tab.text = getTabTitle(position)
             }.attach()

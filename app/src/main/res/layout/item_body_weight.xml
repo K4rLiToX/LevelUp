@@ -4,14 +4,15 @@
     style="@style/Widget.Material3.CardView.Elevated"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_8">
+    android:layout_marginHorizontal="@dimen/margin_16"
+    android:layout_marginTop="@dimen/margin_16"
+    android:layout_marginBottom="@dimen/margin_4">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/padding_8"
-        android:paddingVertical="@dimen/padding_16"
+        android:padding="@dimen/padding_16"
         android:weightSum="2">
 
         <TextView
