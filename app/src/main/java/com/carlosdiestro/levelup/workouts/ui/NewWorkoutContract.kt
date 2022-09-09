@@ -14,6 +14,8 @@ sealed class NewWorkoutEvent {
         NewWorkoutEvent()
 
     class OnRemoveExerciseClicked(val id: Int) : NewWorkoutEvent()
+    class EnableReplaceMode(val id: Int) : NewWorkoutEvent()
+    class ReplaceExercise(val exercise: ExercisePLO) : NewWorkoutEvent()
 }
 
 sealed class NewWorkoutEventResponse {

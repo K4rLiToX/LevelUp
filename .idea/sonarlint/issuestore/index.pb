@@ -82,8 +82,6 @@ Mapp/src/main/java/com/carlosdiestro/levelup/core/framework/LevelUpDatabase.kt,
 Mapp/src/main/java/com/carlosdiestro/levelup/core/framework/FrameworkModule.kt,6\f\6f3a70ba3246c739a6d06f780289661cc4a31463
 €
 Papp/src/main/java/com/carlosdiestro/levelup/workouts/domain/models/WorkoutSet.kt,a\6\a628f4cf237145abdcb0ece9bdef036941333366
-‚
-Rapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/ExerciseChooserFragment.kt,3\c\3c3aa4cc164e3823b5a07a369761591fcf99443a
 ›
 kapp/src/main/java/com/carlosdiestro/levelup/exercise_library/domain/usecases/BlankStringValidatorUseCase.kt,4\1\41e2a05e67f9aa6a9e9cbe3808ac0a365c886b6f
 {
@@ -92,8 +90,6 @@ Kapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutsContract.kt,c\
 \app/src/main/java/com/carlosdiestro/levelup/workouts/domain/usecases/DeleteWorkoutUseCase.kt,8\e\8ec5782fadf8660c941dc9ee95c8a26620074db4
 |
 Lapp/src/main/java/com/carlosdiestro/levelup/core/ui/extensions/Extensions.kt,d\7\d7ecca318642a6f9bd6362260d59c3727c4700c7
-ƒ
-Sapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/ExerciseChooserViewModel.kt,b\e\be2926d18c0329cf7e26296f40b7a460157599cc
 š
 japp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_list/ExerciseCategoryViewModel.kt,9\2\9217da94baaa9e468d680901f4178fb03d6358a0
 ”
@@ -130,16 +126,12 @@ Oapp/src/main/java/com/carlosdiestro/levelup/workouts/framework/WorkoutSetDAO.kt
 Lapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutSetAdapter.kt,2\b\2bfac3a197dcf4be4060c2f75144c466afee21c6
 w
 Gapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/AddSetDialog.kt,e\6\e6f938f20397b3110c98fdc367dd97517f99d19b
-”
-dapp/src/main/java/com/carlosdiestro/levelup/workouts/domain/usecases/AddNewWorkoutExerciseUseCase.kt,e\f\ef266770cbad3d135fc29ae402588de5e8bbba7b
 –
 fapp/src/main/java/com/carlosdiestro/levelup/workouts/domain/usecases/AddSetToWorkoutExerciseUseCase.kt,9\2\9226308d51e4b6bbfb9d5cc3064373eb979bee64
 y
 Iapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutAdapter.kt,a\e\aefbf6d11c53b289295a60671715e6bb96c27067
 {
 Kapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutsFragment.kt,a\b\ab8c6b94372c94141b1331c2fbcb3cff03c32710
-}
-Mapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/NewWorkoutContract.kt,9\5\95b77719819e0216f23683d01a5f4d9d871417ed
 Œ
 \app/src/main/java/com/carlosdiestro/levelup/workouts/domain/usecases/AddNewWorkoutUseCase.kt,d\0\d029decde3f5dd1040542e4f80ee477db5d03d71
 ”

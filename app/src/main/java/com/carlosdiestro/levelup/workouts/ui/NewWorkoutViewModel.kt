@@ -32,6 +32,7 @@ class NewWorkoutViewModel @Inject constructor(
     private val updateWorkoutUseCase: UpdateWorkoutUseCase,
     private val updateSetFromExerciseUseCase: UpdateSetFromExerciseUseCase,
     private val removeExerciseFromWorkoutUseCase: RemoveExerciseFromWorkoutUseCase,
+    private val replaceWorkoutExerciseUseCase: ReplaceWorkoutExerciseUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -45,6 +46,8 @@ class NewWorkoutViewModel @Inject constructor(
 
     private val workoutId: Int = savedStateHandle.get<Int>("workoutId")!!
     private var workoutToUpdate: WorkoutPLO? = null
+
+    private var exerciseIdToReplace: Int = -1
 
     init {
         if (workoutId != -1) {
@@ -69,6 +72,8 @@ class NewWorkoutViewModel @Inject constructor(
                 event.set
             )
             is NewWorkoutEvent.OnRemoveExerciseClicked -> removeExerciseFromWorkout(event.id)
+            is NewWorkoutEvent.EnableReplaceMode -> enableReplaceMode(event.id)
+            is NewWorkoutEvent.ReplaceExercise -> replaceExercise(event.exercise)
         }
     }
 
@@ -178,6 +183,30 @@ class NewWorkoutViewModel @Inject constructor(
             }
         }
     }
+
+    private fun enableReplaceMode(id: Int) {
+        exerciseIdToReplace = id
+    }
+
+    private fun replaceExercise(exercise: ExercisePLO) {
+        launchAndCollect(
+            replaceWorkoutExerciseUseCase(
+                exerciseIdToReplace,
+                exercise,
+                exerciseList.toList()
+            )
+        ) { response ->
+            exerciseList = response.toMutableList()
+            exerciseIdToReplace = -1
+            _state.update {
+                it.copy(
+                    exerciseList = response
+                )
+            }
+        }
+    }
+
+    fun isReplaceModeEnabled(): Boolean = exerciseIdToReplace != -1
 
     private fun fetchWorkout() {
         launchAndCollect(getWorkoutUseCase(workoutId)) { (workout, exercises) ->

@@ -40,7 +40,11 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout) {
             ExerciseChooserFragment.ITEM_CLICKED_KEY
         ) { requestKey, bundle ->
             val result = bundle.getParcelable<ExercisePLO>(requestKey)
-            result?.let { viewModel.onEvent(NewWorkoutEvent.OnExerciseClicked(it)) }
+            result?.let {
+                val isReplaceModeEnabled = viewModel.isReplaceModeEnabled()
+                if (isReplaceModeEnabled) viewModel.onEvent(NewWorkoutEvent.ReplaceExercise(it))
+                else viewModel.onEvent(NewWorkoutEvent.OnExerciseClicked(it))
+            }
         }
     }
 
@@ -170,7 +174,10 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout) {
             gravity = Gravity.END
             setOnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.action_replace -> navigateToExerciseChooserFragment()
+                    R.id.action_replace -> {
+                        viewModel.onEvent(NewWorkoutEvent.EnableReplaceMode(id))
+                        navigateToExerciseChooserFragment()
+                    }
                     else -> deleteExercise(id)
                 }
                 true
