@@ -3,8 +3,6 @@ package com.carlosdiestro.levelup.exercise_library.ui
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.FragmentNavigatorExtras
-import androidx.navigation.fragment.findNavController
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
@@ -20,12 +18,7 @@ class ExerciseLibraryFragment : Fragment(R.layout.fragment_exercise_library) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpClickListeners()
         setUpViewPagerWithTabLayout()
-    }
-
-    private fun setUpClickListeners() {
-        binding.btnAdd.setOnClickListener { navigateToAddExerciseFragment() }
     }
 
     private fun setUpViewPagerWithTabLayout() {
@@ -45,14 +38,5 @@ class ExerciseLibraryFragment : Fragment(R.layout.fragment_exercise_library) {
             3 -> StringResource.Legs.toText(requireContext())
             else -> StringResource.Core.toText(requireContext())
         }
-    }
-
-    private fun navigateToAddExerciseFragment() {
-        findNavController().navigate(
-            ExerciseLibraryFragmentDirections.toNewExerciseFragment(),
-            FragmentNavigatorExtras(
-                binding.btnAdd to "transition_fab"
-            )
-        )
     }
 }

@@ -1,8 +1,11 @@
 package com.carlosdiestro.levelup.core.ui.extensions
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.text.Editable
 import android.view.View
 import androidx.lifecycle.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
@@ -52,3 +55,16 @@ fun View.gone() {
 }
 
 fun Editable?.toTrimmedString(): String = this.toString().trim()
+
+fun BottomNavigationView.slide(isSlideUp: Boolean) {
+    this.animate()
+        .translationYBy(if (isSlideUp) this.height.toFloat() else 0F)
+        .translationY(if (isSlideUp) 0F else this.height.toFloat())
+        .setDuration(50)
+        .setListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                super.onAnimationEnd(animation)
+                if (isSlideUp) visible() else gone()
+            }
+        })
+}

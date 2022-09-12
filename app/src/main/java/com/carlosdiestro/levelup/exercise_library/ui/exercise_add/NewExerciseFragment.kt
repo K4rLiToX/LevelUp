@@ -16,6 +16,7 @@ import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import com.carlosdiestro.levelup.core.ui.resources.toText
 import com.carlosdiestro.levelup.databinding.FragmentNewExerciseBinding
 import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,8 +42,14 @@ class NewExerciseFragment : Fragment(R.layout.fragment_new_exercise), MenuProvid
         collectUIState()
     }
 
+    override fun onPrepareMenu(menu: Menu) {
+        ((menu.findItem(R.id.action_save).actionView) as MaterialButton).text =
+            StringResource.Save.toText(requireContext())
+    }
+
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.menu_save, menu)
+        (menu.findItem(R.id.action_save).actionView as MaterialButton).setOnClickListener { submitNewExercise() }
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {

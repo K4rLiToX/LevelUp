@@ -7,17 +7,18 @@
 
     <TextView
         android:id="@+id/tvHeader"
-        style="@style/TextAppearance.Material3.TitleLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/title_update_body_weight"
+        android:textAllCaps="true"
+        android:textAppearance="?textAppearanceTitleMedium"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ilUpdateBodyWeight"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_24"
@@ -29,7 +30,6 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etUpdateBodyWeight"
-            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="numberDecimal" />
@@ -38,18 +38,17 @@
 
     <Button
         android:id="@+id/btnSave"
-        style="@style/Widget.Material3.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_32"
         android:text="@string/action_save"
+        app:backgroundTint="?colorSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ilUpdateBodyWeight" />
 
     <Button
         android:id="@+id/btnCancel"
-        style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_32"

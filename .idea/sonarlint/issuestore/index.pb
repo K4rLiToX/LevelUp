@@ -1,8 +1,6 @@
 
 P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
-<
-build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 ‹
 [app/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/domain/models/BodyWeight.kt,9\2\920fd7a98f9a0804a7d9058fc67fe50a17f745f8
 
@@ -46,8 +44,6 @@ papp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/bodyweight_u
 capp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_add/NewExerciseContract.kt,b\8\b8b06f94d50182ddae0063d1f24a318aeb2c3ee4
 Š
 Zapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/models/BodyWeightPLO.kt,7\0\70d4a1cee5f096afebaa73fc1743b637696a6f6c
-—
-gapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/bodyweight_list/BodyWeightAdapter.kt,c\b\cbc20c5c1a44a2583538ce0615d175d900a83373
 †
 Vapp/src/main/java/com/carlosdiestro/levelup/exercise_library/domain/models/Exercise.kt,9\a\9ac03f3af10ec9728a745b73b3d59db934a331fd
 ˆ
@@ -82,8 +78,6 @@ kapp/src/main/java/com/carlosdiestro/levelup/exercise_library/domain/usecases/Bl
 Kapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutsContract.kt,c\d\cd89594ea65ea9d72f526271a0134f287a8f56af
 Œ
 \app/src/main/java/com/carlosdiestro/levelup/workouts/domain/usecases/DeleteWorkoutUseCase.kt,8\e\8ec5782fadf8660c941dc9ee95c8a26620074db4
-|
-Lapp/src/main/java/com/carlosdiestro/levelup/core/ui/extensions/Extensions.kt,d\7\d7ecca318642a6f9bd6362260d59c3727c4700c7
 š
 japp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_list/ExerciseCategoryViewModel.kt,9\2\9217da94baaa9e468d680901f4178fb03d6358a0
 ”
@@ -158,8 +152,6 @@ Qapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutDetailsContract.
 Oapp/src/main/java/com/carlosdiestro/levelup/core/ui/resources/StringResource.kt,9\7\97cd35efdf7a9fdbd33dc99ad62787bf02fc8249
 ’
 bapp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/ExerciseCategoryFragmentAdapter.kt,5\a\5aba2bb46c917309cc8338516143526ab324579a
-y
-Iapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutAdapter.kt,a\e\aefbf6d11c53b289295a60671715e6bb96c27067
 ‚
 Rapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutDetailsViewModel.kt,e\a\ea3293e25dbcb8995dcf1faf156e1634d0cac31d
 ‰
@@ -178,25 +170,9 @@ Yapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutDetailsProgressF
 Xapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutDetailsFragmentAdapter.kt,f\3\f32fc9184c087500620abe7efc3225e66eec6950
 „
 Tapp/src/main/java/com/carlosdiestro/levelup/core/ui/managers/ViewBindingDelegates.kt,a\e\ae1d76465ef766dc0355c02b6ec620abfa8ebcf4
-@
-app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
-™
-iapp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_list/ExerciseCategoryFragment.kt,3\1\3118055a67a9aeb9b825abd29d6eec840ee2c03a
-“
-capp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_add/NewExerciseFragment.kt,b\a\baf179659ee989fbce2c9b00a514767de23dc98e
-{
-Kapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutsFragment.kt,a\b\ab8c6b94372c94141b1331c2fbcb3cff03c32710
 ‚
 Rapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/ExerciseChooserFragment.kt,3\c\3c3aa4cc164e3823b5a07a369761591fcf99443a
-}
-Mapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/NewWorkoutFragment.kt,e\3\e38bbf42b31f87ef9edaed4b851cb9554b45fba3
-Š
-Zapp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/ExerciseLibraryFragment.kt,5\6\562a93c2a179cfbd93613277d7087f31bc2c30f9
 
 Qapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutDetailsFragment.kt,6\7\67b35b4b00b937d1a6b714febb4dcbf44dd4c700
 Š
 Zapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutDetailsExercisesFragment.kt,b\8\b82dc419b16e1f231d79bdf3ebb7012b4f68d5e6
- 
-papp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/bodyweight_list/BodyWeightProgressFragment.kt,7\7\779d6082597988de2cfbd338373324bfb330661d
-k
-;app/src/main/java/com/carlosdiestro/levelup/MainActivity.kt,6\6\667823cd483095ebc5c8723ee5f25b9ca0a583d0

@@ -17,7 +17,11 @@
         tools:layout="@layout/fragment_exercise_library">
         <action
             android:id="@+id/toNewExerciseFragment"
-            app:destination="@id/newExerciseFragment" />
+            app:destination="@id/newExerciseFragment"
+            app:enterAnim="@anim/slide_in_from_right"
+            app:exitAnim="@anim/slide_out_to_left_fade_out"
+            app:popEnterAnim="@anim/slide_in_from_left_fade_in"
+            app:popExitAnim="@anim/slide_out_to_right" />
     </fragment>
     <fragment
         android:id="@+id/newExerciseFragment"
@@ -30,10 +34,18 @@
         tools:layout="@layout/fragment_workouts">
         <action
             android:id="@+id/toNewWorkoutFragment"
-            app:destination="@id/newWorkoutFragment" />
+            app:destination="@id/newWorkoutFragment"
+            app:enterAnim="@anim/slide_in_from_right"
+            app:exitAnim="@anim/slide_out_to_left_fade_out"
+            app:popEnterAnim="@anim/slide_in_from_left_fade_in"
+            app:popExitAnim="@anim/slide_out_to_right" />
         <action
             android:id="@+id/toWorkoutDetailsFragment"
-            app:destination="@id/workoutDetailsFragment" />
+            app:destination="@id/workoutDetailsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/newWorkoutFragment"

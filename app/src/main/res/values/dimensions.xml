@@ -16,6 +16,7 @@
     <dimen name="d48">48dp</dimen>
     <dimen name="d56">56dp</dimen>
     <dimen name="d64">64dp</dimen>
+    <dimen name="d128">128dp</dimen>
 
     <!-- Paddings -->
     <dimen name="padding_8">@dimen/d8</dimen>
@@ -28,4 +29,5 @@
     <dimen name="margin_24">@dimen/d24</dimen>
     <dimen name="margin_32">@dimen/d32</dimen>
     <dimen name="margin_64">@dimen/d64</dimen>
+    <dimen name="margin_128">@dimen/d128</dimen>
 </resources>

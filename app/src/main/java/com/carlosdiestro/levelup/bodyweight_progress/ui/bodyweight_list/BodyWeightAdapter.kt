@@ -33,9 +33,8 @@ class BodyWeightAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.root.setOnLongClickListener {
+            binding.root.setOnClickListener {
                 onItemLongClicked(bindingAdapterPosition)
-                true
             }
         }
 

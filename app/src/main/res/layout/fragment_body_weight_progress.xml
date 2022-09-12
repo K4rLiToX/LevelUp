@@ -44,6 +44,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin_32"
         android:clipToPadding="true"
+        android:layoutAnimation="@anim/animation_recyclerview"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

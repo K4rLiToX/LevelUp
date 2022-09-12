@@ -24,6 +24,7 @@ import com.carlosdiestro.levelup.databinding.FragmentNewWorkoutBinding
 import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutSetPLO
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -67,8 +68,14 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
         collectChannelEvents()
     }
 
+    override fun onPrepareMenu(menu: Menu) {
+        ((menu.findItem(R.id.action_save).actionView) as MaterialButton).text =
+            StringResource.Save.toText(requireContext())
+    }
+
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.menu_save, menu)
+        (menu.findItem(R.id.action_save).actionView as MaterialButton).setOnClickListener { submitNewWorkout() }
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -168,7 +175,8 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
     }
 
     private fun handleToolbarTitle(title: StringResource) {
-        (requireActivity() as MainActivity).supportActionBar?.title = title.toText(requireContext())
+        (requireActivity() as MainActivity).supportActionBar?.title =
+            title.toText(requireContext()).uppercase()
     }
 
     private fun submitNewWorkout() {

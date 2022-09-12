@@ -9,8 +9,9 @@
         android:id="@+id/rvExerciseCategory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="120dp"
         android:clipToPadding="false"
+        android:layoutAnimation="@anim/animation_recyclerview"
+        android:paddingBottom="120dp"
         tools:listitem="@layout/item_exercise" />
 
     <include

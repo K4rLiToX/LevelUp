@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.carlosdiestro.levelup.R
@@ -26,14 +25,9 @@ class WorkoutsFragment : Fragment(R.layout.fragment_workouts) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpClickListeners()
         setUpRecyclerAdapter()
         setUpRecyclerView()
         collectUIState()
-    }
-
-    private fun setUpClickListeners() {
-        binding.btnCreate.setOnClickListener { navigateToAddNewWorkout() }
     }
 
     private fun setUpRecyclerAdapter() {
@@ -84,15 +78,6 @@ class WorkoutsFragment : Fragment(R.layout.fragment_workouts) {
         }.also {
             it.show()
         }
-    }
-
-    private fun navigateToAddNewWorkout() {
-        findNavController().navigate(
-            WorkoutsFragmentDirections.toNewWorkoutFragment(),
-            FragmentNavigatorExtras(
-                binding.btnCreate to "fab_to_new_workout_transition"
-            )
-        )
     }
 
     private fun navigateToUpdateWorkout(id: Int) {
