@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.LevelUp.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.LevelUp.TextInputLayout</item>
+        <item name="android:textColorHint">?colorOnBackground</item>
+        <item name="hintTextColor">?colorOnBackground</item>
+        <item name="suffixTextColor">?colorOnBackground</item>
+    </style>
+
+    <style name="ThemeOverlay.LevelUp.TextInputLayout" parent="">
+        <item name="colorOnSurface">@color/secondary_500</item>
+        <item name="editTextStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox</item>
+    </style>
+
+    <style name="Widget.LevelUp.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.LevelUp.Switch</item>
+    </style>
+
+    <style name="ThemeOverlay.LevelUp.Switch" parent="">
+        <item name="colorSurfaceVariant">@color/tint_500</item>
+    </style>
+
+</resources>

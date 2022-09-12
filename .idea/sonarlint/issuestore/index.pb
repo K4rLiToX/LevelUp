@@ -198,3 +198,5 @@ Qapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutDetailsFragment.
 Zapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutDetailsExercisesFragment.kt,b\8\b82dc419b16e1f231d79bdf3ebb7012b4f68d5e6
  
 papp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/bodyweight_list/BodyWeightProgressFragment.kt,7\7\779d6082597988de2cfbd338373324bfb330661d
+k
+;app/src/main/java/com/carlosdiestro/levelup/MainActivity.kt,6\6\667823cd483095ebc5c8723ee5f25b9ca0a583d0

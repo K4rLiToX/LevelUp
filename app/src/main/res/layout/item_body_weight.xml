@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Widget.Material3.CardView.Elevated"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/margin_16"
@@ -17,19 +16,19 @@
 
         <TextView
             android:id="@+id/tvDate"
-            style="@style/TextAppearance.Material3.BodyLarge"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textAppearance="?textAppearanceBodyLarge"
             tools:text="Yesterday" />
 
         <TextView
             android:id="@+id/tvWeight"
-            style="@style/TextAppearance.Material3.TitleMedium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="textEnd"
+            android:textAppearance="?textAppearanceTitleMedium"
             tools:text="70 kg" />
 
     </LinearLayout>

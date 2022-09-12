@@ -2,14 +2,18 @@
 <resources>
 
     <style name="Widget.LevelUp.FloatingActionButton" parent="Widget.Material3.FloatingActionButton.Primary">
-        <item name="backgroundTint">?colorSecondary</item>
-        <item name="iconTint">?colorOnSecondary</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.LevelUp.FloatingActionButton</item>
     </style>
 
-    <style name="Widget.LevelUp.IconButton.Filled" parent="Widget.Material3.Button.ElevatedButton">
-        <item name="backgroundTint">?colorSecondary</item>
-        <item name="android:textColor">?colorOnSecondary</item>
-        <item name="iconTint">?colorOnSecondary</item>
+    <style name="Widget.LevelUp.IconButton.Filled" parent="Widget.Material3.Button.ElevatedButton.Icon">
+        <item name="backgroundTint">@color/cta_500</item>
+        <item name="iconTint">@color/secondary_500</item>
+        <item name="android:textColor">@color/secondary_500</item>
+    </style>
+
+    <style name="ThemeOverlay.LevelUp.FloatingActionButton" parent="">
+        <item name="colorContainer">@color/cta_500</item>
+        <item name="colorOnContainer">@color/secondary_500</item>
     </style>
 
 </resources>

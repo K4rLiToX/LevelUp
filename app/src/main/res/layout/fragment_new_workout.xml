@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/padding_16"
+    android:paddingTop="@dimen/padding_16"
+    android:paddingBottom="@dimen/padding_16"
     android:transitionName="fab_to_new_workout_transition"
     tools:context=".workouts.ui.NewWorkoutFragment">
 
@@ -12,6 +13,7 @@
         android:id="@+id/ilName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16"
         android:hint="@string/form_input_text_name_workout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,6 +31,7 @@
         android:id="@+id/tvExercises"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_32"
         android:text="@string/title_exercise"
         android:textAppearance="?textAppearanceTitleLarge"
@@ -51,6 +54,7 @@
         android:id="@+id/btnAddExercise"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16"
         android:text="@string/action_add_exercise"
         app:icon="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
