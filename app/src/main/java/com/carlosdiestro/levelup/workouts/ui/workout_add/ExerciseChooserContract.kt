@@ -1,4 +1,4 @@
-package com.carlosdiestro.levelup.workouts.ui
+package com.carlosdiestro.levelup.workouts.ui.workout_add
 
 import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
 import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO

@@ -1,4 +1,4 @@
-package com.carlosdiestro.levelup.workouts.ui
+package com.carlosdiestro.levelup.workouts.ui.workout_details
 
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment

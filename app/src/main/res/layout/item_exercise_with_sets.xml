@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/margin_16"
     android:layout_marginTop="@dimen/margin_16"
-    android:layout_marginBottom="@dimen/margin_4"
-    android:layout_marginHorizontal="@dimen/margin_16">
+    android:layout_marginBottom="@dimen/margin_4">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,8 +19,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAppearance="?textAppearanceTitleMedium"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ivUnilateral"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Press Pierna" />
 

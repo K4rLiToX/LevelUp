@@ -1,4 +1,4 @@
-package com.carlosdiestro.levelup.workouts.ui
+package com.carlosdiestro.levelup.workouts.ui.workout_details
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

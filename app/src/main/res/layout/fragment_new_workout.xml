@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingTop="@dimen/padding_16"
     android:paddingBottom="@dimen/padding_16"
-    tools:context=".workouts.ui.NewWorkoutFragment">
+    tools:context=".workouts.ui.workout_add.NewWorkoutFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ilName"

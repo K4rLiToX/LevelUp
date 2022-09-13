@@ -1,4 +1,4 @@
-package com.carlosdiestro.levelup.workouts.ui
+package com.carlosdiestro.levelup.workouts.ui.workout_add
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
