@@ -48,8 +48,6 @@ Oapp/src/main/java/com/carlosdiestro/levelup/workouts/framework/WorkoutEntity.kt
 Rapp/src/main/java/com/carlosdiestro/levelup/workouts/framework/WorkoutSetEntity.kt,0\e\0ed11c3808d7748e2f375cd6212a2824fee078aa
 î
 dapp/src/main/java/com/carlosdiestro/levelup/workouts/framework/middle_tables/WorkoutWithExercises.kt,2\b\2bd28f2e61859184e2f7653f63f30ba226b382dd
-á
-Wapp/src/main/java/com/carlosdiestro/levelup/workouts/framework/WorkoutExerciseEntity.kt,1\5\15bd254ca540d00d9abb3e7d0f7fe6cf465d727f
 ç
 ]app/src/main/java/com/carlosdiestro/levelup/workouts/domain/usecases/GetWorkoutListUseCase.kt,1\d\1d5cfab78c9e2b0b3221314cef033251ea61494d
 Ö
@@ -132,16 +130,10 @@ Tapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/models/WorkoutExerciseP
 Papp/src/main/java/com/carlosdiestro/levelup/workouts/domain/models/WorkoutSet.kt,a\6\a628f4cf237145abdcb0ece9bdef036941333366
 à
 Xapp/src/main/java/com/carlosdiestro/levelup/workouts/framework/CompletedWorkoutSetDAO.kt,a\c\ac6573bf01e5b1cab2b4971d4f25fd9d7fe6ad17
-ê
-`app/src/main/java/com/carlosdiestro/levelup/workouts/framework/middle_tables/ExerciseWithSets.kt,1\8\18c1183acb615aede536fe35c189a30641cf94cc
-ê
-`app/src/main/java/com/carlosdiestro/levelup/workouts/framework/CompletedWorkoutExerciseEntity.kt,8\4\84ad23cbe7d1b1ef9cfddf4eff798a4bca3d8bcb
 ~
 Napp/src/main/java/com/carlosdiestro/levelup/workouts/domain/models/RepRange.kt,e\1\e160c180b169610d3cfead05ce3ff5080d415f42
 |
 Lapp/src/main/java/com/carlosdiestro/levelup/workouts/domain/models/Weight.kt,4\a\4a92aa5f2a9efe0c14d72a0af7fb6087f0e64d06
-ç
-]app/src/main/java/com/carlosdiestro/levelup/workouts/ui/models/CompletedWorkoutExercisePLO.kt,e\5\e54a6ee2a58ff74d3a2e626d90111a842cd4f56d
 ô
 iapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/workout_on_going/OnGoingWorkoutFragmentAdapter.kt,8\0\80aedc2d10461dd80a80fb1a3ee3a7b15a6b7ac8
 |
@@ -151,13 +143,9 @@ Iapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutAdapter.kt,a\e\
 ç
 ]app/src/main/java/com/carlosdiestro/levelup/workouts/ui/workout_add/WorkoutExerciseAdapter.kt,c\7\c71defba7f3297c2319a0f776a7c6b24435e67d6
 }
-Mapp/src/main/java/com/carlosdiestro/levelup/core/framework/LevelUpDatabase.kt,9\7\97716f82e45ab91cbeb3a07dfbe4d916c7f5376e
-}
 Mapp/src/main/java/com/carlosdiestro/levelup/core/framework/FrameworkModule.kt,6\f\6f3a70ba3246c739a6d06f780289661cc4a31463
 s
 Capp/src/main/java/com/carlosdiestro/levelup/core/data/DataModule.kt,4\4\44d0602f6f145c16f62968cfcb89ddc0bb3336a0
-ã
-[app/src/main/java/com/carlosdiestro/levelup/workouts/framework/CompletedWorkoutSetEntity.kt,a\0\a05ba1b0ea63427748d2793639640284d99384ec
 ó
 gapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/workout_details/SimpleWorkoutExerciseAdapter.kt,6\0\603f421673a24c89302816e8bd004ae2f7f6f706
 ö
@@ -192,8 +180,6 @@ Lapp/src/main/java/com/carlosdiestro/levelup/core/ui/extensions/Extensions.kt,d
 Yapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/workout_add/NewWorkoutFragment.kt,2\c\2ce0cdec65ba134b16a33bf702b2a8d60e3579dc
 
 Oapp/src/main/java/com/carlosdiestro/levelup/core/ui/resources/StringResource.kt,9\7\97cd35efdf7a9fdbd33dc99ad62787bf02fc8249
-ö
-japp/src/main/java/com/carlosdiestro/levelup/workouts/ui/workout_on_going/OnGoingWorkoutExerciseFragment.kt,e\e\eeef57d41cd1f87cf5ca0c5ca08c472c58c2c9b0
 †
 papp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/bodyweight_update/UpdateBodyWeightContract.kt,2\2\225a3eaccbaec3fb10ea5973896227ff119f2c64
 †
@@ -208,8 +194,6 @@ Yapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/workout_add/NewWorkoutC
 gapp/src/main/java/com/carlosdiestro/levelup/workouts/domain/usecases/AreAllExercisesCompletedUseCase.kt,9\b\9bc1f3b6dde7ef60cce15455f524a8bcaf65fec3
 †
 papp/src/main/java/com/carlosdiestro/levelup/workouts/ui/workout_on_going/CompletedWorkoutSetUnilateralAdapter.kt,9\f\9f8ff416cce106b1f7786a2bbbcf124023c128b9
-í
-bapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/workout_on_going/OnGoingWorkoutContract.kt,b\0\b0d11b4047fc6d32d3e7ffb930b2e7e807b83cf1
 ê
 `app/src/main/java/com/carlosdiestro/levelup/workouts/domain/repositories/WorkoutSetRepository.kt,4\9\493871f8fad292a7db33f1a8b9f69a639c18b742
 Ö

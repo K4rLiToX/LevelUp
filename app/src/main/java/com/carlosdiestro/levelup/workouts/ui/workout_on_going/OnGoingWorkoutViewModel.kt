@@ -25,11 +25,14 @@ class OnGoingWorkoutViewModel @Inject constructor(
     private val updateCompletedWorkoutSetUseCase: UpdateCompletedWorkoutSetUseCase,
     private val areAllExercisesCompletedUseCase: AreAllExercisesCompletedUseCase,
     private val submitCompletedWorkoutUseCase: SubmitCompletedWorkoutUseCase,
-    savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
+    private val UIStateKey = "ui_state_key"
+    private val ExercisesKey = "exercises_key"
+
     private var _state: MutableStateFlow<OnGoingWorkoutState> =
-        MutableStateFlow(OnGoingWorkoutState())
+        MutableStateFlow(savedStateHandle[UIStateKey] ?: OnGoingWorkoutState())
     val state = _state.asStateFlow()
 
     private val workoutId: Int = savedStateHandle.get<Int>("workoutId")!!
@@ -37,7 +40,8 @@ class OnGoingWorkoutViewModel @Inject constructor(
     var numberOfExercises: Int = -1
         private set
 
-    private var exercises: MutableList<CompletedWorkoutExercisePLO> = mutableListOf()
+    private var exercises: MutableList<CompletedWorkoutExercisePLO> =
+        savedStateHandle[ExercisesKey] ?: mutableListOf()
 
     private val _eventChannel: Channel<OnGoingWorkoutResponse> = Channel()
     val eventChannel = _eventChannel.receiveAsFlow()
@@ -80,10 +84,13 @@ class OnGoingWorkoutViewModel @Inject constructor(
         ) { response ->
             _state.update {
                 exercises = response.toMutableList()
-                it.copy(
+                val newState = it.copy(
                     completedExercises = response,
                     currentExercise = exercises[exerciseOrder - 1]
                 )
+                savedStateHandle[UIStateKey] = newState
+                savedStateHandle[ExercisesKey] = exercises
+                newState
             }
         }
     }
