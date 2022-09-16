@@ -74,5 +74,19 @@
         <argument
             android:name="workoutName"
             app:argType="string" />
+        <action
+            android:id="@+id/toOnGoingWorkoutFragment"
+            app:destination="@id/onGoingWorkoutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/onGoingWorkoutFragment"
+        android:name="com.carlosdiestro.levelup.workouts.ui.workout_on_going.OnGoingWorkoutFragment"
+        tools:layout="@layout/fragment_on_going_workout">
+        <argument
+            android:name="workoutId"
+            app:argType="integer" />
+        <argument
+            android:name="workoutName"
+            app:argType="string" />
     </fragment>
 </navigation>

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.carlosdiestro.levelup.MainActivity
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
+import com.carlosdiestro.levelup.core.ui.extensions.showWarningDialog
 import com.carlosdiestro.levelup.core.ui.extensions.toTrimmedString
 import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
@@ -25,7 +26,6 @@ import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutSetPLO
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -147,12 +147,7 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
             when (event) {
                 NewWorkoutEventResponse.PopBackStack -> findNavController().popBackStack()
                 is NewWorkoutEventResponse.ShowWarningDialog -> event.message?.let {
-                    MaterialAlertDialogBuilder(requireContext())
-                        .setTitle(StringResource.Warning.resId)
-                        .setMessage(it.resId)
-                        .setNegativeButton(StringResource.Close.resId) { d, _ -> d.dismiss() }
-                        .create()
-                        .show()
+                    showWarningDialog(it.resId)
                 }
             }
         }

@@ -20,7 +20,7 @@ class WorkoutDetailsExercisesViewModel @Inject constructor(
         MutableStateFlow(WorkoutDetailsExercisesState())
     val state = _state.asStateFlow()
 
-    private val workoutId =
+    val workoutId =
         savedStateHandle.get<Int>(WorkoutDetailsExercisesFragment.WORKOUT_ID_KEY)!!
 
     init {

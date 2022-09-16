@@ -1,10 +1,12 @@
 package com.carlosdiestro.levelup.workouts.domain.repositories
 
+import com.carlosdiestro.levelup.workouts.domain.models.CompletedWorkoutSet
 import com.carlosdiestro.levelup.workouts.domain.models.WorkoutSet
 import kotlinx.coroutines.flow.Flow
 
 interface WorkoutSetRepository {
 
+    suspend fun insertCompletedSets(list: List<CompletedWorkoutSet>)
     fun getExerciseSets(exerciseId: Int): Flow<List<WorkoutSet>>
     suspend fun insert(list: List<WorkoutSet>)
     suspend fun insert(workoutSet: WorkoutSet)

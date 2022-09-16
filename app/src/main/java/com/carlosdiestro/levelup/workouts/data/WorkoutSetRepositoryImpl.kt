@@ -1,10 +1,11 @@
 package com.carlosdiestro.levelup.workouts.data
 
 import com.carlosdiestro.levelup.core.data.IoDispatcher
-import com.carlosdiestro.levelup.workouts.domain.models.WorkoutSet
-import com.carlosdiestro.levelup.workouts.domain.models.toRepRange
-import com.carlosdiestro.levelup.workouts.domain.models.toStringValue
+import com.carlosdiestro.levelup.core.ui.managers.TimeManager
+import com.carlosdiestro.levelup.workouts.domain.models.*
 import com.carlosdiestro.levelup.workouts.domain.repositories.WorkoutSetRepository
+import com.carlosdiestro.levelup.workouts.framework.CompletedWorkoutSetDAO
+import com.carlosdiestro.levelup.workouts.framework.CompletedWorkoutSetEntity
 import com.carlosdiestro.levelup.workouts.framework.WorkoutSetDAO
 import com.carlosdiestro.levelup.workouts.framework.WorkoutSetEntity
 import kotlinx.coroutines.CoroutineDispatcher
@@ -14,6 +15,7 @@ import javax.inject.Inject
 
 class WorkoutSetRepositoryImpl @Inject constructor(
     private val dao: WorkoutSetDAO,
+    private val completedWorkoutSetDAO: CompletedWorkoutSetDAO,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : WorkoutSetRepository {
 
@@ -29,6 +31,11 @@ class WorkoutSetRepositoryImpl @Inject constructor(
     override suspend fun insert(workoutSet: WorkoutSet) = withContext(ioDispatcher) {
         dao.insert(workoutSet.toEntity())
     }
+
+    override suspend fun insertCompletedSets(list: List<CompletedWorkoutSet>) =
+        withContext(ioDispatcher) {
+            completedWorkoutSetDAO.insert(list.toEntity())
+        }
 
     override suspend fun update(list: List<WorkoutSet>) = withContext(ioDispatcher) {
         val exerciseAndSets = list.toEntity().groupBy { it.exerciseId }
@@ -112,4 +119,18 @@ fun WorkoutSet.toEntity(): WorkoutSetEntity = WorkoutSetEntity(
     repRange = repRange.toStringValue()
 )
 
+@JvmName("toEntityWorkoutSet")
 fun List<WorkoutSet>.toEntity(): List<WorkoutSetEntity> = this.map { it.toEntity() }
+
+fun CompletedWorkoutSet.toEntity(): CompletedWorkoutSetEntity = CompletedWorkoutSetEntity(
+    exerciseId = exerciseId,
+    setOrder = setOrder,
+    date = TimeManager.toMillis(date),
+    repetitions = repetitions.toStringValue(),
+    weights = weights.toStringValue(),
+    status = status.toInt()
+)
+
+@JvmName("toEntityCompletedWorkoutSet")
+fun List<CompletedWorkoutSet>.toEntity(): List<CompletedWorkoutSetEntity> =
+    this.map { it.toEntity() }

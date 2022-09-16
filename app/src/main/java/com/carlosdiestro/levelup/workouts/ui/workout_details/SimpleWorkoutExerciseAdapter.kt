@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.databinding.ItemSimpleWorkoutExerciseBinding
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutExercisePLO
 
@@ -32,6 +33,7 @@ class SimpleWorkoutExerciseAdapter :
             binding.apply {
                 tvExerciseName.text = item.name
                 tvNumberOfSets.text = "${item.sets.size}"
+                ivUnilateral.visible(item.isUnilateral)
             }
         }
     }

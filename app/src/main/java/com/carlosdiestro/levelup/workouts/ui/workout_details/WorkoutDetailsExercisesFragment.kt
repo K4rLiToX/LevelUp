@@ -21,14 +21,9 @@ class WorkoutDetailsExercisesFragment : Fragment(R.layout.fragment_workout_detai
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpClickListeners()
         setUpRecyclerAdapter()
         setUpRecyclerView()
         collectUIState()
-    }
-
-    private fun setUpClickListeners() {
-        binding.btnStartWorkout.setOnClickListener { navigateToStartWorkout() }
     }
 
     private fun setUpRecyclerAdapter() {
@@ -52,8 +47,6 @@ class WorkoutDetailsExercisesFragment : Fragment(R.layout.fragment_workout_detai
     private fun handleExerciseList(list: List<WorkoutExercisePLO>) {
         recyclerAdapter.submitList(list)
     }
-
-    private fun navigateToStartWorkout() = Unit
 
     companion object {
         const val WORKOUT_ID_KEY = "workout_id_key"

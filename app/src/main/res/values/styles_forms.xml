@@ -6,6 +6,7 @@
         <item name="android:textColorHint">?colorOnBackground</item>
         <item name="hintTextColor">?colorOnBackground</item>
         <item name="suffixTextColor">?colorOnBackground</item>
+        <item name="placeholderTextColor">@color/tint_500</item>
     </style>
 
     <style name="ThemeOverlay.LevelUp.TextInputLayout" parent="">

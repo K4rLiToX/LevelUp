@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_16">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_16">
+
+        <TextView
+            android:id="@+id/tvSetHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?textAppearanceBodyLarge"
+            app:layout_constraintEnd_toStartOf="@id/tvRepRange"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Set 1" />
+
+        <TextView
+            android:id="@+id/tvRepRange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?textAppearanceTitleMedium"
+            app:layout_constraintBottom_toBottomOf="@id/tvSetHeader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvSetHeader"
+            tools:text="Range 12-15" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/dividerHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            app:dividerColor="?colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSetHeader" />
+
+        <TextView
+            android:id="@+id/tvWeight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_32"
+            android:text="@string/title_weight"
+            android:textAppearance="?textAppearanceBodyMedium"
+            app:layout_constraintEnd_toStartOf="@+id/ilWeightRight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dividerHeader" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ilWeightRight"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="42dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvWeight"
+            app:layout_constraintEnd_toStartOf="@id/ilWeightLeft"
+            app:layout_constraintTop_toTopOf="@+id/tvWeight"
+            app:suffixText="kg">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etWeightRight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="numberDecimal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ilWeightLeft"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/ilWeightRight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ilWeightRight"
+            app:suffixText="kg">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etWeightLeft"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="numberDecimal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvRepetitionsRight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_64"
+            android:text="@string/title_reps_right"
+            android:textAppearance="?textAppearanceBodyMedium"
+            app:layout_constraintEnd_toStartOf="@+id/ilRepsRight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvWeight" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ilRepsRight"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_16"
+            app:layout_constraintBottom_toBottomOf="@+id/tvRepetitionsRight"
+            app:layout_constraintEnd_toStartOf="@id/tvPlusRight"
+            app:layout_constraintTop_toTopOf="@+id/tvRepetitionsRight">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etRepsRight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvPlusRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:text="@string/title_plus"
+            android:textAppearance="?textAppearanceBodyLarge"
+            app:layout_constraintBottom_toBottomOf="@id/ilRepsRight"
+            app:layout_constraintEnd_toStartOf="@+id/ilPartialsRight"
+            app:layout_constraintTop_toTopOf="@id/ilRepsRight" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ilPartialsRight"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tvPlusRight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvPlusRight">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPartialsRight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvRepetitionsLeft"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_64"
+            android:text="@string/title_reps_left"
+            android:textAppearance="?textAppearanceBodyMedium"
+            app:layout_constraintEnd_toStartOf="@+id/ilRepsLeft"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvRepetitionsRight" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ilRepsLeft"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_16"
+            app:layout_constraintBottom_toBottomOf="@+id/tvRepetitionsLeft"
+            app:layout_constraintEnd_toStartOf="@id/tvPlusLeft"
+            app:layout_constraintTop_toTopOf="@+id/tvRepetitionsLeft">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etRepsLeft"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvPlusLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:text="@string/title_plus"
+            android:textAppearance="?textAppearanceBodyLarge"
+            app:layout_constraintBottom_toBottomOf="@id/ilRepsLeft"
+            app:layout_constraintEnd_toStartOf="@+id/ilPartialsLeft"
+            app:layout_constraintTop_toTopOf="@id/ilRepsLeft" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ilPartialsLeft"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tvPlusLeft"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvPlusLeft">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPartialsLeft"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/dividerCurrent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_64"
+            app:dividerColor="?colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvRepetitionsLeft" />
+
+        <TextView
+            android:id="@+id/tvPreviousHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24"
+            android:text="@string/title_previous"
+            android:textAppearance="?textAppearanceBodyMedium"
+            app:layout_constraintEnd_toStartOf="@id/tvLastWeight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dividerCurrent" />
+
+        <TextView
+            android:id="@+id/tvLastWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:textAppearance="?textAppearanceTitleSmall"
+            app:layout_constraintBottom_toBottomOf="@id/tvPreviousHeader"
+            app:layout_constraintEnd_toStartOf="@id/tvLastReps"
+            app:layout_constraintTop_toTopOf="@id/tvPreviousHeader"
+            tools:text="25/25 Kg" />
+
+        <TextView
+            android:id="@+id/tvLastReps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?textAppearanceTitleSmall"
+            app:layout_constraintBottom_toBottomOf="@id/tvLastWeight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvLastWeight"
+            tools:text="25+2/25+2 Reps" />
+
+        <Button
+            android:id="@+id/btnCompleteSet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24"
+            android:text="@string/action_complete_set"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPreviousHeader" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

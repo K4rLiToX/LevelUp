@@ -26,5 +26,6 @@ class WorkoutDetailsViewModel @Inject constructor(
         }
     }
 
-    fun getWorkoutId() = workoutId
+    fun getWorkoutId(): Int = workoutId
+    fun getWorkoutName(): String = toolbarTitle
 }

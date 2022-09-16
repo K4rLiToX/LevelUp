@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_16">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_16">
+
+        <TextView
+            android:id="@+id/tvSetHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?textAppearanceBodyLarge"
+            app:layout_constraintEnd_toStartOf="@id/tvRepRange"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Set 1" />
+
+        <TextView
+            android:id="@+id/tvRepRange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?textAppearanceTitleMedium"
+            app:layout_constraintBottom_toBottomOf="@id/tvSetHeader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvSetHeader"
+            tools:text="Range 12-15" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/dividerHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            app:dividerColor="?colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSetHeader" />
+
+        <TextView
+            android:id="@+id/tvWeight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_32"
+            android:text="@string/title_weight"
+            android:textAppearance="?textAppearanceBodyMedium"
+            app:layout_constraintEnd_toStartOf="@+id/ilWeight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dividerHeader" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ilWeight"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tvWeight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvWeight"
+            app:suffixText="kg">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etWeight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="numberDecimal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvRepetitions"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_64"
+            android:text="@string/title_reps"
+            android:textAppearance="?textAppearanceBodyMedium"
+            app:layout_constraintEnd_toStartOf="@+id/ilReps"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvWeight" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ilReps"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_16"
+            app:layout_constraintBottom_toBottomOf="@+id/tvRepetitions"
+            app:layout_constraintEnd_toStartOf="@id/tvPlus"
+            app:layout_constraintTop_toTopOf="@+id/tvRepetitions">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etReps"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvPlus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:text="@string/title_plus"
+            android:textAppearance="?textAppearanceBodyLarge"
+            app:layout_constraintBottom_toBottomOf="@id/ilReps"
+            app:layout_constraintEnd_toStartOf="@+id/ilPartials"
+            app:layout_constraintTop_toTopOf="@id/ilReps" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ilPartials"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tvPlus"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvPlus">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPartials"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/dividerCurrent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_64"
+            app:dividerColor="?colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvRepetitions" />
+
+        <TextView
+            android:id="@+id/tvPreviousHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24"
+            android:text="@string/title_previous"
+            android:textAppearance="?textAppearanceBodyMedium"
+            app:layout_constraintEnd_toStartOf="@id/tvLastWeight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dividerCurrent" />
+
+        <TextView
+            android:id="@+id/tvLastWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="80dp"
+            android:textAppearance="?textAppearanceTitleSmall"
+            app:layout_constraintBottom_toBottomOf="@id/tvPreviousHeader"
+            app:layout_constraintEnd_toStartOf="@id/tvLastReps"
+            app:layout_constraintTop_toTopOf="@id/tvPreviousHeader"
+            tools:text="198 Kg" />
+
+        <TextView
+            android:id="@+id/tvLastReps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?textAppearanceTitleSmall"
+            app:layout_constraintBottom_toBottomOf="@id/tvLastWeight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvLastWeight"
+            tools:text="25+2 Reps" />
+
+        <Button
+            android:id="@+id/btnCompleteSet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24"
+            android:text="@string/action_complete_set"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPreviousHeader" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

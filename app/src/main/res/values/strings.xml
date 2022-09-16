@@ -21,6 +21,12 @@
     <string name="title_range">Range</string>
     <string name="title_choose_exercises">Choose Exercise</string>
     <string name="title_warning">Warning!</string>
+    <string name="title_weight">Weight</string>
+    <string name="title_reps">Reps</string>
+    <string name="title_reps_right">Right reps</string>
+    <string name="title_reps_left">Left reps</string>
+    <string name="title_plus">+</string>
+    <string name="title_previous">Previous</string>
 
     <string name="exercise_category_all">All</string>
     <string name="exercise_category_push">Push</string>
@@ -44,6 +50,7 @@
     <string name="action_delete">Delete</string>
     <string name="action_update">Update</string>
     <string name="action_replace">Replace</string>
+    <string name="action_complete_set">Complete Set</string>
 
     <string name="form_input_text_title">Title</string>
     <string name="form_input_text_range">Range</string>
@@ -56,8 +63,13 @@
 
     <string name="message_unilateral">By enabling this, you will have to write down weights and reps for each arm/leg</string>
 
-    <string name="placeholder_weight">%s kg</string>
+    <string name="placeholder_weight">%s Kg</string>
+    <string name="placeholder_weight_unilateral">%s/%s Kg</string>
+    <string name="placeholder_reps">%s Reps</string>
+    <string name="placeholder_reps_unilateral">%s+%s/%s+%s Reps</string>
+    <string name="placeholder_set">Set %s</string>
     <string name="placeholder_range">%s - %s</string>
+    <string name="placeholder_range_title">Range %s - %s</string>
     <string name="placeholder_exercise_with_number">%s exercises</string>
     <string name="placeholder_one_variable">%s</string>
 
@@ -68,7 +80,10 @@
     <string name="error_weight_exists">A weight already exists for today, but you can modify it</string>
     <string name="error_no_exercises_added">Workout without exercises? Don\'t be lazy, add a few of them</string>
     <string name="error_no_sets_added_to_exercise">Make sure to add sets to each exercise!</string>
+    <string name="error_set_not_completed">Make sure to fill weights, reps and partials to mark a set as completed</string>
+    <string name="error_exercises_sets_not_completed">Make sure to mark all exercise\'s sets as completed to finish the workout</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_start_workout">Start workout</string>
+    <string name="action_finish">Finish</string>
 </resources>

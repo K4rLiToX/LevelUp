@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.carlosdiestro.levelup.MainActivity
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
@@ -22,8 +23,22 @@ class WorkoutDetailsFragment : Fragment(R.layout.fragment_workout_details) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpClickListeners()
         setUpViewPagerWithTabLayout()
         collectUIState()
+    }
+
+    private fun setUpClickListeners() {
+        binding.btnStartWorkout.setOnClickListener { navigateToOnGoingWorkout() }
+    }
+
+    private fun navigateToOnGoingWorkout() {
+        findNavController().navigate(
+            WorkoutDetailsFragmentDirections.toOnGoingWorkoutFragment(
+                viewModel.getWorkoutId(),
+                viewModel.getWorkoutName()
+            )
+        )
     }
 
     private fun setUpViewPagerWithTabLayout() {
