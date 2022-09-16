@@ -38,5 +38,6 @@
         <item name="textInputStyle">@style/Widget.LevelUp.TextInputLayout</item>
         <item name="materialSwitchStyle">@style/Widget.LevelUp.Switch</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.LevelUp.BottomSheetDialog</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.LevelUp.MaterialAlertDialog</item>
     </style>
 </resources>
