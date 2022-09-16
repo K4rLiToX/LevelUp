@@ -37,8 +37,6 @@ class OnGoingWorkoutViewModel @Inject constructor(
 
     private val workoutId: Int = savedStateHandle.get<Int>("workoutId")!!
     private val workoutName: String = savedStateHandle.get<String>("workoutName")!!
-    var numberOfExercises: Int = -1
-        private set
 
     private var exercises: MutableList<CompletedWorkoutExercisePLO> =
         savedStateHandle[ExercisesKey] ?: mutableListOf()
@@ -63,7 +61,6 @@ class OnGoingWorkoutViewModel @Inject constructor(
     private fun fetchWorkout() {
         launchAndCollect(getLastCompletedWorkoutUseCase(workoutId)) { response ->
             _state.update {
-                numberOfExercises = response.size
                 exercises = response.toMutableList()
                 it.copy(
                     workoutName = workoutName,

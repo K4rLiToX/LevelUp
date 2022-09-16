@@ -65,7 +65,7 @@
 
     <string name="placeholder_weight">%s Kg</string>
     <string name="placeholder_weight_unilateral">%s/%s Kg</string>
-    <string name="placeholder_reps">%s Reps</string>
+    <string name="placeholder_reps">%s+%s Reps</string>
     <string name="placeholder_reps_unilateral">%s+%s/%s+%s Reps</string>
     <string name="placeholder_set">Set %s</string>
     <string name="placeholder_range">%s - %s</string>

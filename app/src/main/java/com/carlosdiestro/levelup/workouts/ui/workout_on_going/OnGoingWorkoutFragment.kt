@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.widget.ViewPager2
 import com.carlosdiestro.levelup.MainActivity
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
@@ -100,24 +99,11 @@ class OnGoingWorkoutFragment : Fragment(R.layout.fragment_on_going_workout), Men
     }
 
     private fun setUpMenu() {
-        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                handleMenuInflation(position)
-            }
-        })
-    }
-
-    private fun handleMenuInflation(position: Int) {
-        if (position == viewModel.numberOfExercises - 1) {
-            requireActivity().addMenuProvider(
-                this@OnGoingWorkoutFragment,
-                viewLifecycleOwner,
-                Lifecycle.State.RESUMED
-            )
-        } else {
-            requireActivity().removeMenuProvider(this@OnGoingWorkoutFragment)
-        }
+        requireActivity().addMenuProvider(
+            this@OnGoingWorkoutFragment,
+            viewLifecycleOwner,
+            Lifecycle.State.RESUMED
+        )
     }
 
     private fun finishWorkout() {

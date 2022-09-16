@@ -31,11 +31,16 @@ class WorkoutExerciseRepositoryImpl @Inject constructor(
                 ?: emptyList()
         }
 
-    override fun getCompletedExercisesWithSets(workoutId: Int): Flow<List<CompletedWorkoutExercise>> =
-        flow<List<CompletedWorkoutExercise>> {
-            completedWorkoutExerciseDAO.getCompletedExercisesWithSetsFlow(workoutId)
-                .map { it?.toDomain() ?: emptyList() }
-        }.flowOn(ioDispatcher)
+    override fun getCompletedExercisesWithSets(workoutId: Int): Flow<List<Pair<Int, List<CompletedWorkoutExercise>>>> =
+        completedWorkoutExerciseDAO
+            .getCompletedExercisesWithSetsFlow(workoutId)
+            .map { list ->
+                list
+                    ?.groupBy { it.exercise?.exerciseOrder }
+                    ?.map { (key, value) -> Pair(key, value.sortedBy { it.exercise?.date }) }
+                    ?.map { p -> Pair(p.first!!, p.second.toDomain()) }
+                    ?: emptyList()
+            }.flowOn(ioDispatcher)
 
     override suspend fun insert(completedWorkoutExercise: CompletedWorkoutExercise) =
         withContext(ioDispatcher) {
