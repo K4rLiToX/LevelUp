@@ -1,9 +1,10 @@
 package com.carlosdiestro.levelup.exercise_library.ui.exercise_add
 
 import android.os.Bundle
-import android.transition.Transition
-import android.transition.TransitionInflater
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,6 +19,7 @@ import com.carlosdiestro.levelup.databinding.FragmentNewExerciseBinding
 import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,14 +28,11 @@ class NewExerciseFragment : Fragment(R.layout.fragment_new_exercise), MenuProvid
     private val binding by viewBinding(FragmentNewExerciseBinding::bind)
     private val viewModel by viewModels<NewExerciseViewModel>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        sharedElementEnterTransition = getSharedElementTransition()
-        sharedElementReturnTransition = getSharedElementTransition()
-        return super.onCreateView(inflater, container, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,11 +75,6 @@ class NewExerciseFragment : Fragment(R.layout.fragment_new_exercise), MenuProvid
             }
 
         }
-    }
-
-    private fun getSharedElementTransition(): Transition? {
-        return TransitionInflater.from(requireContext())
-            .inflateTransition(android.R.transition.move)
     }
 
     private fun submitNewExercise() {

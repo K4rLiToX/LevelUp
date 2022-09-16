@@ -13,6 +13,7 @@ import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import com.carlosdiestro.levelup.core.ui.resources.toText
 import com.carlosdiestro.levelup.databinding.FragmentWorkoutDetailsBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,6 +21,13 @@ class WorkoutDetailsFragment : Fragment(R.layout.fragment_workout_details) {
 
     private val binding by viewBinding(FragmentWorkoutDetailsBinding::bind)
     private val viewModel by viewModels<WorkoutDetailsViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

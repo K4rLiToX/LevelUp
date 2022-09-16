@@ -1,8 +1,6 @@
 package com.carlosdiestro.levelup.workouts.ui.workout_add
 
 import android.os.Bundle
-import android.transition.Transition
-import android.transition.TransitionInflater
 import android.view.*
 import android.widget.PopupMenu
 import androidx.core.view.MenuProvider
@@ -26,6 +24,7 @@ import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutSetPLO
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,6 +36,10 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
+
         setFragmentResultListener(
             ExerciseChooserFragment.ITEM_CLICKED_KEY
         ) { requestKey, bundle ->
@@ -47,15 +50,6 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
                 else viewModel.onEvent(NewWorkoutEvent.OnExerciseClicked(it))
             }
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        sharedElementEnterTransition = getSharedElementTransition()
-        sharedElementReturnTransition = getSharedElementTransition()
-        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -204,10 +198,5 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
 
     private fun deleteExercise(id: Int) {
         viewModel.onEvent(NewWorkoutEvent.OnRemoveExerciseClicked(id))
-    }
-
-    private fun getSharedElementTransition(): Transition? {
-        return TransitionInflater.from(requireContext())
-            .inflateTransition(android.R.transition.move)
     }
 }
