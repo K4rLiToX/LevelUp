@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/workoutsFragment"
+        android:icon="@drawable/ic_workout"
+        android:title="@string/section_workout" />
 
     <item
         android:id="@+id/exerciseLibraryFragment"
-        android:title="@string/title_exercise"
-        android:icon="@drawable/ic_dumbbell" />
+        android:icon="@drawable/ic_dumbbell"
+        android:title="@string/title_exercise" />
 
     <item
         android:id="@+id/bodyWeightProgressFragment"
-        android:title="@string/section_body_weight"
-        android:icon="@drawable/ic_weight_scale" />
+        android:icon="@drawable/ic_weight_scale"
+        android:title="@string/section_body_weight" />
 </menu>

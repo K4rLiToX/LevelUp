@@ -7,11 +7,11 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class ValidateExerciseNameUseCase @Inject constructor(
-    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
+class BlankStringValidatorUseCase @Inject constructor(
+    @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ) {
 
-    suspend operator fun invoke(input: String): ValidationResult = withContext(defaultDispatcher) {
+    suspend operator fun invoke(input: String): ValidationResult = withContext(dispatcher) {
         when {
             input.isBlank() -> ValidationResult(false, StringResource.BlankInput)
             else -> ValidationResult(true, null)

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ThemeOverlay.LevelUp.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.LevelUp.BottomSheet.Modal</item>
+    </style>
+
+    <style name="Widget.LevelUp.BottomSheet.Modal" parent="Widget.Material3.BottomSheet.Modal">
+        <item name="backgroundTint">@color/white</item>
+        <item name="buttonStyle">?materialButtonStyle</item>
+    </style>
+
+    <style name="ThemeOverlay.LevelUp.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorSurface">@color/white</item>
+        <item name="materialAlertDialogTitleTextStyle">
+            @style/MaterialAlertDialog.LevelUp.Title.Text
+        </item>
+        <item name="materialAlertDialogBodyTextStyle">
+            @style/MaterialAlertDialog.LevelUp.Body.Text
+        </item>
+        <item name="buttonBarNegativeButtonStyle">?materialButtonStyle</item>
+    </style>
+
+    <style name="MaterialAlertDialog.LevelUp.Title.Text" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textColor">@color/secondary_500</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textAppearance">?textAppearanceTitleMedium</item>
+    </style>
+
+    <style name="MaterialAlertDialog.LevelUp.Body.Text" parent="MaterialAlertDialog.Material3.Body.Text">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+</resources>

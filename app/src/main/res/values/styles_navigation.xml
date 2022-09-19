@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.LevelUp.BottomNavigation" parent="Widget.Material3.BottomNavigationView">
+        <item name="labelVisibilityMode">unlabeled</item>
+        <item name="itemActiveIndicatorStyle">
+            @style/Widget.LevelUp.BottomNavigationView.ActiveIndicator
+        </item>
+    </style>
+
+    <style name="Widget.LevelUp.BottomNavigationView.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">?colorSecondaryContainer</item>
+    </style>
+
+    <style name="Widget.LevelUp.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="navigationIconTint">?colorOnSurface</item>
+        <item name="titleTextColor">?colorOnSurface</item>
+        <item name="titleTextAppearance">@style/TextAppearance.LevelUp.BoldTitleMedium</item>
+        <item name="android:paddingEnd">@dimen/padding_16</item>
+    </style>
+
+    <style name="TextAppearance.LevelUp.BoldTitleMedium" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Widget.LevelUp.TabLayout" parent="Widget.Material3.TabLayout">
+        <item name="android:background">?colorSurface</item>
+        <item name="android:elevation">@dimen/d2</item>
+        <item name="tabIndicatorAnimationMode">elastic</item>
+        <item name="tabIndicatorColor">?colorSecondary</item>
+        <item name="tabSelectedTextColor">?colorSecondary</item>
+        <item name="tabTextColor">?colorOnSurface</item>
+    </style>
+
+</resources>

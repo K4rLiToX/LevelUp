@@ -12,7 +12,7 @@ class AddNewExerciseUseCase @Inject constructor(
     suspend operator fun invoke(name: String, category: ExerciseCategory, isUnilateral: Boolean) {
         repository.insert(
             Exercise(
-                id = 1,
+                id = -1,
                 name = name,
                 isUnilateral = isUnilateral,
                 category = category

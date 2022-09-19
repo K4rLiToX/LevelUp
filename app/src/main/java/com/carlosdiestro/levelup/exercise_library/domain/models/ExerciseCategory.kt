@@ -18,7 +18,7 @@ fun ExerciseCategory.toValue(): Int {
     }
 }
 
-fun Int.toExerciseGroup(): ExerciseCategory {
+fun Int.toExerciseCategory(): ExerciseCategory {
     return when (this) {
         ExerciseCategory.PUSH.ordinal -> ExerciseCategory.PUSH
         ExerciseCategory.PULL.ordinal -> ExerciseCategory.PULL

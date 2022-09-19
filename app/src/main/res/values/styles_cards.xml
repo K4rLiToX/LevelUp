@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.LevelUp.CardView" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">?colorOnSurface</item>
+        <item name="shapeAppearance">?shapeAppearanceCornerMedium</item>
+        <item name="cardElevation">@dimen/d2</item>
+    </style>
+
+</resources>

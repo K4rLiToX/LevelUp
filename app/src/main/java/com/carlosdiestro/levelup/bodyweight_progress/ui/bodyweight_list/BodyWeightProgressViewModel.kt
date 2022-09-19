@@ -7,7 +7,7 @@ import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.NoteDownBod
 import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.UpdateBodyWeightUseCase
 import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.ValidateNewWeightUseCase
 import com.carlosdiestro.levelup.bodyweight_progress.ui.models.BodyWeightPLO
-import com.carlosdiestro.levelup.core.domain.Response
+import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,23 +35,17 @@ class BodyWeightProgressViewModel @Inject constructor(
     fun onEvent(event: BodyWeightProgressEvent) {
         when (event) {
             is BodyWeightProgressEvent.NoteDown -> submitNewWeight(event.weight)
-            is BodyWeightProgressEvent.Update -> updateBodyWeight(event.bodyWeightPLO)
+            is BodyWeightProgressEvent.Update -> updateBodyWeight(event.item)
         }
     }
 
     private fun fetchBodyWeights() {
-        viewModelScope.launch {
-            getWeightListUseCase().collect { response ->
-                when (response) {
-                    is Response.Loading -> Unit
-                    is Response.Error -> Unit
-                    is Response.Success -> _state.update {
-                        it.copy(
-                            noData = response.data!!.isEmpty(),
-                            bodyWeightList = response.data
-                        )
-                    }
-                }
+        launchAndCollect(getWeightListUseCase()) { response ->
+            _state.update {
+                it.copy(
+                    noData = response.isEmpty(),
+                    bodyWeights = response
+                )
             }
         }
     }
