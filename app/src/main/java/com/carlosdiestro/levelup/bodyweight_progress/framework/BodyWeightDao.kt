@@ -4,7 +4,7 @@ import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface BodyWeightDAO {
+interface BodyWeightDao {
 
     @Insert
     suspend fun insert(entity: BodyWeightEntity)

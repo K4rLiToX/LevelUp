@@ -9,13 +9,9 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.carlosdiestro.levelup.MainActivity
 import com.carlosdiestro.levelup.R
-import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
-import com.carlosdiestro.levelup.core.ui.extensions.showWarningDialog
-import com.carlosdiestro.levelup.core.ui.extensions.toTrimmedString
-import com.carlosdiestro.levelup.core.ui.extensions.visible
+import com.carlosdiestro.levelup.core.ui.extensions.*
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import com.carlosdiestro.levelup.core.ui.resources.toText
@@ -120,8 +116,7 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
 
     private fun setUpRecyclerView() {
         binding.rvExerciseWithSets.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            verticalLayoutManger(requireContext())
             adapter = recyclerAdapter
         }
     }
@@ -129,7 +124,7 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
     private fun collectUIState() {
         launchAndCollect(viewModel.state) {
             handleNoData(it.noData)
-            handleWorkoutExerciseList(it.exerciseList)
+            handleWorkoutExerciseList(it.exercises)
             handleNameError(it.workoutNameError)
             handleWorkoutName(it.workoutName)
             handleToolbarTitle(it.toolbarTitle)

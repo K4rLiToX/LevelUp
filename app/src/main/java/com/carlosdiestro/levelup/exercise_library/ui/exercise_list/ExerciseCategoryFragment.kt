@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
+import com.carlosdiestro.levelup.core.ui.extensions.verticalLayoutManger
 import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.databinding.FragmentExerciseCategoryBinding
@@ -22,30 +22,14 @@ class ExerciseCategoryFragment : Fragment(R.layout.fragment_exercise_category) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        collectArguments()
-        initializeRecyclerAdapter()
         setUpRecyclerView()
         collectUIState()
-        collectExercises()
-    }
-
-    private fun collectArguments() {
-        arguments?.takeIf { it.containsKey(EXERCISE_CATEGORY_KEY) }?.apply {
-            viewModel.setExerciseCategory(getInt(EXERCISE_CATEGORY_KEY))
-        }
-    }
-
-    private fun initializeRecyclerAdapter() {
-        recyclerAdapter = ExerciseAdapter()
     }
 
     private fun setUpRecyclerView() {
-        binding.rvExerciseCategory.apply {
-            layoutManager = LinearLayoutManager(
-                this@ExerciseCategoryFragment.requireContext(),
-                LinearLayoutManager.VERTICAL,
-                false
-            )
+        recyclerAdapter = ExerciseAdapter()
+        binding.recyclerView.apply {
+            verticalLayoutManger(requireContext())
             adapter = recyclerAdapter
         }
     }
@@ -53,7 +37,7 @@ class ExerciseCategoryFragment : Fragment(R.layout.fragment_exercise_category) {
     private fun collectUIState() {
         launchAndCollect(viewModel.state) {
             handleNoData(it.noData)
-            handleExerciseList(it.exerciseList)
+            handleExerciseList(it.exercises)
         }
     }
 
@@ -63,10 +47,6 @@ class ExerciseCategoryFragment : Fragment(R.layout.fragment_exercise_category) {
 
     private fun handleExerciseList(list: List<ExercisePLO>) {
         recyclerAdapter.submitList(list)
-    }
-
-    private fun collectExercises() {
-        viewModel.getExercises()
     }
 
     companion object {

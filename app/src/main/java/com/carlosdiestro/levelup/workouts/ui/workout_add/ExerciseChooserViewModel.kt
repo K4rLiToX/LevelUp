@@ -40,7 +40,7 @@ class ExerciseChooserViewModel @Inject constructor(
             _state.update {
                 it.copy(
                     noData = response.isEmpty(),
-                    exerciseList = response,
+                    exercises = response,
                     filter = ExerciseCategory.ALL
                 )
             }
@@ -52,7 +52,7 @@ class ExerciseChooserViewModel @Inject constructor(
             _state.update {
                 it.copy(
                     filter = newFilter,
-                    exerciseList = response
+                    exercises = response
                 )
             }
         }

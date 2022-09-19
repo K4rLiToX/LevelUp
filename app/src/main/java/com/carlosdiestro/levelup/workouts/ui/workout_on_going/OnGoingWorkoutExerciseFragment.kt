@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.core.ui.extensions.showWarningDialog
+import com.carlosdiestro.levelup.core.ui.extensions.verticalLayoutManger
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import com.carlosdiestro.levelup.databinding.FragmentOnGoingWorkoutExerciseBinding
@@ -25,11 +25,11 @@ class OnGoingWorkoutExerciseFragment : Fragment(R.layout.fragment_on_going_worko
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpRecyclerAdapterWithRecyclerView()
+        setUpRecyclerView()
         collectUIState()
     }
 
-    private fun setUpRecyclerAdapterWithRecyclerView() {
+    private fun setUpRecyclerView() {
         if (viewModel.isUnilateral()) {
             recyclerAdapterUnilateral = CompletedWorkoutSetUnilateralAdapter(
                 { rw, lw, rr, lr, rp, lp, set ->
@@ -79,8 +79,7 @@ class OnGoingWorkoutExerciseFragment : Fragment(R.layout.fragment_on_going_worko
         }
 
         binding.recyclerView.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            verticalLayoutManger(requireContext())
             adapter = if (viewModel.isUnilateral()) recyclerAdapterUnilateral else recyclerAdapter
         }
     }

@@ -31,7 +31,7 @@ class WorkoutDetailsExercisesViewModel @Inject constructor(
         launchAndCollect(getWorkoutUseCase(workoutId)) { (_, exercises) ->
             _state.update {
                 it.copy(
-                    exerciseList = exercises
+                    exercises = exercises
                 )
             }
         }

@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class FilterExerciseListUseCase @Inject constructor(
-    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
+    @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ) {
 
     operator fun invoke(
@@ -21,5 +21,5 @@ class FilterExerciseListUseCase @Inject constructor(
             ExerciseCategory.ALL -> emit(list)
             else -> emit(list.filter { it.category == filter })
         }
-    }.flowOn(defaultDispatcher)
+    }.flowOn(dispatcher)
 }

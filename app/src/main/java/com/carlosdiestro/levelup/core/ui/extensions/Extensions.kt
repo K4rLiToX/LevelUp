@@ -2,13 +2,20 @@ package com.carlosdiestro.levelup.core.ui.extensions
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.content.Context
 import android.text.Editable
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
@@ -80,4 +87,19 @@ fun Fragment.showWarningDialog(messageId: Int) {
         .setNegativeButton(StringResource.Close.resId) { d, _ -> d.dismiss() }
         .create()
         .show()
+}
+
+fun RecyclerView.verticalLayoutManger(context: Context) {
+    this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+}
+
+fun ViewPager2.initializeViewPagerWithTabLayout(
+    viewPagerAdapter: FragmentStateAdapter,
+    tabLayout: TabLayout,
+    tabTitle: (Int) -> String
+) {
+    this.adapter = viewPagerAdapter
+    TabLayoutMediator(tabLayout, this) { tab, position ->
+        tab.text = tabTitle(position)
+    }.attach()
 }

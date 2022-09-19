@@ -3,9 +3,9 @@ package com.carlosdiestro.levelup.workouts.ui.workout_add
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.carlosdiestro.levelup.core.ui.extensions.verticalLayoutManger
 import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.databinding.ItemExerciseWithSetsBinding
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutExercisePLO
@@ -80,8 +80,7 @@ class WorkoutExerciseAdapter(
 
         private fun setUpRecyclerView() {
             binding.rvSets.apply {
-                layoutManager =
-                    LinearLayoutManager(binding.root.context, LinearLayoutManager.VERTICAL, false)
+                verticalLayoutManger(binding.root.context)
                 adapter = recyclerAdapter
             }
         }

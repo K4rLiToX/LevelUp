@@ -10,8 +10,7 @@ data class ExercisePLO(
     val id: Int,
     val name: String,
     val isUnilateral: Boolean,
-    val category: ExerciseCategory,
-    var isSelected: Boolean = false
+    val category: ExerciseCategory
 ) : Parcelable {
 
     class ExerciseDiffCallback : DiffUtil.ItemCallback<ExercisePLO>() {

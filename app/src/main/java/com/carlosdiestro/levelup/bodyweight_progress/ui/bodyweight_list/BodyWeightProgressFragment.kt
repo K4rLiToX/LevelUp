@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.bodyweight_progress.ui.bodyweight_update.UpdateBodyWeightDialog
 import com.carlosdiestro.levelup.bodyweight_progress.ui.models.BodyWeightPLO
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.core.ui.extensions.toTrimmedString
+import com.carlosdiestro.levelup.core.ui.extensions.verticalLayoutManger
 import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
@@ -40,12 +40,8 @@ class BodyWeightProgressFragment : Fragment(R.layout.fragment_body_weight_progre
     }
 
     private fun setUpRecyclerView() {
-        binding.rvBodyWeight.apply {
-            layoutManager = LinearLayoutManager(
-                this@BodyWeightProgressFragment.requireContext(),
-                LinearLayoutManager.VERTICAL,
-                false
-            )
+        binding.recyclerView.apply {
+            verticalLayoutManger(requireContext())
             adapter = recyclerAdapter
         }
     }
@@ -53,7 +49,7 @@ class BodyWeightProgressFragment : Fragment(R.layout.fragment_body_weight_progre
     private fun collectUIState() {
         launchAndCollect(viewModel.state) {
             handleNoData(it.noData)
-            handleBodyWeightList(it.bodyWeightList)
+            handleBodyWeightList(it.bodyWeights)
             handleBodyWeightForm(it.weight, it.weightError)
         }
     }

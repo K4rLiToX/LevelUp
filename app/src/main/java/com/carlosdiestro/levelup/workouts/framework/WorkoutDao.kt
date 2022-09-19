@@ -5,7 +5,7 @@ import com.carlosdiestro.levelup.workouts.framework.middle_tables.WorkoutWithExe
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface WorkoutDAO {
+interface WorkoutDao {
 
     @Insert
     suspend fun insert(workoutEntity: WorkoutEntity): Long

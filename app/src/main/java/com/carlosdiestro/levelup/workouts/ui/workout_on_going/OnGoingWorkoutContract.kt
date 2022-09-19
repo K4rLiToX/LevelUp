@@ -12,14 +12,14 @@ data class OnGoingWorkoutState(
     val currentExercise: CompletedWorkoutExercisePLO? = null
 ) : Parcelable
 
-sealed class OnGoingWorkoutEvent {
+sealed interface OnGoingWorkoutEvent {
     class UpdateCompletedWorkoutSet(val set: CompletedWorkoutSetPLO, val exerciseOrder: Int) :
-        OnGoingWorkoutEvent()
+        OnGoingWorkoutEvent
 
-    object FinishWorkout : OnGoingWorkoutEvent()
+    object FinishWorkout : OnGoingWorkoutEvent
 }
 
-sealed class OnGoingWorkoutResponse {
-    object ShowWarningDialog : OnGoingWorkoutResponse()
-    object NavigateBack : OnGoingWorkoutResponse()
+sealed interface OnGoingWorkoutResponse {
+    object ShowWarningDialog : OnGoingWorkoutResponse
+    object NavigateBack : OnGoingWorkoutResponse
 }

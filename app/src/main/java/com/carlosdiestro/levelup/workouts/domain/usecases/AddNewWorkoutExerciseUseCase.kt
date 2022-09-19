@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class AddNewWorkoutExerciseUseCase @Inject constructor(
-    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
+    @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ) {
 
     operator fun invoke(
@@ -28,5 +28,5 @@ class AddNewWorkoutExerciseUseCase @Inject constructor(
                 )
             )
         )
-    }.flowOn(defaultDispatcher)
+    }.flowOn(dispatcher)
 }

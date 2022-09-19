@@ -6,11 +6,11 @@ import com.carlosdiestro.levelup.workouts.ui.models.WorkoutPLO
 import javax.inject.Inject
 
 class DeleteWorkoutUseCase @Inject constructor(
-    private val workoutRepository: WorkoutRepository
+    private val repository: WorkoutRepository
 ) {
 
     suspend operator fun invoke(workout: WorkoutPLO) {
-        workoutRepository.delete(workout.toDomain())
+        repository.delete(workout.toDomain())
     }
 }
 

@@ -9,11 +9,11 @@ import com.carlosdiestro.levelup.workouts.ui.models.WorkoutSetPLO
 import javax.inject.Inject
 
 class AddNewWorkoutUseCase @Inject constructor(
-    private val workoutRepository: WorkoutRepository
+    private val repository: WorkoutRepository
 ) {
 
     suspend operator fun invoke(name: String, list: List<WorkoutExercisePLO>) {
-        workoutRepository.insert(
+        repository.insert(
             Workout(
                 id = -1,
                 name = name,

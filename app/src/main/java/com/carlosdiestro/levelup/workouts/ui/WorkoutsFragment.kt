@@ -7,9 +7,9 @@ import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
+import com.carlosdiestro.levelup.core.ui.extensions.verticalLayoutManger
 import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.databinding.FragmentWorkoutsBinding
@@ -25,22 +25,17 @@ class WorkoutsFragment : Fragment(R.layout.fragment_workouts) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpRecyclerAdapter()
         setUpRecyclerView()
         collectUIState()
     }
 
-    private fun setUpRecyclerAdapter() {
+    private fun setUpRecyclerView() {
         recyclerAdapter = WorkoutAdapter(
             { id, name -> navigateToWorkoutDetails(id, name) },
             { id, view -> openMoreMenu(id, view) }
         )
-    }
-
-    private fun setUpRecyclerView() {
         binding.rvWorkouts.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            verticalLayoutManger(requireContext())
             adapter = recyclerAdapter
         }
     }
@@ -48,7 +43,7 @@ class WorkoutsFragment : Fragment(R.layout.fragment_workouts) {
     private fun collectUIState() {
         launchAndCollect(viewModel.state) {
             handleNoData(it.noData)
-            handleWorkoutList(it.workoutList)
+            handleWorkoutList(it.workouts)
         }
     }
 

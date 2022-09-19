@@ -6,11 +6,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.gone
+import com.carlosdiestro.levelup.core.ui.extensions.initializeViewPagerWithTabLayout
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.databinding.FragmentWorkoutDetailsProgressBinding
 import com.carlosdiestro.levelup.workouts.ui.models.CompletedWorkoutExercisePLO
-import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,14 +38,14 @@ class WorkoutDetailsProgressFragment : Fragment(R.layout.fragment_workout_detail
     }
 
     private fun handleExercises(exercises: List<Pair<String, List<CompletedWorkoutExercisePLO>>>) {
-        binding.apply {
-            viewPager.adapter = WorkoutDetailsProgressFragmentAdapter(
+        binding.viewPager.initializeViewPagerWithTabLayout(
+            WorkoutDetailsProgressFragmentAdapter(
                 exercises,
-                this@WorkoutDetailsProgressFragment
-            )
-            TabLayoutMediator(tabLayout, viewPager) { tab, pos ->
-                tab.text = exercises[pos].first
-            }.attach()
+                this
+            ),
+            binding.tabLayout
+        ) { pos ->
+            exercises[pos].first
         }
     }
 

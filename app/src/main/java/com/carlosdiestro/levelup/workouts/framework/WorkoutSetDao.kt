@@ -4,7 +4,7 @@ import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface WorkoutSetDAO {
+interface WorkoutSetDao {
 
     @Insert
     suspend fun insert(list: List<WorkoutSetEntity>)

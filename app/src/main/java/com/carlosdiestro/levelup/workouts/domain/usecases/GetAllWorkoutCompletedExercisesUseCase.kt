@@ -16,13 +16,14 @@ import javax.inject.Inject
 
 class GetAllWorkoutCompletedExercisesUseCase @Inject constructor(
     private val workoutRepository: WorkoutRepository,
-    private val repository: WorkoutExerciseRepository
+    private val workoutExerciseRepository: WorkoutExerciseRepository
 ) {
 
     operator fun invoke(id: Int): Flow<List<Pair<String, List<CompletedWorkoutExercisePLO>>>> =
         flow {
             val workout = workoutRepository.getById(id).first()
-            val completedExercises = repository.getCompletedExercisesWithSets(id).firstOrNull()
+            val completedExercises =
+                workoutExerciseRepository.getCompletedExercisesWithSets(id).firstOrNull()
 
             val exercisesPLO = workout.exercises.toPLO()
 

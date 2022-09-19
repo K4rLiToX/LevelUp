@@ -88,7 +88,7 @@ class NewWorkoutViewModel @Inject constructor(
             _state.update {
                 it.copy(
                     noData = response.isEmpty(),
-                    exerciseList = response
+                    exercises = response
                 )
             }
         }
@@ -105,7 +105,7 @@ class NewWorkoutViewModel @Inject constructor(
             exerciseList = response.toMutableList()
             _state.update {
                 it.copy(
-                    exerciseList = response
+                    exercises = response
                 )
             }
         }
@@ -122,7 +122,7 @@ class NewWorkoutViewModel @Inject constructor(
             exerciseList = response.toMutableList()
             _state.update {
                 it.copy(
-                    exerciseList = response
+                    exercises = response
                 )
             }
         }
@@ -139,7 +139,7 @@ class NewWorkoutViewModel @Inject constructor(
             exerciseList = response.toMutableList()
             _state.update {
                 it.copy(
-                    exerciseList = response
+                    exercises = response
                 )
             }
         }
@@ -179,7 +179,7 @@ class NewWorkoutViewModel @Inject constructor(
         ) { response ->
             exerciseList = response.toMutableList()
             _state.update {
-                it.copy(exerciseList = response.toMutableList())
+                it.copy(exercises = response.toMutableList())
             }
         }
     }
@@ -200,7 +200,7 @@ class NewWorkoutViewModel @Inject constructor(
             exerciseIdToReplace = -1
             _state.update {
                 it.copy(
-                    exerciseList = response
+                    exercises = response
                 )
             }
         }
@@ -215,7 +215,7 @@ class NewWorkoutViewModel @Inject constructor(
             _state.update {
                 it.copy(
                     noData = exercises.isEmpty(),
-                    exerciseList = exercises,
+                    exercises = exercises,
                     workoutName = workout.name,
                     toolbarTitle = StringResource.EditWorkout
                 )

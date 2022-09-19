@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class RemoveExerciseFromWorkoutUseCase @Inject constructor(
-    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
+    @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ) {
 
     operator fun invoke(id: Int, list: List<WorkoutExercisePLO>): Flow<List<WorkoutExercisePLO>> =
@@ -22,5 +22,5 @@ class RemoveExerciseFromWorkoutUseCase @Inject constructor(
                         else e.copy(exerciseOrder = i + 1)
                     }
             )
-        }.flowOn(defaultDispatcher)
+        }.flowOn(dispatcher)
 }

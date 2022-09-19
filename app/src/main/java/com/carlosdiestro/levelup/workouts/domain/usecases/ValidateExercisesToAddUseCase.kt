@@ -9,11 +9,11 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ValidateExercisesToAddUseCase @Inject constructor(
-    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
+    @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ) {
 
     suspend operator fun invoke(list: List<WorkoutExercisePLO>): ValidationResult =
-        withContext(defaultDispatcher) {
+        withContext(dispatcher) {
             val noExercises = list.isEmpty()
             val noSetsAdded = list.find { it.sets.isEmpty() } != null
 

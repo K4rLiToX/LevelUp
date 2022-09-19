@@ -7,19 +7,15 @@ import com.carlosdiestro.levelup.workouts.ui.models.WorkoutExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutPLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutSetPLO
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GetWorkoutUseCase @Inject constructor(
-    private val workoutRepository: WorkoutRepository
+    private val repository: WorkoutRepository
 ) {
 
     operator fun invoke(workoutId: Int): Flow<Pair<WorkoutPLO, List<WorkoutExercisePLO>>> =
-        flow {
-            workoutRepository.getById(workoutId).collect {
-                emit(Pair(it.toPLO(), it.exercises.toPLO()))
-            }
-        }
+        repository.getById(workoutId).map { Pair(it.toPLO(), it.exercises.toPLO()) }
 }
 
 fun WorkoutExercise.toPLO(): WorkoutExercisePLO = WorkoutExercisePLO(

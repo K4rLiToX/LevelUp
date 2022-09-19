@@ -1,6 +1,6 @@
 package com.carlosdiestro.levelup.exercise_library.ui
 
-import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
@@ -14,12 +14,10 @@ class ExerciseCategoryFragmentAdapter(
     override fun getItemCount(): Int = EXERCISE_CATEGORIES
 
     override fun createFragment(position: Int): Fragment {
-        val category = getExerciseCategory(position)
         return ExerciseCategoryFragment().apply {
-            arguments =
-                Bundle().apply {
-                    putInt(ExerciseCategoryFragment.EXERCISE_CATEGORY_KEY, category)
-                }
+            arguments = bundleOf(
+                ExerciseCategoryFragment.EXERCISE_CATEGORY_KEY to getExerciseCategory(position)
+            )
         }
     }
 

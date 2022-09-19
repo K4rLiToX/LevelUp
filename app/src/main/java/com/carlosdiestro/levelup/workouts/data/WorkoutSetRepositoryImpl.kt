@@ -4,9 +4,9 @@ import com.carlosdiestro.levelup.core.data.IoDispatcher
 import com.carlosdiestro.levelup.core.ui.managers.TimeManager
 import com.carlosdiestro.levelup.workouts.domain.models.*
 import com.carlosdiestro.levelup.workouts.domain.repositories.WorkoutSetRepository
-import com.carlosdiestro.levelup.workouts.framework.CompletedWorkoutSetDAO
+import com.carlosdiestro.levelup.workouts.framework.CompletedWorkoutSetDao
 import com.carlosdiestro.levelup.workouts.framework.CompletedWorkoutSetEntity
-import com.carlosdiestro.levelup.workouts.framework.WorkoutSetDAO
+import com.carlosdiestro.levelup.workouts.framework.WorkoutSetDao
 import com.carlosdiestro.levelup.workouts.framework.WorkoutSetEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
@@ -14,34 +14,34 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class WorkoutSetRepositoryImpl @Inject constructor(
-    private val dao: WorkoutSetDAO,
-    private val completedWorkoutSetDAO: CompletedWorkoutSetDAO,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
+    private val workoutSetDao: WorkoutSetDao,
+    private val completedWorkoutSetDAO: CompletedWorkoutSetDao,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) : WorkoutSetRepository {
 
     override fun getExerciseSets(exerciseId: Int): Flow<List<WorkoutSet>> =
         flow<List<WorkoutSet>> {
-            dao.getExerciseSets(exerciseId).map { it.toDomain() }
-        }.flowOn(ioDispatcher)
+            workoutSetDao.getExerciseSets(exerciseId).map { it.toDomain() }
+        }.flowOn(dispatcher)
 
-    override suspend fun insert(list: List<WorkoutSet>) = withContext(ioDispatcher) {
-        dao.insert(list.toEntity())
+    override suspend fun insert(list: List<WorkoutSet>) = withContext(dispatcher) {
+        workoutSetDao.insert(list.toEntity())
     }
 
-    override suspend fun insert(workoutSet: WorkoutSet) = withContext(ioDispatcher) {
-        dao.insert(workoutSet.toEntity())
+    override suspend fun insert(workoutSet: WorkoutSet) = withContext(dispatcher) {
+        workoutSetDao.insert(workoutSet.toEntity())
     }
 
     override suspend fun insertCompletedSets(list: List<CompletedWorkoutSet>) =
-        withContext(ioDispatcher) {
+        withContext(dispatcher) {
             completedWorkoutSetDAO.insert(list.toEntity())
         }
 
-    override suspend fun update(list: List<WorkoutSet>) = withContext(ioDispatcher) {
+    override suspend fun update(list: List<WorkoutSet>) = withContext(dispatcher) {
         val exerciseAndSets = list.toEntity().groupBy { it.exerciseId }
         for ((exerciseId, newSets) in exerciseAndSets) {
             // Get the previous sets for the exercise
-            val formerSets = dao.getExerciseSets(exerciseId).first()
+            val formerSets = workoutSetDao.getExerciseSets(exerciseId).first()
 
             if (newSets == formerSets) continue
 
@@ -53,46 +53,47 @@ class WorkoutSetRepositoryImpl @Inject constructor(
                 val isInNewList = isInNewList(oldSet.id, newSets)
 
                 if (isSameId) {
-                    if (!isSameRepRange) dao.update(newSet)
+                    if (!isSameRepRange) workoutSetDao.update(newSet)
                 } else {
                     if (!isInNewList) {
                         deletedSets.add(oldSet)
-                        dao.delete(oldSet)
+                        workoutSetDao.delete(oldSet)
                     }
-                    if (!isInFormerList) dao.insert(newSet)
-                    else dao.update(newSet)
+                    if (!isInFormerList) workoutSetDao.insert(newSet)
+                    else workoutSetDao.update(newSet)
                 }
             }
 
             if (formerSets.size == newSets.size) continue
 
             if (formerSets.size < newSets.size) {
-                dao.insert(newSets.takeLast(newSets.size - formerSets.size))
+                workoutSetDao.insert(newSets.takeLast(newSets.size - formerSets.size))
             }
             if (formerSets.size > newSets.size) {
                 val formerSetsAfterFirstDeletion =
                     (formerSets subtract deletedSets.toSet()).toList()
                 formerSetsAfterFirstDeletion.forEach { fs ->
                     val exists = newSets.find { it.id == fs.id } != null
-                    if (!exists) dao.delete(fs)
+                    if (!exists) workoutSetDao.delete(fs)
                 }
             }
         }
     }
 
-    override suspend fun update(workoutSet: WorkoutSet) = withContext(ioDispatcher) {
-        dao.update(workoutSet.toEntity())
+    override suspend fun update(workoutSet: WorkoutSet) = withContext(dispatcher) {
+        workoutSetDao.update(workoutSet.toEntity())
     }
 
-    override suspend fun delete(list: List<WorkoutSet>) = withContext(ioDispatcher) {
-        dao.delete(list.toEntity())
+    override suspend fun delete(list: List<WorkoutSet>) = withContext(dispatcher) {
+        workoutSetDao.delete(list.toEntity())
     }
 
-    override suspend fun delete(workoutSet: WorkoutSet) = withContext(ioDispatcher) {
-        dao.delete(workoutSet.toEntity())
+    override suspend fun delete(workoutSet: WorkoutSet) = withContext(dispatcher) {
+        workoutSetDao.delete(workoutSet.toEntity())
     }
 
     private fun isSameId(oldId: Int?, newId: Int?): Boolean = oldId == newId
+
     private fun isSameRepRange(oldRepRange: String, newRepRange: String): Boolean =
         oldRepRange == newRepRange
 

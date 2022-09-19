@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
+import com.carlosdiestro.levelup.core.ui.extensions.verticalLayoutManger
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.databinding.FragmentWorkoutDetailsExercisesBinding
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutExercisePLO
@@ -21,26 +21,21 @@ class WorkoutDetailsExercisesFragment : Fragment(R.layout.fragment_workout_detai
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpRecyclerAdapter()
         setUpRecyclerView()
         collectUIState()
     }
 
-    private fun setUpRecyclerAdapter() {
-        recyclerAdapter = SimpleWorkoutExerciseAdapter()
-    }
-
     private fun setUpRecyclerView() {
+        recyclerAdapter = SimpleWorkoutExerciseAdapter()
         binding.recyclerView.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            verticalLayoutManger(requireContext())
             adapter = recyclerAdapter
         }
     }
 
     private fun collectUIState() {
         launchAndCollect(viewModel.state) {
-            handleExerciseList(it.exerciseList)
+            handleExerciseList(it.exercises)
         }
     }
 

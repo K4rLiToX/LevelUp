@@ -36,14 +36,14 @@ class WorkoutsViewModel @Inject constructor(
             _state.update {
                 it.copy(
                     noData = response.isEmpty(),
-                    workoutList = response
+                    workouts = response
                 )
             }
         }
     }
 
     private fun deleteWorkout(id: Int) {
-        val workoutToDelete = state.value.workoutList.find { it.id == id }!!
+        val workoutToDelete = state.value.workouts.find { it.id == id }!!
         viewModelScope.launch {
             deleteWorkoutUseCase(workoutToDelete)
         }

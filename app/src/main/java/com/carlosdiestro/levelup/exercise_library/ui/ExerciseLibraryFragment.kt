@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.carlosdiestro.levelup.R
+import com.carlosdiestro.levelup.core.ui.extensions.initializeViewPagerWithTabLayout
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import com.carlosdiestro.levelup.core.ui.resources.toText
 import com.carlosdiestro.levelup.databinding.FragmentExerciseLibraryBinding
-import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,11 +30,11 @@ class ExerciseLibraryFragment : Fragment(R.layout.fragment_exercise_library) {
     }
 
     private fun setUpViewPagerWithTabLayout() {
-        binding.apply {
-            vpExercises.adapter = ExerciseCategoryFragmentAdapter(this@ExerciseLibraryFragment)
-            TabLayoutMediator(tabExerciseGroup, vpExercises) { tab, position ->
-                tab.text = getTabTitle(position)
-            }.attach()
+        binding.viewPager.initializeViewPagerWithTabLayout(
+            ExerciseCategoryFragmentAdapter(this),
+            binding.tabLayout
+        ) { pos ->
+            getTabTitle(pos)
         }
     }
 

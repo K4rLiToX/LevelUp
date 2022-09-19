@@ -2,8 +2,8 @@ package com.carlosdiestro.levelup.core.framework
 
 import android.content.Context
 import androidx.room.Room
-import com.carlosdiestro.levelup.bodyweight_progress.framework.BodyWeightDAO
-import com.carlosdiestro.levelup.exercise_library.framework.ExerciseDAO
+import com.carlosdiestro.levelup.bodyweight_progress.framework.BodyWeightDao
+import com.carlosdiestro.levelup.exercise_library.framework.ExerciseDao
 import com.carlosdiestro.levelup.workouts.framework.*
 import dagger.Module
 import dagger.Provides
@@ -31,43 +31,43 @@ object FrameworkModule {
 
     @Provides
     @Singleton
-    fun provideBodyWeightDAO(db: LevelUpDatabase): BodyWeightDAO {
+    fun provideBodyWeightDAO(db: LevelUpDatabase): BodyWeightDao {
         return db.bodyWeightDao()
     }
 
     @Provides
     @Singleton
-    fun provideExerciseDAO(db: LevelUpDatabase): ExerciseDAO {
+    fun provideExerciseDAO(db: LevelUpDatabase): ExerciseDao {
         return db.exerciseDao()
     }
 
     @Provides
     @Singleton
-    fun provideWorkoutDAO(db: LevelUpDatabase): WorkoutDAO {
+    fun provideWorkoutDAO(db: LevelUpDatabase): WorkoutDao {
         return db.workoutDao()
     }
 
     @Provides
     @Singleton
-    fun provideWorkoutExerciseDAO(db: LevelUpDatabase): WorkoutExerciseDAO {
+    fun provideWorkoutExerciseDAO(db: LevelUpDatabase): WorkoutExerciseDao {
         return db.workoutExerciseDao()
     }
 
     @Provides
     @Singleton
-    fun provideWorkoutSetDAO(db: LevelUpDatabase): WorkoutSetDAO {
+    fun provideWorkoutSetDAO(db: LevelUpDatabase): WorkoutSetDao {
         return db.workoutSetDao()
     }
 
     @Provides
     @Singleton
-    fun provideCompletedWorkoutExerciseDAO(db: LevelUpDatabase): CompletedWorkoutExerciseDAO {
+    fun provideCompletedWorkoutExerciseDAO(db: LevelUpDatabase): CompletedWorkoutExerciseDao {
         return db.completedExerciseDao()
     }
 
     @Provides
     @Singleton
-    fun provideCompletedWorkoutSetDAO(db: LevelUpDatabase): CompletedWorkoutSetDAO {
+    fun provideCompletedWorkoutSetDAO(db: LevelUpDatabase): CompletedWorkoutSetDao {
         return db.completedSetDao()
     }
 }

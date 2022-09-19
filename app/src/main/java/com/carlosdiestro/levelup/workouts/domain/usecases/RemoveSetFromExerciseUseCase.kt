@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class RemoveSetFromExerciseUseCase @Inject constructor(
-    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
+    @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ) {
 
     operator fun invoke(
@@ -25,7 +25,7 @@ class RemoveSetFromExerciseUseCase @Inject constructor(
                 )
             }
         )
-    }.flowOn(defaultDispatcher)
+    }.flowOn(dispatcher)
 
     private fun removeSetAndRearrangeList(
         set: WorkoutSetPLO,

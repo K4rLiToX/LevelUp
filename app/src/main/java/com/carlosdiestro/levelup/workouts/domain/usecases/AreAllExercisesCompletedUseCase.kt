@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class AreAllExercisesCompletedUseCase @Inject constructor(
-    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
+    @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ) {
 
     operator fun invoke(list: List<CompletedWorkoutExercisePLO>): Flow<Boolean> = flow {
@@ -17,5 +17,5 @@ class AreAllExercisesCompletedUseCase @Inject constructor(
         emit(
             sets.find { !it.isCompleted } != null
         )
-    }.flowOn(defaultDispatcher)
+    }.flowOn(dispatcher)
 }

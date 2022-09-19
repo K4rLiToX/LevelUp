@@ -11,11 +11,11 @@ import javax.inject.Inject
 
 class ValidateNewWeightUseCase @Inject constructor(
     private val repository: BodyWeightRepository,
-    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
+    @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ) {
 
     suspend operator fun invoke(input: String, isUpdate: Boolean = false): ValidationResult =
-        withContext(defaultDispatcher) {
+        withContext(dispatcher) {
             val weightAlreadyExists = repository.exists(TimeManager.now())
             when {
                 input.isBlank() -> ValidationResult(false, StringResource.BlankInput)

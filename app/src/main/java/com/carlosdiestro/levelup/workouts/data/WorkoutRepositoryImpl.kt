@@ -5,7 +5,7 @@ import com.carlosdiestro.levelup.workouts.domain.models.Workout
 import com.carlosdiestro.levelup.workouts.domain.models.WorkoutExercise
 import com.carlosdiestro.levelup.workouts.domain.repositories.WorkoutExerciseRepository
 import com.carlosdiestro.levelup.workouts.domain.repositories.WorkoutRepository
-import com.carlosdiestro.levelup.workouts.framework.WorkoutDAO
+import com.carlosdiestro.levelup.workouts.framework.WorkoutDao
 import com.carlosdiestro.levelup.workouts.framework.WorkoutEntity
 import com.carlosdiestro.levelup.workouts.framework.middle_tables.ExerciseWithSets
 import com.carlosdiestro.levelup.workouts.framework.middle_tables.WorkoutWithExercises
@@ -17,27 +17,27 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class WorkoutRepositoryImpl @Inject constructor(
-    private val dao: WorkoutDAO,
+    private val dao: WorkoutDao,
     private val workoutExerciseRepository: WorkoutExerciseRepository,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
+    @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) : WorkoutRepository {
 
     override fun getAll(): Flow<List<Workout>> =
-        dao.getAll().map { it?.toDomain() ?: emptyList() }.flowOn(ioDispatcher)
+        dao.getAll().map { it?.toDomain() ?: emptyList() }.flowOn(dispatcher)
 
     override fun getById(id: Int): Flow<Workout> =
-        dao.getById(id).map { it.toDomain() }.flowOn(ioDispatcher)
+        dao.getById(id).map { it.toDomain() }.flowOn(dispatcher)
 
-    override suspend fun insert(workout: Workout) = withContext(ioDispatcher) {
+    override suspend fun insert(workout: Workout) = withContext(dispatcher) {
         val workoutId = dao.insert(workout.toEntity()).toInt()
         workoutExerciseRepository.insert(workoutId, workout.exercises)
     }
 
-    override suspend fun update(workout: Workout) = withContext(ioDispatcher) {
+    override suspend fun update(workout: Workout) = withContext(dispatcher) {
         dao.update(workout.toEntity())
     }
 
-    override suspend fun delete(workout: Workout) = withContext(ioDispatcher) {
+    override suspend fun delete(workout: Workout) = withContext(dispatcher) {
         dao.delete(workout.toEntity())
     }
 }

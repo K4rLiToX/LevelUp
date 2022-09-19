@@ -6,7 +6,7 @@
     tools:context=".exercise_library.ui.exercise_list.ExerciseCategoryFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvExerciseCategory"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"

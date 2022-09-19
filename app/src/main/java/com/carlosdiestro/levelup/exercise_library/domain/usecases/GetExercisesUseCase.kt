@@ -5,19 +5,18 @@ import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
 import com.carlosdiestro.levelup.exercise_library.domain.repositories.ExerciseRepository
 import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GetExercisesUseCase @Inject constructor(
     private val repository: ExerciseRepository
 ) {
 
-    operator fun invoke(category: ExerciseCategory): Flow<List<ExercisePLO>> = flow {
+    operator fun invoke(category: ExerciseCategory): Flow<List<ExercisePLO>> =
         when (category) {
-            ExerciseCategory.ALL -> repository.getAll().collect { list -> emit(list.toPLO()) }
-            else -> repository.getByGroup(category).collect { list -> emit(list.toPLO()) }
+            ExerciseCategory.ALL -> repository.getAll().map { it.toPLO() }
+            else -> repository.getByGroup(category).map { it.toPLO() }
         }
-    }
 }
 
 fun Exercise.toPLO(): ExercisePLO = ExercisePLO(

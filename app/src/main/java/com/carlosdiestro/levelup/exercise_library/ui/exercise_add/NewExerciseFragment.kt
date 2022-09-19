@@ -73,7 +73,6 @@ class NewExerciseFragment : Fragment(R.layout.fragment_new_exercise), MenuProvid
                 handleCategory()
                 handleIsSubmitSuccessful()
             }
-
         }
     }
 

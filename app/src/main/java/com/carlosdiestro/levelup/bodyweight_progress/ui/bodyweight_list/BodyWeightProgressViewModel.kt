@@ -35,7 +35,7 @@ class BodyWeightProgressViewModel @Inject constructor(
     fun onEvent(event: BodyWeightProgressEvent) {
         when (event) {
             is BodyWeightProgressEvent.NoteDown -> submitNewWeight(event.weight)
-            is BodyWeightProgressEvent.Update -> updateBodyWeight(event.bodyWeightPLO)
+            is BodyWeightProgressEvent.Update -> updateBodyWeight(event.item)
         }
     }
 
@@ -44,7 +44,7 @@ class BodyWeightProgressViewModel @Inject constructor(
             _state.update {
                 it.copy(
                     noData = response.isEmpty(),
-                    bodyWeightList = response
+                    bodyWeights = response
                 )
             }
         }

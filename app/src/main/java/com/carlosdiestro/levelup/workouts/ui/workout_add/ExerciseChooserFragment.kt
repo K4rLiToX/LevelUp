@@ -2,13 +2,14 @@ package com.carlosdiestro.levelup.workouts.ui.workout_add
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
+import com.carlosdiestro.levelup.core.ui.extensions.verticalLayoutManger
 import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.databinding.FragmentExerciseChooserBinding
@@ -27,7 +28,6 @@ class ExerciseChooserFragment : Fragment(R.layout.fragment_exercise_chooser) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpClickListeners()
-        setUpRecyclerAdapter()
         setUpRecyclerView()
         collectUIState()
     }
@@ -45,20 +45,16 @@ class ExerciseChooserFragment : Fragment(R.layout.fragment_exercise_chooser) {
         }
     }
 
-    private fun setUpRecyclerAdapter() {
-        recyclerAdapter = ExerciseAdapter(true) {
+    private fun setUpRecyclerView() {
+        recyclerAdapter = ExerciseAdapter() {
             setFragmentResult(
                 ITEM_CLICKED_KEY,
-                Bundle().apply { putParcelable(ITEM_CLICKED_KEY, it) }
+                bundleOf(ITEM_CLICKED_KEY to it)
             )
             findNavController().popBackStack()
         }
-    }
-
-    private fun setUpRecyclerView() {
         binding.rvExercises.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            verticalLayoutManger(requireContext())
             adapter = recyclerAdapter
         }
     }
@@ -66,7 +62,7 @@ class ExerciseChooserFragment : Fragment(R.layout.fragment_exercise_chooser) {
     private fun collectUIState() {
         launchAndCollect(viewModel.state) {
             handleNoData(it.noData)
-            handleExerciseList(it.exerciseList)
+            handleExerciseList(it.exercises)
         }
     }
 

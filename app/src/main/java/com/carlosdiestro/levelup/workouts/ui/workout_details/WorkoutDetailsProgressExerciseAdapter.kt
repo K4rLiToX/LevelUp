@@ -2,9 +2,9 @@ package com.carlosdiestro.levelup.workouts.ui.workout_details
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.carlosdiestro.levelup.core.ui.extensions.verticalLayoutManger
 import com.carlosdiestro.levelup.databinding.ItemCompletedWorkoutExerciseBinding
 import com.carlosdiestro.levelup.workouts.ui.models.CompletedWorkoutExercisePLO
 
@@ -38,11 +38,7 @@ class WorkoutDetailsProgressExerciseAdapter :
             binding.apply {
                 tvDate.text = item.date
                 recyclerView.apply {
-                    layoutManager = LinearLayoutManager(
-                        binding.root.context,
-                        LinearLayoutManager.VERTICAL,
-                        false
-                    )
+                    verticalLayoutManger(binding.root.context)
                     adapter = recyclerAdapter
                 }
                 recyclerAdapter.submitList(item.completedSets)

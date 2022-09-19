@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 
 @Dao
-interface CompletedWorkoutSetDAO {
+interface CompletedWorkoutSetDao {
 
     @Insert
     suspend fun insert(completedWorkoutSetEntity: CompletedWorkoutSetEntity)

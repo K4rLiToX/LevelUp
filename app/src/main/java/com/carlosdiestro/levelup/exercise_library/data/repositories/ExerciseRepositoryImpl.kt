@@ -3,10 +3,10 @@ package com.carlosdiestro.levelup.exercise_library.data.repositories
 import com.carlosdiestro.levelup.core.data.IoDispatcher
 import com.carlosdiestro.levelup.exercise_library.domain.models.Exercise
 import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
-import com.carlosdiestro.levelup.exercise_library.domain.models.toExerciseGroup
+import com.carlosdiestro.levelup.exercise_library.domain.models.toExerciseCategory
 import com.carlosdiestro.levelup.exercise_library.domain.models.toValue
 import com.carlosdiestro.levelup.exercise_library.domain.repositories.ExerciseRepository
-import com.carlosdiestro.levelup.exercise_library.framework.ExerciseDAO
+import com.carlosdiestro.levelup.exercise_library.framework.ExerciseDao
 import com.carlosdiestro.levelup.exercise_library.framework.ExerciseEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -16,24 +16,24 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ExerciseRepositoryImpl @Inject constructor(
-    private val dao: ExerciseDAO,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
+    private val dao: ExerciseDao,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) : ExerciseRepository {
 
-    override suspend fun insert(exercise: Exercise) = withContext(ioDispatcher) {
+    override suspend fun insert(exercise: Exercise) = withContext(dispatcher) {
         dao.insert(exercise.toEntity())
     }
 
-    override suspend fun update(exercise: Exercise) = withContext(ioDispatcher) {
+    override suspend fun update(exercise: Exercise) = withContext(dispatcher) {
         dao.update(exercise.toEntity())
     }
 
-    override suspend fun delete(exercise: Exercise) = withContext(ioDispatcher) {
+    override suspend fun delete(exercise: Exercise) = withContext(dispatcher) {
         dao.delete(exercise.toEntity())
     }
 
     override fun getAll(): Flow<List<Exercise>> =
-        dao.getAll().map { it?.toDomain() ?: emptyList() }.flowOn(ioDispatcher)
+        dao.getAll().map { it?.toDomain() ?: emptyList() }.flowOn(dispatcher)
 
     override fun getByGroup(group: ExerciseCategory): Flow<List<Exercise>> =
         dao.getByGroup(group.toValue()).map { it?.toDomain() ?: emptyList() }
@@ -49,7 +49,7 @@ fun ExerciseEntity.toDomain(): Exercise = Exercise(
     id = id!!,
     name = name,
     isUnilateral = isUnilateral,
-    category = group.toExerciseGroup()
+    category = group.toExerciseCategory()
 )
 
 fun List<ExerciseEntity>.toDomain(): List<Exercise> = this.map { it.toDomain() }

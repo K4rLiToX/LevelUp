@@ -11,8 +11,7 @@ import com.carlosdiestro.levelup.databinding.ItemBodyWeightBinding
 
 class BodyWeightAdapter(
     private val onItemLongClicked: (BodyWeightPLO) -> Unit
-) :
-    ListAdapter<BodyWeightPLO, BodyWeightAdapter.ViewHolder>(BodyWeightPLO.BodyWeightDiffCallback()) {
+) : ListAdapter<BodyWeightPLO, BodyWeightAdapter.ViewHolder>(BodyWeightPLO.BodyWeightDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =

@@ -14,14 +14,14 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class WorkoutExerciseRepositoryImpl @Inject constructor(
-    private val dao: WorkoutExerciseDAO,
-    private val completedWorkoutExerciseDAO: CompletedWorkoutExerciseDAO,
+    private val workoutExerciseDao: WorkoutExerciseDao,
+    private val completedWorkoutExerciseDAO: CompletedWorkoutExerciseDao,
     private val workoutSetRepository: WorkoutSetRepository,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
+    @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) : WorkoutExerciseRepository {
 
     override suspend fun getLastCompletedExercisesWithSets(workoutId: Int): List<CompletedWorkoutExercise> =
-        withContext(ioDispatcher) {
+        withContext(dispatcher) {
             completedWorkoutExerciseDAO
                 .getCompletedExercisesWithSets(workoutId)
                 ?.groupBy { it.exercise?.date }
@@ -40,10 +40,10 @@ class WorkoutExerciseRepositoryImpl @Inject constructor(
                     ?.map { (key, value) -> Pair(key, value.sortedBy { it.exercise?.date }) }
                     ?.map { p -> Pair(p.first!!, p.second.toDomain()) }
                     ?: emptyList()
-            }.flowOn(ioDispatcher)
+            }.flowOn(dispatcher)
 
     override suspend fun insert(completedWorkoutExercise: CompletedWorkoutExercise) =
-        withContext(ioDispatcher) {
+        withContext(dispatcher) {
             val exerciseId =
                 completedWorkoutExerciseDAO.insert(completedWorkoutExercise.toEntity()).toInt()
             val newExercise =
@@ -53,7 +53,7 @@ class WorkoutExerciseRepositoryImpl @Inject constructor(
             workoutSetRepository.insertCompletedSets(newExercise.completedSets)
         }
 
-    override suspend fun insert(list: List<CompletedWorkoutExercise>) = withContext(ioDispatcher) {
+    override suspend fun insert(list: List<CompletedWorkoutExercise>) = withContext(dispatcher) {
         val exercisesIds =
             completedWorkoutExerciseDAO.insert(list.toEntity()).map { it.toInt() }
         val exercisesWithIds = list.mapIndexed { i, e -> Pair(exercisesIds[i], e) }
@@ -65,16 +65,16 @@ class WorkoutExerciseRepositoryImpl @Inject constructor(
 
     override fun getWorkoutExercisesWithSets(workoutId: Int): Flow<List<ExerciseWithSets>> =
         flow<List<ExerciseWithSets>> {
-            dao.getWorkoutExercisesWithSets(workoutId).map { it.toDomain() }
-        }.flowOn(ioDispatcher)
+            workoutExerciseDao.getWorkoutExercisesWithSets(workoutId).map { it.toDomain() }
+        }.flowOn(dispatcher)
 
-    override suspend fun deleteById(id: Int) = withContext(ioDispatcher) {
-        dao.deleteById(id)
+    override suspend fun deleteById(id: Int) = withContext(dispatcher) {
+        workoutExerciseDao.deleteById(id)
     }
 
     override suspend fun insert(workoutId: Int, list: List<WorkoutExercise>) =
-        withContext(ioDispatcher) {
-            val exercisesIds = dao.insert(list.toEntityInsert(workoutId))
+        withContext(dispatcher) {
+            val exercisesIds = workoutExerciseDao.insert(list.toEntityInsert(workoutId))
             val exercisesWithIds = list.mapIndexed { i, e -> Pair(exercisesIds[i].toInt(), e) }
             val newExerciseList = exercisesWithIds.map { (exerciseId, exercise) ->
                 exercise.copy(sets = exercise.sets.map { it.copy(exerciseId = exerciseId) })
@@ -83,41 +83,41 @@ class WorkoutExerciseRepositoryImpl @Inject constructor(
         }
 
     override suspend fun insert(workoutId: Int, workoutExercise: WorkoutExercise) =
-        withContext(ioDispatcher) {
-            val exerciseId = dao.insert(workoutExercise.toEntityInsert(workoutId))
+        withContext(dispatcher) {
+            val exerciseId = workoutExerciseDao.insert(workoutExercise.toEntityInsert(workoutId))
             val newExercise =
                 workoutExercise.copy(sets = workoutExercise.sets.map { it.copy(exerciseId = exerciseId.toInt()) })
             workoutSetRepository.insert(newExercise.sets)
         }
 
     override suspend fun update(workoutId: Int, newExercises: List<WorkoutExercise>) =
-        withContext(ioDispatcher) {
-            val formerExercises = dao.getWorkoutExercises(workoutId).first()
+        withContext(dispatcher) {
+            val formerExercises = workoutExerciseDao.getWorkoutExercises(workoutId).first()
             val brandNewExercises = newExercises.filter { it.id == -1 }
             val existingExercises = (newExercises subtract brandNewExercises.toSet()).toList()
 
             insert(workoutId, brandNewExercises)
             formerExercises.forEach { fe ->
                 val exists = existingExercises.find { it.id == fe.id } != null
-                if (!exists) dao.delete(fe)
+                if (!exists) workoutExerciseDao.delete(fe)
                 else {
-                    dao.update(existingExercises.toEntity())
+                    workoutExerciseDao.update(existingExercises.toEntity())
                     workoutSetRepository.update(existingExercises.flatMap { it.sets })
                 }
             }
         }
 
-    override suspend fun update(workoutExercise: WorkoutExercise) = withContext(ioDispatcher) {
-        dao.update(workoutExercise.toEntity())
+    override suspend fun update(workoutExercise: WorkoutExercise) = withContext(dispatcher) {
+        workoutExerciseDao.update(workoutExercise.toEntity())
         workoutSetRepository.update(workoutExercise.sets)
     }
 
-    override suspend fun delete(list: List<WorkoutExercise>) = withContext(ioDispatcher) {
-        dao.delete(list.toEntity())
+    override suspend fun delete(list: List<WorkoutExercise>) = withContext(dispatcher) {
+        workoutExerciseDao.delete(list.toEntity())
     }
 
-    override suspend fun delete(workoutExercise: WorkoutExercise) = withContext(ioDispatcher) {
-        dao.delete(workoutExercise.toEntity())
+    override suspend fun delete(workoutExercise: WorkoutExercise) = withContext(dispatcher) {
+        workoutExerciseDao.delete(workoutExercise.toEntity())
     }
 }
 

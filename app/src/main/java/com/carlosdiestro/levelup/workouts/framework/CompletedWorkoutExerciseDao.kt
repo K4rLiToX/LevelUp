@@ -8,7 +8,7 @@ import com.carlosdiestro.levelup.workouts.framework.middle_tables.CompletedWorko
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface CompletedWorkoutExerciseDAO {
+interface CompletedWorkoutExerciseDao {
 
     @Insert
     suspend fun insert(completedWorkoutExercise: CompletedWorkoutExerciseEntity): Long

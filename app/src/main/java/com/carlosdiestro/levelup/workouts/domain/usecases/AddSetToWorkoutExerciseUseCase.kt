@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class AddSetToWorkoutExerciseUseCase @Inject constructor(
-    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
+    @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ) {
 
     operator fun invoke(
@@ -21,6 +21,6 @@ class AddSetToWorkoutExerciseUseCase @Inject constructor(
         emit(list.toMutableList().apply {
             this[position] = this[position].copy(sets = this[position].sets.plus(set))
         })
-    }.flowOn(defaultDispatcher)
+    }.flowOn(dispatcher)
 
 }

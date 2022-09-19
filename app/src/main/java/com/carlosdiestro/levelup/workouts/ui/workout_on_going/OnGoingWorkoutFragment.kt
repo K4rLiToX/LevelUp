@@ -13,6 +13,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.carlosdiestro.levelup.MainActivity
 import com.carlosdiestro.levelup.R
+import com.carlosdiestro.levelup.core.ui.extensions.initializeViewPagerWithTabLayout
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.core.ui.extensions.showWarningDialog
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
@@ -21,7 +22,6 @@ import com.carlosdiestro.levelup.core.ui.resources.toText
 import com.carlosdiestro.levelup.databinding.FragmentOnGoingWorkoutBinding
 import com.carlosdiestro.levelup.workouts.ui.models.CompletedWorkoutExercisePLO
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -83,12 +83,14 @@ class OnGoingWorkoutFragment : Fragment(R.layout.fragment_on_going_workout), Men
     }
 
     private fun handleExercises(exercises: List<CompletedWorkoutExercisePLO>) {
-        binding.apply {
-            viewPager.adapter =
-                OnGoingWorkoutFragmentAdapter(exercises, this@OnGoingWorkoutFragment)
-            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                tab.text = exercises[position].name
-            }.attach()
+        binding.viewPager.initializeViewPagerWithTabLayout(
+            OnGoingWorkoutFragmentAdapter(
+                exercises,
+                this
+            ),
+            binding.tabLayout
+        ) { pos ->
+            exercises[pos].name
         }
     }
 

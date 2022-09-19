@@ -7,12 +7,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.carlosdiestro.levelup.MainActivity
 import com.carlosdiestro.levelup.R
+import com.carlosdiestro.levelup.core.ui.extensions.initializeViewPagerWithTabLayout
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import com.carlosdiestro.levelup.core.ui.resources.toText
 import com.carlosdiestro.levelup.databinding.FragmentWorkoutDetailsBinding
-import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,12 +50,14 @@ class WorkoutDetailsFragment : Fragment(R.layout.fragment_workout_details) {
     }
 
     private fun setUpViewPagerWithTabLayout() {
-        binding.apply {
-            viewPager.adapter =
-                WorkoutDetailsFragmentAdapter(viewModel.getWorkoutId(), this@WorkoutDetailsFragment)
-            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                tab.text = getTabTitle(position)
-            }.attach()
+        binding.viewPager.initializeViewPagerWithTabLayout(
+            WorkoutDetailsFragmentAdapter(
+                viewModel.getWorkoutId(),
+                this
+            ),
+            binding.tabLayout
+        ) { pos ->
+            getTabTitle(pos)
         }
     }
 

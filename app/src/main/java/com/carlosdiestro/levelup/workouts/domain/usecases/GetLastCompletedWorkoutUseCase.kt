@@ -16,12 +16,12 @@ import javax.inject.Inject
 
 class GetLastCompletedWorkoutUseCase @Inject constructor(
     private val workoutRepository: WorkoutRepository,
-    private val repository: WorkoutExerciseRepository
+    private val workoutExerciseRepository: WorkoutExerciseRepository
 ) {
 
     operator fun invoke(id: Int): Flow<List<CompletedWorkoutExercisePLO>> = flow {
         val workout = workoutRepository.getById(id).first()
-        val lastCompletedWorkout = repository.getLastCompletedExercisesWithSets(id)
+        val lastCompletedWorkout = workoutExerciseRepository.getLastCompletedExercisesWithSets(id)
 
         val exercisesPLO = workout.exercises.toPLO()
 

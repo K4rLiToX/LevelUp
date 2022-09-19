@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
+import com.carlosdiestro.levelup.core.ui.extensions.verticalLayoutManger
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.databinding.FragmentWorkoutDetailsProgressExerciseBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,19 +21,14 @@ class WorkoutDetailsProgressExerciseFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpRecyclerAdapter()
         setUpAdapterWithRecyclerView()
         collectUIState()
     }
 
-    private fun setUpRecyclerAdapter() {
-        recyclerAdapter = WorkoutDetailsProgressExerciseAdapter()
-    }
-
     private fun setUpAdapterWithRecyclerView() {
+        recyclerAdapter = WorkoutDetailsProgressExerciseAdapter()
         binding.recyclerView.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            verticalLayoutManger(requireContext())
             adapter = recyclerAdapter
         }
     }

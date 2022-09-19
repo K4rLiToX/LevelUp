@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class UpdateSetFromExerciseUseCase @Inject constructor(
-    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
+    @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ) {
 
     operator fun invoke(
@@ -25,7 +25,7 @@ class UpdateSetFromExerciseUseCase @Inject constructor(
                 )
             }
         )
-    }.flowOn(defaultDispatcher)
+    }.flowOn(dispatcher)
 
     private fun updateSet(set: WorkoutSetPLO, sets: List<WorkoutSetPLO>): List<WorkoutSetPLO> {
         return sets.map {
