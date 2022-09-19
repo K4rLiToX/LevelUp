@@ -9,7 +9,6 @@ import com.carlosdiestro.levelup.databinding.ItemExerciseBinding
 import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
 
 class ExerciseAdapter(
-    private val isSelectionMode: Boolean = false,
     private val onItemClicked: ((ExercisePLO) -> Unit)? = null
 ) :
     ListAdapter<ExercisePLO, ExerciseAdapter.ViewHolder>(ExercisePLO.ExerciseDiffCallback()) {
@@ -17,7 +16,7 @@ class ExerciseAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
             ItemExerciseBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(isSelectionMode, binding) {
+        return ViewHolder(binding) {
             onItemClicked?.let { block -> block(getItem(it)) }
         }
     }
@@ -28,18 +27,14 @@ class ExerciseAdapter(
     }
 
     inner class ViewHolder(
-        private val isSelectionMode: Boolean,
         private val binding: ItemExerciseBinding,
         private val onItemClicked: ((Int) -> Unit)?
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.root.setOnClickListener {
-                if (isSelectionMode) {
-                    onItemClicked?.let { block ->
-                        block(bindingAdapterPosition)
-                        binding.root.isChecked = !getItem(bindingAdapterPosition).isSelected
-                    }
+                onItemClicked?.let { block ->
+                    block(bindingAdapterPosition)
                 }
             }
         }
@@ -48,7 +43,6 @@ class ExerciseAdapter(
             binding.apply {
                 tvName.text = item.name
                 ivUnilateral.visible(item.isUnilateral)
-                root.isChecked = item.isSelected
             }
         }
     }

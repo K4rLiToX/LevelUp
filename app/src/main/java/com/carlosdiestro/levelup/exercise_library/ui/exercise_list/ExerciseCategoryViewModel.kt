@@ -1,48 +1,43 @@
 package com.carlosdiestro.levelup.exercise_library.ui.exercise_list
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
-import com.carlosdiestro.levelup.exercise_library.domain.models.toExerciseGroup
+import com.carlosdiestro.levelup.exercise_library.domain.models.toExerciseCategory
 import com.carlosdiestro.levelup.exercise_library.domain.usecases.GetExercisesUseCase
-import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
+import com.carlosdiestro.levelup.exercise_library.ui.exercise_list.ExerciseCategoryFragment.Companion.EXERCISE_CATEGORY_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ExerciseCategoryViewModel @Inject constructor(
-    private val getExercisesUseCase: GetExercisesUseCase
+    private val getExercisesUseCase: GetExercisesUseCase,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private var _state: MutableStateFlow<ExerciseCategoryState> =
         MutableStateFlow(ExerciseCategoryState())
     val state = _state.asStateFlow()
 
-    private var exerciseCategory: ExerciseCategory = ExerciseCategory.ALL
+    private var exerciseCategory: ExerciseCategory =
+        savedStateHandle.get<Int>(EXERCISE_CATEGORY_KEY)!!.toExerciseCategory()
 
-    fun getExercises() {
-        viewModelScope.launch {
-            getExercisesUseCase(exerciseCategory).collect { response ->
-                _state.update {
-                    it.copy(
-                        noData = response.isEmpty(),
-                        exerciseList = response
-                    )
-                }
+    init {
+        fetchExercises()
+    }
+
+    private fun fetchExercises() {
+        launchAndCollect(getExercisesUseCase(exerciseCategory)) { response ->
+            _state.update {
+                it.copy(
+                    noData = response.isEmpty(),
+                    exercises = response
+                )
             }
         }
     }
-
-    fun setExerciseCategory(value: Int) {
-        exerciseCategory = value.toExerciseGroup()
-    }
-
-    data class ExerciseCategoryState(
-        val noData: Boolean = false,
-        val exerciseList: List<ExercisePLO> = emptyList()
-    )
 }

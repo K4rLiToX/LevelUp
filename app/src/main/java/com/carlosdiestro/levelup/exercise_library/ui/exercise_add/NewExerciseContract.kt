@@ -9,12 +9,12 @@ data class NewExerciseState(
     val isSubmitSuccessful: Boolean = false
 )
 
-sealed class NewExerciseEvent {
-    data class SaveNewExercise(
+sealed interface NewExerciseEvent {
+    class SaveNewExercise(
         val name: String,
         val isUnilateral: Boolean,
         val category: ExerciseCategory
-    ) : NewExerciseEvent()
+    ) : NewExerciseEvent
 
-    object ResetNewExerciseState : NewExerciseEvent()
+    object ResetNewExerciseState : NewExerciseEvent
 }
