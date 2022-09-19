@@ -39,6 +39,7 @@ android {
     kapt {
         correctErrorTypes true
     }
+    namespace 'com.carlosdiestro.levelup'
 }
 
 dependencies {
