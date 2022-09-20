@@ -31,7 +31,7 @@ class ExerciseLibraryFragment : Fragment(R.layout.fragment_exercise_library) {
 
     private fun setUpViewPager() {
         binding.viewPager.setUp(
-            ExerciseCategoryFragmentAdapter(false,this),
+            ExerciseCategoryFragmentAdapter(false, this),
             binding.tabLayout
         ) { pos ->
             getTabText(pos)

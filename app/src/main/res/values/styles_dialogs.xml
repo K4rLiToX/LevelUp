@@ -19,7 +19,9 @@
             @style/MaterialAlertDialog.LevelUp.Body.Text
         </item>
         <item name="buttonBarPositiveButtonStyle">?materialButtonStyle</item>
-        <item name="buttonBarNegativeButtonStyle">@style/Widget.LevelUp.Button.TextButton.Secondary</item>
+        <item name="buttonBarNegativeButtonStyle">
+            @style/Widget.LevelUp.Button.TextButton.Secondary
+        </item>
     </style>
 
     <style name="MaterialAlertDialog.LevelUp.Title.Text" parent="MaterialAlertDialog.Material3.Title.Text">
