@@ -36,6 +36,9 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
         returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
 
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
+
         setFragmentResultListener(
             ExerciseChooserFragment.ITEM_CLICKED_KEY
         ) { requestKey, bundle ->

@@ -16,6 +16,7 @@ import com.carlosdiestro.levelup.databinding.FragmentExerciseChooserBinding
 import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
 import com.carlosdiestro.levelup.exercise_library.ui.exercise_list.ExerciseAdapter
 import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
+import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,6 +32,13 @@ class ExerciseChooserFragment : Fragment(R.layout.fragment_exercise_chooser) {
             )
             findNavController().popBackStack()
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
