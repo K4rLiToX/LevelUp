@@ -2,7 +2,6 @@ package com.carlosdiestro.levelup.workouts.ui.workout_add
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -29,7 +28,14 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
 
     private val binding by viewBinding(FragmentNewWorkoutBinding::bind)
     private val viewModel by viewModels<NewWorkoutViewModel>()
-    private lateinit var recyclerAdapter: WorkoutExerciseAdapter
+    private val recyclerAdapter: WorkoutExerciseAdapter by lazy {
+        WorkoutExerciseAdapter(
+            { sets, pos -> insertSet(sets, pos) },
+            { e, s -> viewModel.onEvent(NewWorkoutEvent.RemoveSet(e, s)) },
+            { exercise, set -> updateSet(exercise, set) },
+            { id, view -> openMoreMenu(id, view) }
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +65,6 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
         super.onViewCreated(view, savedInstanceState)
         setUpMenu()
         setUpClickListeners()
-        setUpRecyclerAdapter()
         setUpRecyclerView()
         collectUIState()
         collectChannelEvents()
@@ -82,15 +87,6 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
 
     private fun setUpClickListeners() {
         binding.btnAddExercise.setOnClickListener { navigateToExerciseChooserFragment() }
-    }
-
-    private fun setUpRecyclerAdapter() {
-        recyclerAdapter = WorkoutExerciseAdapter(
-            { sets, pos -> insertSet(sets, pos) },
-            { e, s -> viewModel.onEvent(NewWorkoutEvent.RemoveSet(e, s)) },
-            { exercise, set -> updateSet(exercise, set) },
-            { id, view -> openMoreMenu(id, view) }
-        )
     }
 
     private val insertSet: (List<WorkoutSetPLO>, Int) -> Unit = { sets, pos ->
