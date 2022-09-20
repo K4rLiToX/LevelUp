@@ -31,9 +31,7 @@ class CompletedWorkoutSetUnilateralAdapter(
             { rw, lw, rr, lr, rp, lp, pos ->
                 updateSet(rw, lw, rr, lr, rp, lp, getItem(pos))
             },
-            {
-                showWarningDialog()
-            }
+            { showWarningDialog() }
         )
     }
 
@@ -49,45 +47,72 @@ class CompletedWorkoutSetUnilateralAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.btnCompleteSet.setOnClickListener {
-                val rightWeight = binding.etWeightRight.text.toTrimmedString()
-                val leftWeight = binding.etWeightLeft.text.toTrimmedString()
-                val rightReps = binding.etRepsRight.text.toTrimmedString()
-                val leftReps = binding.etRepsLeft.text.toTrimmedString()
-                val rightPartials = binding.etPartialsRight.text.toTrimmedString()
-                val leftPartials = binding.etPartialsLeft.text.toTrimmedString()
-
-                if (allInputsCorrect(
-                        rightWeight,
-                        leftWeight,
-                        rightReps,
-                        leftReps,
-                        rightPartials,
-                        leftPartials
-                    )
-                ) {
-                    updateSet(
-                        rightWeight.toDouble(),
-                        leftWeight.toDouble(),
-                        rightReps.toInt(),
-                        leftReps.toInt(),
-                        rightPartials.toInt(),
-                        leftPartials.toInt(),
-                        bindingAdapterPosition
-                    )
-                    bindVisibilities(true)
-                } else {
-                    showWarningDialog()
-                }
-            }
+            binding.btnCompleteSet.setOnClickListener { finishWorkout() }
             binding.tvSetHeader.setOnClickListener {
-                if (!binding.dividerHeader.isVisible) bindVisibilities(false)
-                else bindVisibilities(true)
+                bindVisibilities(!binding.dividerHeader.isVisible)
+            }
+        }
+
+        private fun finishWorkout() {
+            val rightWeight = binding.etWeightRight.text.toTrimmedString()
+            val leftWeight = binding.etWeightLeft.text.toTrimmedString()
+            val rightReps = binding.etRepsRight.text.toTrimmedString()
+            val leftReps = binding.etRepsLeft.text.toTrimmedString()
+            val rightPartials = binding.etPartialsRight.text.toTrimmedString()
+            val leftPartials = binding.etPartialsLeft.text.toTrimmedString()
+
+            if (allInputsCorrect(
+                    rightWeight,
+                    leftWeight,
+                    rightReps,
+                    leftReps,
+                    rightPartials,
+                    leftPartials
+                )
+            ) {
+                updateSet(
+                    rightWeight.toDouble(),
+                    leftWeight.toDouble(),
+                    rightReps.toInt(),
+                    leftReps.toInt(),
+                    rightPartials.toInt(),
+                    leftPartials.toInt(),
+                    bindingAdapterPosition
+                )
+                bindVisibilities(true)
+            } else {
+                showWarningDialog()
             }
         }
 
         fun bind(item: CompletedWorkoutSetPLO) {
-            if (item.isCompleted) bindVisibilities(true)
+            bindVisibilities(item.isCompleted)
+            bindViews(item)
+        }
+
+        private fun bindVisibilities(isGone: Boolean) {
+            binding.apply {
+                dividerHeader.gone(isGone)
+                tvWeight.gone(isGone)
+                ilWeightRight.gone(isGone)
+                ilWeightLeft.gone(isGone)
+                tvRepetitionsRight.gone(isGone)
+                ilRepsRight.gone(isGone)
+                tvPlusRight.gone(isGone)
+                ilPartialsRight.gone(isGone)
+                tvRepetitionsLeft.gone(isGone)
+                ilRepsLeft.gone(isGone)
+                tvPlusLeft.gone(isGone)
+                ilPartialsLeft.gone(isGone)
+                dividerCurrent.gone(isGone)
+                tvPreviousHeader.gone(isGone)
+                tvLastReps.gone(isGone)
+                tvLastWeight.gone(isGone)
+                btnCompleteSet.gone(isGone)
+            }
+        }
+
+        private fun bindViews(item: CompletedWorkoutSetPLO) {
             binding.apply {
                 tvSetHeader.text =
                     StringResource.Set.toText(binding.root.context, item.setOrder.toString())
@@ -114,28 +139,6 @@ class CompletedWorkoutSetUnilateralAdapter(
                 etRepsLeft.setText(item.currentReps.leftReps.toString())
                 etPartialsRight.setText(item.currentReps.rightPartialReps.toString())
                 etPartialsLeft.setText(item.currentReps.leftPartialReps.toString())
-            }
-        }
-
-        private fun bindVisibilities(isGone: Boolean) {
-            binding.apply {
-                dividerHeader.gone(isGone)
-                tvWeight.gone(isGone)
-                ilWeightRight.gone(isGone)
-                ilWeightLeft.gone(isGone)
-                tvRepetitionsRight.gone(isGone)
-                ilRepsRight.gone(isGone)
-                tvPlusRight.gone(isGone)
-                ilPartialsRight.gone(isGone)
-                tvRepetitionsLeft.gone(isGone)
-                ilRepsLeft.gone(isGone)
-                tvPlusLeft.gone(isGone)
-                ilPartialsLeft.gone(isGone)
-                dividerCurrent.gone(isGone)
-                tvPreviousHeader.gone(isGone)
-                tvLastReps.gone(isGone)
-                tvLastWeight.gone(isGone)
-                btnCompleteSet.gone(isGone)
             }
         }
 

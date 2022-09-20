@@ -7,10 +7,7 @@ import androidx.fragment.app.viewModels
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.bodyweight_progress.ui.bodyweight_update.UpdateBodyWeightDialog
 import com.carlosdiestro.levelup.bodyweight_progress.ui.models.BodyWeightPLO
-import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
-import com.carlosdiestro.levelup.core.ui.extensions.toTrimmedString
-import com.carlosdiestro.levelup.core.ui.extensions.verticalLayoutManger
-import com.carlosdiestro.levelup.core.ui.extensions.visible
+import com.carlosdiestro.levelup.core.ui.extensions.*
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import com.carlosdiestro.levelup.core.ui.resources.toText
@@ -40,10 +37,7 @@ class BodyWeightProgressFragment : Fragment(R.layout.fragment_body_weight_progre
     }
 
     private fun setUpRecyclerView() {
-        binding.recyclerView.apply {
-            verticalLayoutManger(requireContext())
-            adapter = recyclerAdapter
-        }
+        binding.recyclerView.setUp(recyclerAdapter)
     }
 
     private fun collectUIState() {

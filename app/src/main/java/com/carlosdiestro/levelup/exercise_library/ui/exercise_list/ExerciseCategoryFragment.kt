@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
-import com.carlosdiestro.levelup.core.ui.extensions.verticalLayoutManger
+import com.carlosdiestro.levelup.core.ui.extensions.setUp
 import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.databinding.FragmentExerciseCategoryBinding
@@ -18,7 +18,9 @@ class ExerciseCategoryFragment : Fragment(R.layout.fragment_exercise_category) {
 
     private val binding by viewBinding(FragmentExerciseCategoryBinding::bind)
     private val viewModel by viewModels<ExerciseCategoryViewModel>()
-    private lateinit var recyclerAdapter: ExerciseAdapter
+    private val recyclerAdapter: ExerciseAdapter by lazy {
+        ExerciseAdapter()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,11 +29,7 @@ class ExerciseCategoryFragment : Fragment(R.layout.fragment_exercise_category) {
     }
 
     private fun setUpRecyclerView() {
-        recyclerAdapter = ExerciseAdapter()
-        binding.recyclerView.apply {
-            verticalLayoutManger(requireContext())
-            adapter = recyclerAdapter
-        }
+        binding.recyclerView.setUp(recyclerAdapter)
     }
 
     private fun collectUIState() {

@@ -31,9 +31,7 @@ class CompletedWorkoutSetAdapter(
             { weight, reps, partials, pos ->
                 updateSet(weight, reps, partials, getItem(pos))
             },
-            {
-                showWarningDialog()
-            }
+            { showWarningDialog() }
         )
     }
 
@@ -49,29 +47,30 @@ class CompletedWorkoutSetAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.btnCompleteSet.setOnClickListener {
-                val weight = binding.etWeight.text.toTrimmedString()
-                val reps = binding.etReps.text.toTrimmedString()
-                val partials = binding.etPartials.text.toTrimmedString()
-
-                if (allInputsCorrect(weight, reps, partials)) {
-                    updateSet(
-                        weight.toDouble(),
-                        reps.toInt(),
-                        partials.toInt(),
-                        bindingAdapterPosition
-                    )
-                    bindVisibilities(true)
-                } else showWarningDialog()
-            }
+            binding.btnCompleteSet.setOnClickListener { finishWorkout() }
             binding.tvSetHeader.setOnClickListener {
-                if (!binding.dividerHeader.isVisible) bindVisibilities(false)
-                else bindVisibilities(true)
+                bindVisibilities(!binding.dividerHeader.isVisible)
             }
         }
 
+        private fun finishWorkout() {
+            val weight = binding.etWeight.text.toTrimmedString()
+            val reps = binding.etReps.text.toTrimmedString()
+            val partials = binding.etPartials.text.toTrimmedString()
+
+            if (allInputsCorrect(weight, reps, partials)) {
+                updateSet(
+                    weight.toDouble(),
+                    reps.toInt(),
+                    partials.toInt(),
+                    bindingAdapterPosition
+                )
+                bindVisibilities(true)
+            } else showWarningDialog()
+        }
+
         fun bind(item: CompletedWorkoutSetPLO) {
-            if (item.isCompleted) bindVisibilities(true)
+            bindVisibilities(item.isCompleted)
             bindTexts(item)
         }
 

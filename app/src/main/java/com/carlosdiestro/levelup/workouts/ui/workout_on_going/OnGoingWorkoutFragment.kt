@@ -9,19 +9,14 @@ import androidx.core.view.MenuProvider
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
-import com.carlosdiestro.levelup.MainActivity
 import com.carlosdiestro.levelup.R
-import com.carlosdiestro.levelup.core.ui.extensions.initializeViewPagerWithTabLayout
-import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
-import com.carlosdiestro.levelup.core.ui.extensions.showWarningDialog
+import com.carlosdiestro.levelup.core.ui.extensions.*
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import com.carlosdiestro.levelup.core.ui.resources.toText
 import com.carlosdiestro.levelup.databinding.FragmentOnGoingWorkoutBinding
 import com.carlosdiestro.levelup.workouts.ui.models.CompletedWorkoutExercisePLO
-import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,29 +32,19 @@ class OnGoingWorkoutFragment : Fragment(R.layout.fragment_on_going_workout), Men
         collectEvents()
     }
 
-    override fun onPrepareMenu(menu: Menu) {
-        (menu.findItem(R.id.action_finish).actionView as MaterialButton).text =
+    override fun onPrepareMenu(menu: Menu) =
+        menu.menuItemAsMaterialButton(
+            R.id.action_finish,
             StringResource.Finish.toText(requireContext())
-    }
+        ) {
+            finishWorkout()
+        }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        if (menu.isEmpty()) {
-            menuInflater.inflate(R.menu.menu_finish, menu)
-            (menu.findItem(R.id.action_finish).actionView as MaterialButton).setOnClickListener {
-                finishWorkout()
-            }
-        }
+        if (menu.isEmpty()) menuInflater.inflate(R.menu.menu_finish, menu)
     }
 
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        return when (menuItem.itemId) {
-            R.id.action_finish -> {
-                finishWorkout()
-                true
-            }
-            else -> false
-        }
-    }
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean = false
 
     private fun collectUIState() {
         launchAndCollect(viewModel.state) {
@@ -78,12 +63,10 @@ class OnGoingWorkoutFragment : Fragment(R.layout.fragment_on_going_workout), Men
         }
     }
 
-    private fun handleWorkoutName(name: String) {
-        (requireActivity() as MainActivity).supportActionBar!!.title = name.uppercase()
-    }
+    private fun handleWorkoutName(name: String) = setActionBarTitle(name)
 
     private fun handleExercises(exercises: List<CompletedWorkoutExercisePLO>) {
-        binding.viewPager.initializeViewPagerWithTabLayout(
+        binding.viewPager.setUp(
             OnGoingWorkoutFragmentAdapter(
                 exercises,
                 this
@@ -100,13 +83,7 @@ class OnGoingWorkoutFragment : Fragment(R.layout.fragment_on_going_workout), Men
         }
     }
 
-    private fun setUpMenu() {
-        requireActivity().addMenuProvider(
-            this@OnGoingWorkoutFragment,
-            viewLifecycleOwner,
-            Lifecycle.State.RESUMED
-        )
-    }
+    private fun setUpMenu() = setUpMenuProvider(this)
 
     private fun finishWorkout() {
         viewModel.onEvent(OnGoingWorkoutEvent.FinishWorkout)

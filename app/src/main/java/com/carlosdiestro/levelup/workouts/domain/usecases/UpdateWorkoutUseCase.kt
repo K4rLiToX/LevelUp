@@ -2,6 +2,7 @@ package com.carlosdiestro.levelup.workouts.domain.usecases
 
 import com.carlosdiestro.levelup.workouts.domain.repositories.WorkoutExerciseRepository
 import com.carlosdiestro.levelup.workouts.domain.repositories.WorkoutRepository
+import com.carlosdiestro.levelup.workouts.mappers.toDomain
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutPLO
 import javax.inject.Inject

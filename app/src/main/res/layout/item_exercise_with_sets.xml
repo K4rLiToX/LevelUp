@@ -76,7 +76,7 @@
             app:layout_constraintTop_toTopOf="@id/tvSetHeader" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvSets"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_16"

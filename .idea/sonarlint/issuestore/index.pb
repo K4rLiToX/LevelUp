@@ -1,6 +1,4 @@
 
-P
- app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
@@ -48,3 +46,9 @@ Lapp/src/main/java/com/carlosdiestro/levelup/workouts/domain/models/Weight.kt,4
 eapp/src/main/java/com/carlosdiestro/levelup/workouts/domain/repositories/WorkoutExerciseRepository.kt,7\4\74aa36527cce6768c21845925b2713c85c1b846c
 †
 Vapp/src/main/java/com/carlosdiestro/levelup/core/ui/components/NestedScrollableHost.kt,0\4\0420abe59f707e697bf2acc5941d59827dfa44cf
+<
+build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
+@
+app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
+—
+gapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/bodyweight_list/BodyWeightAdapter.kt,c\b\cbc20c5c1a44a2583538ce0615d175d900a83373

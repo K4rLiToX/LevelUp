@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.gone
-import com.carlosdiestro.levelup.core.ui.extensions.initializeViewPagerWithTabLayout
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
+import com.carlosdiestro.levelup.core.ui.extensions.setUp
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.databinding.FragmentWorkoutDetailsProgressBinding
 import com.carlosdiestro.levelup.workouts.ui.models.CompletedWorkoutExercisePLO
@@ -38,7 +38,7 @@ class WorkoutDetailsProgressFragment : Fragment(R.layout.fragment_workout_detail
     }
 
     private fun handleExercises(exercises: List<Pair<String, List<CompletedWorkoutExercisePLO>>>) {
-        binding.viewPager.initializeViewPagerWithTabLayout(
+        binding.viewPager.setUp(
             WorkoutDetailsProgressFragmentAdapter(
                 exercises,
                 this

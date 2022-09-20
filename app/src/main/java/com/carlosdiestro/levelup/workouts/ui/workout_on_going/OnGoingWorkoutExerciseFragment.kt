@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
+import com.carlosdiestro.levelup.core.ui.extensions.setUp
 import com.carlosdiestro.levelup.core.ui.extensions.showWarningDialog
-import com.carlosdiestro.levelup.core.ui.extensions.verticalLayoutManger
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import com.carlosdiestro.levelup.databinding.FragmentOnGoingWorkoutExerciseBinding
@@ -50,9 +50,7 @@ class OnGoingWorkoutExerciseFragment : Fragment(R.layout.fragment_on_going_worko
                         )
                     )
                 },
-                {
-                    openWarningDialog()
-                }
+                { openWarningDialog() }
             )
         } else {
             recyclerAdapter = CompletedWorkoutSetAdapter(
@@ -72,16 +70,10 @@ class OnGoingWorkoutExerciseFragment : Fragment(R.layout.fragment_on_going_worko
                         )
                     )
                 },
-                {
-                    openWarningDialog()
-                }
+                { openWarningDialog() }
             )
         }
-
-        binding.recyclerView.apply {
-            verticalLayoutManger(requireContext())
-            adapter = if (viewModel.isUnilateral()) recyclerAdapterUnilateral else recyclerAdapter
-        }
+        binding.recyclerView.setUp(if (viewModel.isUnilateral()) recyclerAdapterUnilateral else recyclerAdapter)
     }
 
     private fun openWarningDialog() {

@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
-import com.carlosdiestro.levelup.core.ui.extensions.verticalLayoutManger
+import com.carlosdiestro.levelup.core.ui.extensions.setUp
 import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.databinding.FragmentExerciseChooserBinding
@@ -23,7 +23,15 @@ class ExerciseChooserFragment : Fragment(R.layout.fragment_exercise_chooser) {
 
     private val binding by viewBinding(FragmentExerciseChooserBinding::bind)
     private val viewModel by viewModels<ExerciseChooserViewModel>()
-    private lateinit var recyclerAdapter: ExerciseAdapter
+    private val recyclerAdapter: ExerciseAdapter by lazy {
+        ExerciseAdapter {
+            setFragmentResult(
+                ITEM_CLICKED_KEY,
+                bundleOf(ITEM_CLICKED_KEY to it)
+            )
+            findNavController().popBackStack()
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,28 +43,15 @@ class ExerciseChooserFragment : Fragment(R.layout.fragment_exercise_chooser) {
     private fun setUpClickListeners() {
         binding.apply {
             cgCategories.setOnCheckedStateChangeListener { _, checkedIds ->
-                if (checkedIds.isNotEmpty()) viewModel.onEvent(
-                    ExerciseChooserEvent.OnFilterChanged(
-                        getExerciseCategory(checkedIds[0])
-                    )
-                )
-                else viewModel.onEvent(ExerciseChooserEvent.OnFilterChanged(ExerciseCategory.ALL))
+                val category =
+                    if (checkedIds.isNotEmpty()) getExerciseCategory(checkedIds[0]) else ExerciseCategory.ALL
+                viewModel.onEvent(ExerciseChooserEvent.OnFilterChanged(category))
             }
         }
     }
 
     private fun setUpRecyclerView() {
-        recyclerAdapter = ExerciseAdapter() {
-            setFragmentResult(
-                ITEM_CLICKED_KEY,
-                bundleOf(ITEM_CLICKED_KEY to it)
-            )
-            findNavController().popBackStack()
-        }
-        binding.rvExercises.apply {
-            verticalLayoutManger(requireContext())
-            adapter = recyclerAdapter
-        }
+        binding.recyclerView.setUp(recyclerAdapter)
     }
 
     private fun collectUIState() {

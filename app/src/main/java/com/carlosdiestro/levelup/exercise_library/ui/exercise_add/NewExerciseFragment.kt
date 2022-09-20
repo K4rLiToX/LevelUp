@@ -8,16 +8,16 @@ import android.view.View
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
+import com.carlosdiestro.levelup.core.ui.extensions.menuItemAsMaterialButton
+import com.carlosdiestro.levelup.core.ui.extensions.setUpMenuProvider
 import com.carlosdiestro.levelup.core.ui.extensions.toTrimmedString
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import com.carlosdiestro.levelup.core.ui.resources.toText
 import com.carlosdiestro.levelup.databinding.FragmentNewExerciseBinding
 import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,38 +41,26 @@ class NewExerciseFragment : Fragment(R.layout.fragment_new_exercise), MenuProvid
         collectUIState()
     }
 
-    override fun onPrepareMenu(menu: Menu) {
-        ((menu.findItem(R.id.action_save).actionView) as MaterialButton).text =
+    override fun onPrepareMenu(menu: Menu) =
+        menu.menuItemAsMaterialButton(
+            R.id.action_save,
             StringResource.Save.toText(requireContext())
-    }
-
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.menu_save, menu)
-        (menu.findItem(R.id.action_save).actionView as MaterialButton).setOnClickListener { submitNewExercise() }
-    }
-
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        return when (menuItem.itemId) {
-            R.id.action_save -> {
-                submitNewExercise()
-                true
-            }
-            else -> false
+        ) {
+            submitNewExercise()
         }
-    }
 
-    private fun setUpMenu() {
-        requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
-    }
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) =
+        menuInflater.inflate(R.menu.menu_save, menu)
+
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean = false
+
+    private fun setUpMenu() = setUpMenuProvider(this)
 
     private fun collectUIState() {
         launchAndCollect(viewModel.state) {
             handleNameInput(it.exerciseName, it.exerciseNameError)
-            if (it.isSubmitSuccessful) {
-                handleIsUnilateral()
-                handleCategory()
-                handleIsSubmitSuccessful()
-            }
+            if (it.isSubmitSuccessful) reset()
         }
     }
 
@@ -97,15 +85,11 @@ class NewExerciseFragment : Fragment(R.layout.fragment_new_exercise), MenuProvid
         }
     }
 
-    private fun handleIsUnilateral() {
-        binding.sUnilateral.isChecked = false
-    }
-
-    private fun handleCategory() {
-        binding.cgCategories.check(R.id.cPush)
-    }
-
-    private fun handleIsSubmitSuccessful() {
+    private fun reset() {
+        binding.apply {
+            sUnilateral.isChecked = false
+            cgCategories.check(R.id.cPush)
+        }
         viewModel.onEvent(NewExerciseEvent.ResetNewExerciseState)
     }
 

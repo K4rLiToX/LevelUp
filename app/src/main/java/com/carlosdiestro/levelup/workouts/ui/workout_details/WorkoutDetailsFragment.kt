@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.carlosdiestro.levelup.MainActivity
 import com.carlosdiestro.levelup.R
-import com.carlosdiestro.levelup.core.ui.extensions.initializeViewPagerWithTabLayout
+import com.carlosdiestro.levelup.core.ui.extensions.setUp
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
@@ -50,7 +50,7 @@ class WorkoutDetailsFragment : Fragment(R.layout.fragment_workout_details) {
     }
 
     private fun setUpViewPagerWithTabLayout() {
-        binding.viewPager.initializeViewPagerWithTabLayout(
+        binding.viewPager.setUp(
             WorkoutDetailsFragmentAdapter(
                 viewModel.getWorkoutId(),
                 this

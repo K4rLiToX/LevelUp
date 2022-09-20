@@ -29,7 +29,7 @@
         <item name="floatingActionButtonPrimaryStyle">@style/Widget.LevelUp.FloatingActionButton
         </item>
         <item name="materialButtonStyle">@style/Widget.LevelUp.IconButton.Filled</item>
-        <item name="materialTextButtonStyle">@style/Widget.LevelUp.Button.TextButton</item>
+        <item name="materialTextButtonStyle">@style/Widget.LevelUp.Button.TextButton.Primary</item>
 
         <item name="bottomNavigationStyle">@style/Widget.LevelUp.BottomNavigation</item>
         <item name="toolbarStyle">@style/Widget.LevelUp.Toolbar</item>

@@ -1,15 +1,16 @@
 package com.carlosdiestro.levelup.workouts.ui.workout_add
 
+import android.os.Build
 import android.os.Bundle
-import android.view.*
-import android.widget.PopupMenu
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
-import com.carlosdiestro.levelup.MainActivity
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.*
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
@@ -19,7 +20,6 @@ import com.carlosdiestro.levelup.databinding.FragmentNewWorkoutBinding
 import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutSetPLO
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,7 +39,10 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
         setFragmentResultListener(
             ExerciseChooserFragment.ITEM_CLICKED_KEY
         ) { requestKey, bundle ->
-            val result = bundle.getParcelable<ExercisePLO>(requestKey)
+            val result =
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) bundle.getParcelable(
+                    requestKey
+                ) else bundle.getParcelable(requestKey, ExercisePLO::class.java)
             result?.let {
                 val isReplaceModeEnabled = viewModel.isReplaceModeEnabled()
                 if (isReplaceModeEnabled) viewModel.onEvent(NewWorkoutEvent.ReplaceExercise(it))
@@ -58,29 +61,20 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
         collectChannelEvents()
     }
 
-    override fun onPrepareMenu(menu: Menu) {
-        ((menu.findItem(R.id.action_save).actionView) as MaterialButton).text =
+    override fun onPrepareMenu(menu: Menu) =
+        menu.menuItemAsMaterialButton(
+            R.id.action_save,
             StringResource.Save.toText(requireContext())
-    }
-
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.menu_save, menu)
-        (menu.findItem(R.id.action_save).actionView as MaterialButton).setOnClickListener { submitNewWorkout() }
-    }
-
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        return when (menuItem.itemId) {
-            R.id.action_save -> {
-                submitNewWorkout()
-                true
-            }
-            else -> false
+        ) {
+            submitNewWorkout()
         }
-    }
 
-    private fun setUpMenu() {
-        requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
-    }
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) =
+        menuInflater.inflate(R.menu.menu_save, menu)
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean = false
+
+    private fun setUpMenu() = setUpMenuProvider(this)
 
     private fun setUpClickListeners() {
         binding.btnAddExercise.setOnClickListener { navigateToExerciseChooserFragment() }
@@ -88,37 +82,33 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
 
     private fun setUpRecyclerAdapter() {
         recyclerAdapter = WorkoutExerciseAdapter(
-            { sets, pos ->
-                AddSetDialog {
-                    val setToAdd = WorkoutSetPLO(
-                        id = -1,
-                        setOrder = sets.size + 1,
-                        repRange = it
-                    )
-                    viewModel.onEvent(NewWorkoutEvent.OnNewSetClicked(setToAdd, pos))
-                }.show(requireActivity().supportFragmentManager, AddSetDialog.TAG)
-            },
-            { e, s ->
-                viewModel.onEvent(NewWorkoutEvent.OnSetRemoved(e, s))
-            },
-            { e, s ->
-                AddSetDialog(s.repRange) {
-                    val newSet = s.copy(repRange = it)
-                    viewModel.onEvent(NewWorkoutEvent.OnUpdateSetClicked(e, newSet))
-                }.show(requireActivity().supportFragmentManager, AddSetDialog.TAG)
-
-            },
-            { id, view ->
-                openMoreMenu(id, view)
-            }
+            { sets, pos -> addNewSet(sets, pos) },
+            { e, s -> viewModel.onEvent(NewWorkoutEvent.OnSetRemoved(e, s)) },
+            { exercise, set -> updateSet(exercise, set) },
+            { id, view -> openMoreMenu(id, view) }
         )
     }
 
+    private val addNewSet: (List<WorkoutSetPLO>, Int) -> Unit = { sets, pos ->
+        AddSetDialog {
+            val newSet = WorkoutSetPLO(
+                id = -1,
+                setOrder = sets.size + 1,
+                repRange = it
+            )
+            viewModel.onEvent(NewWorkoutEvent.OnNewSetClicked(newSet, pos))
+        }.show(requireActivity().supportFragmentManager, AddSetDialog.TAG)
+    }
+
+    private val updateSet: (WorkoutExercisePLO, WorkoutSetPLO) -> Unit = { exercise, set ->
+        AddSetDialog(set.repRange) {
+            val newSet = set.copy(repRange = it)
+            viewModel.onEvent(NewWorkoutEvent.OnUpdateSetClicked(exercise, newSet))
+        }.show(requireActivity().supportFragmentManager, AddSetDialog.TAG)
+    }
+
     private fun setUpRecyclerView() {
-        binding.rvExerciseWithSets.apply {
-            verticalLayoutManger(requireContext())
-            adapter = recyclerAdapter
-        }
+        binding.recyclerView.setUp(recyclerAdapter)
     }
 
     private fun collectUIState() {
@@ -158,10 +148,8 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
         binding.etName.setText(name)
     }
 
-    private fun handleToolbarTitle(title: StringResource) {
-        (requireActivity() as MainActivity).supportActionBar?.title =
-            title.toText(requireContext()).uppercase()
-    }
+    private fun handleToolbarTitle(title: StringResource) =
+        setActionBarTitle(title.toText(requireContext()))
 
     private fun submitNewWorkout() {
         val workoutName = binding.etName.text.toTrimmedString()
@@ -173,25 +161,15 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
     }
 
     private fun openMoreMenu(id: Int, view: View) {
-        PopupMenu(requireContext(), view).apply {
-            menuInflater.inflate(R.menu.menu_workout_exercise_manager, this.menu)
-            gravity = Gravity.END
-            setOnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.action_replace -> {
-                        viewModel.onEvent(NewWorkoutEvent.EnableReplaceMode(id))
-                        navigateToExerciseChooserFragment()
-                    }
-                    else -> deleteExercise(id)
+        showPopUpMenu(view, R.menu.menu_workout_exercise_manager) {
+            when (it.itemId) {
+                R.id.action_replace -> {
+                    viewModel.onEvent(NewWorkoutEvent.EnableReplaceMode(id))
+                    navigateToExerciseChooserFragment()
                 }
-                true
+                else -> viewModel.onEvent(NewWorkoutEvent.OnRemoveExerciseClicked(id))
             }
-        }.also {
-            it.show()
+            true
         }
-    }
-
-    private fun deleteExercise(id: Int) {
-        viewModel.onEvent(NewWorkoutEvent.OnRemoveExerciseClicked(id))
     }
 }
