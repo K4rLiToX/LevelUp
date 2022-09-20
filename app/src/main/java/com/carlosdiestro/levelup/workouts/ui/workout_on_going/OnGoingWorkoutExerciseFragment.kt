@@ -20,8 +20,7 @@ class OnGoingWorkoutExerciseFragment : Fragment(R.layout.fragment_on_going_worko
     private val binding by viewBinding(FragmentOnGoingWorkoutExerciseBinding::bind)
     private val viewModel by viewModels<OnGoingWorkoutExerciseViewModel>()
     private val onGoingWorkoutViewModel: OnGoingWorkoutViewModel by viewModels(ownerProducer = { requireParentFragment() })
-    private lateinit var recyclerAdapter: CompletedWorkoutSetAdapter
-    private lateinit var recyclerAdapterUnilateral: CompletedWorkoutSetUnilateralAdapter
+    private lateinit var recyclerAdapterUnilateral: CompletedWorkoutSetAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,50 +29,33 @@ class OnGoingWorkoutExerciseFragment : Fragment(R.layout.fragment_on_going_worko
     }
 
     private fun setUpRecyclerView() {
-        if (viewModel.isUnilateral()) {
-            recyclerAdapterUnilateral = CompletedWorkoutSetUnilateralAdapter(
-                { rw, lw, rr, lr, rp, lp, set ->
-                    val newSet = set.copy(
-                        currentWeight = set.currentWeight.copy(rightWeight = rw, leftWeight = lw),
-                        currentReps = set.currentReps.copy(
-                            rightReps = rr,
-                            rightPartialReps = rp,
-                            leftReps = lr,
-                            leftPartialReps = lp
-                        ),
-                        isCompleted = true
+        val isUnilateral = viewModel.isUnilateral()
+        recyclerAdapterUnilateral = CompletedWorkoutSetAdapter(
+            isUnilateral,
+            { rw, lw, rr, lr, rp, lp, set ->
+                val newSet = set.copy(
+                    currentWeight = set.currentWeight.copy(
+                        rightWeight = if (isUnilateral) rw else 0.0,
+                        leftWeight = lw
+                    ),
+                    currentReps = set.currentReps.copy(
+                        rightReps = rr,
+                        rightPartialReps = rp,
+                        leftReps = if (isUnilateral) lr else 0,
+                        leftPartialReps = if (isUnilateral) lp else 0
+                    ),
+                    isCompleted = true
+                )
+                onGoingWorkoutViewModel.onEvent(
+                    OnGoingWorkoutEvent.UpdateCompletedWorkoutSet(
+                        newSet,
+                        viewModel.exerciseOrder
                     )
-                    onGoingWorkoutViewModel.onEvent(
-                        OnGoingWorkoutEvent.UpdateCompletedWorkoutSet(
-                            newSet,
-                            viewModel.exerciseOrder
-                        )
-                    )
-                },
-                { openWarningDialog() }
-            )
-        } else {
-            recyclerAdapter = CompletedWorkoutSetAdapter(
-                { weight, reps, partials, set ->
-                    val newSet = set.copy(
-                        currentWeight = set.currentWeight.copy(rightWeight = weight),
-                        currentReps = set.currentReps.copy(
-                            rightReps = reps,
-                            rightPartialReps = partials
-                        ),
-                        isCompleted = true
-                    )
-                    onGoingWorkoutViewModel.onEvent(
-                        OnGoingWorkoutEvent.UpdateCompletedWorkoutSet(
-                            newSet,
-                            viewModel.exerciseOrder
-                        )
-                    )
-                },
-                { openWarningDialog() }
-            )
-        }
-        binding.recyclerView.setUp(if (viewModel.isUnilateral()) recyclerAdapterUnilateral else recyclerAdapter)
+                )
+            },
+            { openWarningDialog() }
+        )
+        binding.recyclerView.setUp(recyclerAdapterUnilateral)
     }
 
     private fun openWarningDialog() {
@@ -87,11 +69,7 @@ class OnGoingWorkoutExerciseFragment : Fragment(R.layout.fragment_on_going_worko
     }
 
     private fun handleSets(sets: List<CompletedWorkoutSetPLO>) {
-        if (viewModel.isUnilateral()) {
-            recyclerAdapterUnilateral.submitList(sets)
-        } else {
-            recyclerAdapter.submitList(sets)
-        }
+        recyclerAdapterUnilateral.submitList(sets)
     }
 
     companion object {

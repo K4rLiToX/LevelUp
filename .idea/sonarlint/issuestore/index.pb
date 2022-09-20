@@ -36,8 +36,6 @@ Oapp/src/main/java/com/carlosdiestro/levelup/workouts/domain/models/SetStatus.kt
 Wapp/src/main/java/com/carlosdiestro/levelup/workouts/framework/WorkoutExerciseEntity.kt,1\5\15bd254ca540d00d9abb3e7d0f7fe6cf465d727f
 ã
 [app/src/main/java/com/carlosdiestro/levelup/workouts/framework/CompletedWorkoutSetEntity.kt,a\0\a05ba1b0ea63427748d2793639640284d99384ec
-à
-Xapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/models/CompletedWorkoutSetPLO.kt,e\5\e5ec6cd6432d328ffd21bc93d9cc12b04935f5d6
 ç
 ]app/src/main/java/com/carlosdiestro/levelup/workouts/ui/models/CompletedWorkoutExercisePLO.kt,e\5\e54a6ee2a58ff74d3a2e626d90111a842cd4f56d
 |

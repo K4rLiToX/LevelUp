@@ -17,6 +17,7 @@ import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import com.carlosdiestro.levelup.core.ui.resources.toText
 import com.carlosdiestro.levelup.databinding.FragmentOnGoingWorkoutBinding
 import com.carlosdiestro.levelup.workouts.ui.models.CompletedWorkoutExercisePLO
+import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,6 +25,13 @@ class OnGoingWorkoutFragment : Fragment(R.layout.fragment_on_going_workout), Men
 
     private val binding by viewBinding(FragmentOnGoingWorkoutBinding::bind)
     private val viewModel by viewModels<OnGoingWorkoutViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

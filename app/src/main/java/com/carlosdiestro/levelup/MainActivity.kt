@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
     private fun setUpOnNavigationChangedListener() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             setUpBottomNavigationVisibility(destination.id)
+            setUpFABVisibility(destination.id)
             setUpToolbar(destination)
         }
     }
@@ -71,10 +72,8 @@ class MainActivity : AppCompatActivity() {
     private fun setUpBottomNavigationVisibility(id: Int) {
         binding.bottomNavigation.apply {
             if (isMainSection(id)) {
-                setUpFABVisibility(id)
                 if (!this.isVisible) slide(true)
             } else {
-                binding.btnAdd.hide()
                 if (this.isVisible) slide(false)
             }
         }

@@ -51,6 +51,8 @@ sealed class StringResource(@StringRes val resId: Int) {
     object RepsUnilateral : StringResource(R.string.placeholder_reps_unilateral)
     object Set : StringResource(R.string.placeholder_set)
     object RepRangeTitle : StringResource(R.string.placeholder_range_title)
+    object RightRepsTitle : StringResource(R.string.title_reps_right)
+    object RepsTitle : StringResource(R.string.title_reps)
 
 }
 
