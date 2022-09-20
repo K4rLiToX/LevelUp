@@ -6,14 +6,14 @@ import com.carlosdiestro.levelup.workouts.ui.models.WorkoutExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutSetPLO
 
 sealed interface NewWorkoutEvent {
-    class OnExerciseClicked(val exercisePLO: ExercisePLO) : NewWorkoutEvent
-    class OnNewSetClicked(val newSet: WorkoutSetPLO, val exercisePosition: Int) : NewWorkoutEvent
-    class OnSetRemoved(val exercise: WorkoutExercisePLO, val set: WorkoutSetPLO) : NewWorkoutEvent
-    class AddNewWorkout(val name: String) : NewWorkoutEvent
-    class OnUpdateSetClicked(val exercise: WorkoutExercisePLO, val set: WorkoutSetPLO) :
+    class ClickExercise(val exercisePLO: ExercisePLO) : NewWorkoutEvent
+    class InsertSet(val newSet: WorkoutSetPLO, val exercisePosition: Int) : NewWorkoutEvent
+    class RemoveSet(val exercise: WorkoutExercisePLO, val set: WorkoutSetPLO) : NewWorkoutEvent
+    class InsertWorkout(val name: String) : NewWorkoutEvent
+    class UpdateSet(val exercise: WorkoutExercisePLO, val set: WorkoutSetPLO) :
         NewWorkoutEvent
 
-    class OnRemoveExerciseClicked(val id: Int) : NewWorkoutEvent
+    class DeleteExercise(val id: Int) : NewWorkoutEvent
     class EnableReplaceMode(val id: Int) : NewWorkoutEvent
     class ReplaceExercise(val exercise: ExercisePLO) : NewWorkoutEvent
 }

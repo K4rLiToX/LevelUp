@@ -1,14 +1,14 @@
 package com.carlosdiestro.levelup.exercise_library.domain.usecases
 
-import com.carlosdiestro.levelup.exercise_library.domain.models.Exercise
 import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
 import com.carlosdiestro.levelup.exercise_library.domain.repositories.ExerciseRepository
+import com.carlosdiestro.levelup.exercise_library.mappers.toPLO
 import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class GetExercisesUseCase @Inject constructor(
+class GetExerciseListUseCase @Inject constructor(
     private val repository: ExerciseRepository
 ) {
 
@@ -19,18 +19,3 @@ class GetExercisesUseCase @Inject constructor(
         }
 }
 
-fun Exercise.toPLO(): ExercisePLO = ExercisePLO(
-    id = id,
-    name = name,
-    isUnilateral = isUnilateral,
-    category = category
-)
-
-fun ExercisePLO.toDomain(): Exercise = Exercise(
-    id = id,
-    name = name,
-    isUnilateral = isUnilateral,
-    category = category
-)
-
-fun List<Exercise>.toPLO(): List<ExercisePLO> = this.map { it.toPLO() }

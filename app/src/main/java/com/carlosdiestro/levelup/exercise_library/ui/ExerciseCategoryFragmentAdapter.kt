@@ -8,6 +8,7 @@ import com.carlosdiestro.levelup.exercise_library.domain.models.toValue
 import com.carlosdiestro.levelup.exercise_library.ui.exercise_list.ExerciseCategoryFragment
 
 class ExerciseCategoryFragmentAdapter(
+    private val isSelectionModeEnable: Boolean,
     fragment: Fragment,
 ) : FragmentStateAdapter(fragment) {
 
@@ -16,7 +17,8 @@ class ExerciseCategoryFragmentAdapter(
     override fun createFragment(position: Int): Fragment {
         return ExerciseCategoryFragment().apply {
             arguments = bundleOf(
-                ExerciseCategoryFragment.EXERCISE_CATEGORY_KEY to getExerciseCategory(position)
+                ExerciseCategoryFragment.EXERCISE_CATEGORY_KEY to getExerciseCategory(position),
+                ExerciseCategoryFragment.IS_SELECTION_MODE_KEY to isSelectionModeEnable
             )
         }
     }

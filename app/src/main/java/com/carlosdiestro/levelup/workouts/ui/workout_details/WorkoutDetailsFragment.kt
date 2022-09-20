@@ -5,10 +5,10 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.carlosdiestro.levelup.MainActivity
 import com.carlosdiestro.levelup.R
-import com.carlosdiestro.levelup.core.ui.extensions.initializeViewPagerWithTabLayout
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
+import com.carlosdiestro.levelup.core.ui.extensions.setActionBarTitle
+import com.carlosdiestro.levelup.core.ui.extensions.setUp
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import com.carlosdiestro.levelup.core.ui.resources.toText
@@ -27,6 +27,9 @@ class WorkoutDetailsFragment : Fragment(R.layout.fragment_workout_details) {
 
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
         returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
+
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,7 +53,7 @@ class WorkoutDetailsFragment : Fragment(R.layout.fragment_workout_details) {
     }
 
     private fun setUpViewPagerWithTabLayout() {
-        binding.viewPager.initializeViewPagerWithTabLayout(
+        binding.viewPager.setUp(
             WorkoutDetailsFragmentAdapter(
                 viewModel.getWorkoutId(),
                 this
@@ -75,6 +78,6 @@ class WorkoutDetailsFragment : Fragment(R.layout.fragment_workout_details) {
     }
 
     private fun handleAppBarTitle(title: String) {
-        (requireActivity() as MainActivity).supportActionBar?.title = title.uppercase()
+        setActionBarTitle(title)
     }
 }

@@ -3,7 +3,7 @@ package com.carlosdiestro.levelup.workouts.ui
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutPLO
 
 sealed interface WorkoutEvent {
-    class OnDeleteWorkout(val id: Int) : WorkoutEvent
+    class DeleteWorkout(val id: Int) : WorkoutEvent
 }
 
 data class WorkoutsState(

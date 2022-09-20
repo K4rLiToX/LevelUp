@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.carlosdiestro.levelup.R
-import com.carlosdiestro.levelup.core.ui.extensions.initializeViewPagerWithTabLayout
+import com.carlosdiestro.levelup.core.ui.extensions.setUp
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import com.carlosdiestro.levelup.core.ui.resources.toText
@@ -26,19 +26,19 @@ class ExerciseLibraryFragment : Fragment(R.layout.fragment_exercise_library) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpViewPagerWithTabLayout()
+        setUpViewPager()
     }
 
-    private fun setUpViewPagerWithTabLayout() {
-        binding.viewPager.initializeViewPagerWithTabLayout(
-            ExerciseCategoryFragmentAdapter(this),
+    private fun setUpViewPager() {
+        binding.viewPager.setUp(
+            ExerciseCategoryFragmentAdapter(false, this),
             binding.tabLayout
         ) { pos ->
-            getTabTitle(pos)
+            getTabText(pos)
         }
     }
 
-    private fun getTabTitle(position: Int): String {
+    private fun getTabText(position: Int): String {
         return when (position) {
             0 -> StringResource.All.toText(requireContext())
             1 -> StringResource.Push.toText(requireContext())

@@ -10,20 +10,16 @@ import com.carlosdiestro.levelup.databinding.ItemSetBinding
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutSetPLO
 
 class WorkoutSetAdapter(
-    private val onRemoveItemClicked: (WorkoutSetPLO) -> Unit,
-    private val onUpdateItemClicked: (WorkoutSetPLO) -> Unit
+    private val deleteSet: (WorkoutSetPLO) -> Unit,
+    private val updateSet: (WorkoutSetPLO) -> Unit
 ) : ListAdapter<WorkoutSetPLO, WorkoutSetAdapter.ViewHolder>(WorkoutSetPLO.WorkoutSetDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemSetBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(
             binding,
-            {
-                onRemoveItemClicked(getItem(it))
-            },
-            {
-                onUpdateItemClicked(getItem(it))
-            }
+            { deleteSet(getItem(it)) },
+            { updateSet(getItem(it)) }
         )
     }
 
@@ -34,17 +30,17 @@ class WorkoutSetAdapter(
 
     inner class ViewHolder(
         private val binding: ItemSetBinding,
-        private val onRemoveItemClicked: (Int) -> Unit,
-        private val onUpdateItemClicked: (Int) -> Unit
+        private val deleteSet: (Int) -> Unit,
+        private val updateSet: (Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.apply {
                 btnRemoveSet.setOnClickListener {
-                    onRemoveItemClicked(bindingAdapterPosition)
+                    deleteSet(bindingAdapterPosition)
                 }
                 root.setOnClickListener {
-                    onUpdateItemClicked(bindingAdapterPosition)
+                    updateSet(bindingAdapterPosition)
                 }
             }
         }

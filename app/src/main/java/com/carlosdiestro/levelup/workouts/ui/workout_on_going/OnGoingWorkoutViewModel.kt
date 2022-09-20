@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.workouts.domain.usecases.AreAllExercisesCompletedUseCase
 import com.carlosdiestro.levelup.workouts.domain.usecases.GetLastCompletedWorkoutUseCase
-import com.carlosdiestro.levelup.workouts.domain.usecases.SubmitCompletedWorkoutUseCase
+import com.carlosdiestro.levelup.workouts.domain.usecases.InsertCompletedWorkoutUseCase
 import com.carlosdiestro.levelup.workouts.domain.usecases.UpdateCompletedWorkoutSetUseCase
 import com.carlosdiestro.levelup.workouts.ui.models.CompletedWorkoutExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.CompletedWorkoutSetPLO
@@ -24,7 +24,7 @@ class OnGoingWorkoutViewModel @Inject constructor(
     private val getLastCompletedWorkoutUseCase: GetLastCompletedWorkoutUseCase,
     private val updateCompletedWorkoutSetUseCase: UpdateCompletedWorkoutSetUseCase,
     private val areAllExercisesCompletedUseCase: AreAllExercisesCompletedUseCase,
-    private val submitCompletedWorkoutUseCase: SubmitCompletedWorkoutUseCase,
+    private val insertCompletedWorkoutUseCase: InsertCompletedWorkoutUseCase,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -98,7 +98,7 @@ class OnGoingWorkoutViewModel @Inject constructor(
                 if (response) {
                     _eventChannel.send(OnGoingWorkoutResponse.ShowWarningDialog)
                 } else {
-                    submitCompletedWorkoutUseCase(exercises.toList())
+                    insertCompletedWorkoutUseCase(exercises.toList())
                     _eventChannel.send(OnGoingWorkoutResponse.NavigateBack)
                 }
             }

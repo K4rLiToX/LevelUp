@@ -2,7 +2,7 @@ package com.carlosdiestro.levelup.bodyweight_progress.ui.bodyweight_update
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.ValidateNewWeightUseCase
+import com.carlosdiestro.levelup.bodyweight_progress.domain.usecases.ValidateBodyWeight
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UpdateBodyWeightViewModel @Inject constructor(
-    private val validateNewWeightUseCase: ValidateNewWeightUseCase
+    private val validateBodyWeight: ValidateBodyWeight
 ) : ViewModel() {
 
     private var _state: MutableStateFlow<UpdateBodyWeightState> =
@@ -27,25 +27,25 @@ class UpdateBodyWeightViewModel @Inject constructor(
 
     fun onEvent(event: UpdateBodyWeightEvent) {
         when (event) {
-            is UpdateBodyWeightEvent.Save -> updateNewWeight(event.weight)
+            is UpdateBodyWeightEvent.Save -> updateBodyWeight(event.weight)
         }
     }
 
-    private fun updateNewWeight(input: String) {
+    private fun updateBodyWeight(input: String) {
         viewModelScope.launch {
-            val response = validateNewWeightUseCase(input, true)
+            val response = validateBodyWeight(input, true)
             if (!response.isSuccessful) {
-                updateBodyWeightFormState(input, response.errorMessage)
+                updateState(input, response.errorMessage)
             } else {
-                updateBodyWeightFormState()
+                updateState("", null)
                 _callbackChannel.send(input)
             }
         }
     }
 
-    private fun updateBodyWeightFormState(
-        input: String = "",
-        errorMessage: StringResource? = null
+    private fun updateState(
+        input: String,
+        errorMessage: StringResource?
     ) {
         _state.update {
             it.copy(

@@ -5,17 +5,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.carlosdiestro.levelup.core.ui.extensions.verticalLayoutManger
+import com.carlosdiestro.levelup.core.ui.extensions.setUp
 import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.databinding.ItemExerciseWithSetsBinding
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutSetPLO
 
 class WorkoutExerciseAdapter(
-    private val onAddSetClicked: (List<WorkoutSetPLO>, Int) -> Unit,
-    private val onRemoveSetClicked: (WorkoutExercisePLO, WorkoutSetPLO) -> Unit,
-    private val onUpdateSetClicked: (WorkoutExercisePLO, WorkoutSetPLO) -> Unit,
-    private val onMoreClicked: (Int, View) -> Unit
+    private val insertSet: (List<WorkoutSetPLO>, Int) -> Unit,
+    private val deleteSet: (WorkoutExercisePLO, WorkoutSetPLO) -> Unit,
+    private val updateSet: (WorkoutExercisePLO, WorkoutSetPLO) -> Unit,
+    private val openMenu: (Int, View) -> Unit
 ) :
     ListAdapter<WorkoutExercisePLO, WorkoutExerciseAdapter.ViewHolder>(WorkoutExercisePLO.WorkoutExerciseDiffCallback()) {
 
@@ -25,16 +25,16 @@ class WorkoutExerciseAdapter(
         return ViewHolder(
             binding,
             {
-                onAddSetClicked(getItem(it).sets, it)
+                insertSet(getItem(it).sets, it)
             },
             { i, s ->
-                onRemoveSetClicked(getItem(i), s)
+                deleteSet(getItem(i), s)
             },
             { i, s ->
-                onUpdateSetClicked(getItem(i), s)
+                updateSet(getItem(i), s)
             },
             { i, v ->
-                onMoreClicked(getItem(i).id, v)
+                openMenu(getItem(i).id, v)
             }
         )
     }
@@ -46,43 +46,36 @@ class WorkoutExerciseAdapter(
 
     inner class ViewHolder(
         private val binding: ItemExerciseWithSetsBinding,
-        private val onAddSetClicked: (Int) -> Unit,
-        private val onRemoveSetClicked: (Int, WorkoutSetPLO) -> Unit,
-        private val onUpdateSetClicked: (Int, WorkoutSetPLO) -> Unit,
-        private val onMoreClicked: (Int, View) -> Unit
+        private val insertSet: (Int) -> Unit,
+        private val deleteSet: (Int, WorkoutSetPLO) -> Unit,
+        private val updateSet: (Int, WorkoutSetPLO) -> Unit,
+        private val openMenu: (Int, View) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var recyclerAdapter: WorkoutSetAdapter
 
         init {
             binding.apply {
-                btnAddSet.setOnClickListener { onAddSetClicked(bindingAdapterPosition) }
-                btnMore.setOnClickListener { onMoreClicked(bindingAdapterPosition, it) }
+                btnAddSet.setOnClickListener { insertSet(bindingAdapterPosition) }
+                btnMore.setOnClickListener { openMenu(bindingAdapterPosition, it) }
             }
         }
 
         fun bind(item: WorkoutExercisePLO) {
-            setUpRecyclerAdapter()
             setUpRecyclerView()
             bindViews(item)
         }
 
-        private fun setUpRecyclerAdapter() {
+        private fun setUpRecyclerView() {
             recyclerAdapter = WorkoutSetAdapter(
                 {
-                    onRemoveSetClicked(bindingAdapterPosition, it)
+                    deleteSet(bindingAdapterPosition, it)
                 },
                 {
-                    onUpdateSetClicked(bindingAdapterPosition, it)
+                    updateSet(bindingAdapterPosition, it)
                 }
             )
-        }
-
-        private fun setUpRecyclerView() {
-            binding.rvSets.apply {
-                verticalLayoutManger(binding.root.context)
-                adapter = recyclerAdapter
-            }
+            binding.recyclerView.setUp(recyclerAdapter)
         }
 
         private fun bindViews(item: WorkoutExercisePLO) {

@@ -6,11 +6,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
-import com.carlosdiestro.levelup.core.ui.extensions.verticalLayoutManger
+import com.carlosdiestro.levelup.core.ui.extensions.setUp
 import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.databinding.FragmentExerciseCategoryBinding
 import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
+import com.carlosdiestro.levelup.workouts.ui.workout_add.ExerciseChooserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,7 +19,14 @@ class ExerciseCategoryFragment : Fragment(R.layout.fragment_exercise_category) {
 
     private val binding by viewBinding(FragmentExerciseCategoryBinding::bind)
     private val viewModel by viewModels<ExerciseCategoryViewModel>()
-    private lateinit var recyclerAdapter: ExerciseAdapter
+    private val exerciseChooserViewModel: ExerciseChooserViewModel by viewModels(ownerProducer = { requireParentFragment() })
+    private val recyclerAdapter: ExerciseAdapter by lazy {
+        ExerciseAdapter {
+            if (viewModel.isSelectionModeEnable) {
+                exerciseChooserViewModel.setExercise(it)
+            }
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,11 +35,7 @@ class ExerciseCategoryFragment : Fragment(R.layout.fragment_exercise_category) {
     }
 
     private fun setUpRecyclerView() {
-        recyclerAdapter = ExerciseAdapter()
-        binding.recyclerView.apply {
-            verticalLayoutManger(requireContext())
-            adapter = recyclerAdapter
-        }
+        binding.recyclerView.setUp(recyclerAdapter)
     }
 
     private fun collectUIState() {
@@ -51,5 +55,6 @@ class ExerciseCategoryFragment : Fragment(R.layout.fragment_exercise_category) {
 
     companion object {
         const val EXERCISE_CATEGORY_KEY = "exercise_category_key"
+        const val IS_SELECTION_MODE_KEY = "is_selection_mode_key"
     }
 }

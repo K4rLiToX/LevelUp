@@ -1,6 +1,4 @@
 
-P
- app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
@@ -38,8 +36,6 @@ Oapp/src/main/java/com/carlosdiestro/levelup/workouts/domain/models/SetStatus.kt
 Wapp/src/main/java/com/carlosdiestro/levelup/workouts/framework/WorkoutExerciseEntity.kt,1\5\15bd254ca540d00d9abb3e7d0f7fe6cf465d727f
 ã
 [app/src/main/java/com/carlosdiestro/levelup/workouts/framework/CompletedWorkoutSetEntity.kt,a\0\a05ba1b0ea63427748d2793639640284d99384ec
-à
-Xapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/models/CompletedWorkoutSetPLO.kt,e\5\e5ec6cd6432d328ffd21bc93d9cc12b04935f5d6
 ç
 ]app/src/main/java/com/carlosdiestro/levelup/workouts/ui/models/CompletedWorkoutExercisePLO.kt,e\5\e54a6ee2a58ff74d3a2e626d90111a842cd4f56d
 |
@@ -48,3 +44,5 @@ Lapp/src/main/java/com/carlosdiestro/levelup/workouts/domain/models/Weight.kt,4
 eapp/src/main/java/com/carlosdiestro/levelup/workouts/domain/repositories/WorkoutExerciseRepository.kt,7\4\74aa36527cce6768c21845925b2713c85c1b846c
 Ü
 Vapp/src/main/java/com/carlosdiestro/levelup/core/ui/components/NestedScrollableHost.kt,0\4\0420abe59f707e697bf2acc5941d59827dfa44cf
+<
+build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35

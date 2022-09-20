@@ -1,13 +1,16 @@
 package com.carlosdiestro.levelup.workouts.data
 
 import com.carlosdiestro.levelup.core.data.IoDispatcher
-import com.carlosdiestro.levelup.core.ui.managers.TimeManager
-import com.carlosdiestro.levelup.workouts.domain.models.*
+import com.carlosdiestro.levelup.workouts.domain.models.CompletedWorkoutExercise
+import com.carlosdiestro.levelup.workouts.domain.models.WorkoutExercise
 import com.carlosdiestro.levelup.workouts.domain.repositories.WorkoutExerciseRepository
 import com.carlosdiestro.levelup.workouts.domain.repositories.WorkoutSetRepository
-import com.carlosdiestro.levelup.workouts.framework.*
-import com.carlosdiestro.levelup.workouts.framework.middle_tables.CompletedWorkoutExercisesWithSets
+import com.carlosdiestro.levelup.workouts.framework.CompletedWorkoutExerciseDao
+import com.carlosdiestro.levelup.workouts.framework.WorkoutExerciseDao
 import com.carlosdiestro.levelup.workouts.framework.middle_tables.ExerciseWithSets
+import com.carlosdiestro.levelup.workouts.mappers.toDomain
+import com.carlosdiestro.levelup.workouts.mappers.toEntity
+import com.carlosdiestro.levelup.workouts.mappers.toEntityInsert
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
@@ -15,14 +18,14 @@ import javax.inject.Inject
 
 class WorkoutExerciseRepositoryImpl @Inject constructor(
     private val workoutExerciseDao: WorkoutExerciseDao,
-    private val completedWorkoutExerciseDAO: CompletedWorkoutExerciseDao,
+    private val completedWorkoutExerciseDao: CompletedWorkoutExerciseDao,
     private val workoutSetRepository: WorkoutSetRepository,
     @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) : WorkoutExerciseRepository {
 
     override suspend fun getLastCompletedExercisesWithSets(workoutId: Int): List<CompletedWorkoutExercise> =
         withContext(dispatcher) {
-            completedWorkoutExerciseDAO
+            completedWorkoutExerciseDao
                 .getCompletedExercisesWithSets(workoutId)
                 ?.groupBy { it.exercise?.date }
                 ?.map { (_, value) -> value }
@@ -32,7 +35,7 @@ class WorkoutExerciseRepositoryImpl @Inject constructor(
         }
 
     override fun getCompletedExercisesWithSets(workoutId: Int): Flow<List<Pair<Int, List<CompletedWorkoutExercise>>>> =
-        completedWorkoutExerciseDAO
+        completedWorkoutExerciseDao
             .getCompletedExercisesWithSetsFlow(workoutId)
             .map { list ->
                 list
@@ -45,7 +48,7 @@ class WorkoutExerciseRepositoryImpl @Inject constructor(
     override suspend fun insert(completedWorkoutExercise: CompletedWorkoutExercise) =
         withContext(dispatcher) {
             val exerciseId =
-                completedWorkoutExerciseDAO.insert(completedWorkoutExercise.toEntity()).toInt()
+                completedWorkoutExerciseDao.insert(completedWorkoutExercise.toEntity()).toInt()
             val newExercise =
                 completedWorkoutExercise.copy(completedSets = completedWorkoutExercise.completedSets.map {
                     it.copy(exerciseId = exerciseId)
@@ -55,7 +58,7 @@ class WorkoutExerciseRepositoryImpl @Inject constructor(
 
     override suspend fun insert(list: List<CompletedWorkoutExercise>) = withContext(dispatcher) {
         val exercisesIds =
-            completedWorkoutExerciseDAO.insert(list.toEntity()).map { it.toInt() }
+            completedWorkoutExerciseDao.insert(list.toEntity()).map { it.toInt() }
         val exercisesWithIds = list.mapIndexed { i, e -> Pair(exercisesIds[i], e) }
         val newExerciseList = exercisesWithIds.map { (exerciseId, exercise) ->
             exercise.copy(completedSets = exercise.completedSets.map { it.copy(exerciseId = exerciseId) })
@@ -121,61 +124,3 @@ class WorkoutExerciseRepositoryImpl @Inject constructor(
     }
 }
 
-fun WorkoutExercise.toEntityInsert(realWorkoutId: Int): WorkoutExerciseEntity =
-    WorkoutExerciseEntity(
-        workoutId = realWorkoutId,
-        name = name,
-        isUnilateral = isUnilateral,
-        orderPosition = exerciseOrder
-    )
-
-fun WorkoutExercise.toEntity(): WorkoutExerciseEntity = WorkoutExerciseEntity(
-    id = id,
-    workoutId = workoutId,
-    name = name,
-    isUnilateral = isUnilateral,
-    orderPosition = exerciseOrder
-)
-
-fun List<WorkoutExercise>.toEntityInsert(workoutId: Int): List<WorkoutExerciseEntity> =
-    this.map { it.toEntityInsert(workoutId) }
-
-fun List<WorkoutExercise>.toEntity(): List<WorkoutExerciseEntity> = this.map { it.toEntity() }
-
-fun CompletedWorkoutExercisesWithSets.toDomain(): CompletedWorkoutExercise =
-    CompletedWorkoutExercise(
-        id = this.exercise!!.id!!,
-        workoutId = this.exercise.workoutId,
-        date = TimeManager.toText(this.exercise.date),
-        exerciseOrder = this.exercise.exerciseOrder,
-        completedSets = this.sets.toDomain()
-    )
-
-@JvmName("toDomainCompletedWorkoutExercisesWithSets")
-fun List<CompletedWorkoutExercisesWithSets>.toDomain(): List<CompletedWorkoutExercise> =
-    this.map { it.toDomain() }
-
-fun CompletedWorkoutSetEntity.toDomain(): CompletedWorkoutSet = CompletedWorkoutSet(
-    id = id!!,
-    exerciseId = exerciseId,
-    setOrder = setOrder,
-    date = TimeManager.toText(date),
-    repetitions = repetitions.toRepetition(),
-    weights = weights.toWeight(),
-    status = status.toSetStatus()
-)
-
-@JvmName("toDomainCompletedWorkoutSet")
-fun List<CompletedWorkoutSetEntity>.toDomain(): List<CompletedWorkoutSet> =
-    this.map { it.toDomain() }
-
-fun CompletedWorkoutExercise.toEntity(): CompletedWorkoutExerciseEntity =
-    CompletedWorkoutExerciseEntity(
-        workoutId = workoutId,
-        exerciseOrder = exerciseOrder,
-        date = TimeManager.toMillis(date)
-    )
-
-@JvmName("toEntityCompletedWorkoutExercise")
-fun List<CompletedWorkoutExercise>.toEntity(): List<CompletedWorkoutExerciseEntity> =
-    this.map { it.toEntity() }

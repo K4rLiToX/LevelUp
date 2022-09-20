@@ -1,13 +1,14 @@
 package com.carlosdiestro.levelup.workouts.data
 
 import com.carlosdiestro.levelup.core.data.IoDispatcher
-import com.carlosdiestro.levelup.core.ui.managers.TimeManager
-import com.carlosdiestro.levelup.workouts.domain.models.*
+import com.carlosdiestro.levelup.workouts.domain.models.CompletedWorkoutSet
+import com.carlosdiestro.levelup.workouts.domain.models.WorkoutSet
 import com.carlosdiestro.levelup.workouts.domain.repositories.WorkoutSetRepository
 import com.carlosdiestro.levelup.workouts.framework.CompletedWorkoutSetDao
-import com.carlosdiestro.levelup.workouts.framework.CompletedWorkoutSetEntity
 import com.carlosdiestro.levelup.workouts.framework.WorkoutSetDao
 import com.carlosdiestro.levelup.workouts.framework.WorkoutSetEntity
+import com.carlosdiestro.levelup.workouts.mappers.toDomain
+import com.carlosdiestro.levelup.workouts.mappers.toEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
@@ -103,35 +104,3 @@ class WorkoutSetRepositoryImpl @Inject constructor(
     private fun isInNewList(oldId: Int?, newList: List<WorkoutSetEntity>): Boolean =
         newList.find { it.id == oldId } != null
 }
-
-fun WorkoutSetEntity.toDomain(): WorkoutSet = WorkoutSet(
-    id = id!!,
-    exerciseId = exerciseId,
-    setOrder = setOrder,
-    repRange = repRange.toRepRange()
-)
-
-fun List<WorkoutSetEntity>.toDomain(): List<WorkoutSet> = this.map { it.toDomain() }
-
-fun WorkoutSet.toEntity(): WorkoutSetEntity = WorkoutSetEntity(
-    id = if (id == -1) null else id,
-    exerciseId = exerciseId,
-    setOrder = setOrder,
-    repRange = repRange.toStringValue()
-)
-
-@JvmName("toEntityWorkoutSet")
-fun List<WorkoutSet>.toEntity(): List<WorkoutSetEntity> = this.map { it.toEntity() }
-
-fun CompletedWorkoutSet.toEntity(): CompletedWorkoutSetEntity = CompletedWorkoutSetEntity(
-    exerciseId = exerciseId,
-    setOrder = setOrder,
-    date = TimeManager.toMillis(date),
-    repetitions = repetitions.toStringValue(),
-    weights = weights.toStringValue(),
-    status = status.toInt()
-)
-
-@JvmName("toEntityCompletedWorkoutSet")
-fun List<CompletedWorkoutSet>.toEntity(): List<CompletedWorkoutSetEntity> =
-    this.map { it.toEntity() }

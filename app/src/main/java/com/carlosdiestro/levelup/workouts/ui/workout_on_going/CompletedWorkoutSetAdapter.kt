@@ -10,11 +10,15 @@ import com.carlosdiestro.levelup.core.ui.extensions.toTrimmedString
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import com.carlosdiestro.levelup.core.ui.resources.toText
 import com.carlosdiestro.levelup.databinding.ItemCompletedWorkoutSetBinding
+import com.carlosdiestro.levelup.workouts.domain.models.RepRange
+import com.carlosdiestro.levelup.workouts.domain.models.Repetition
+import com.carlosdiestro.levelup.workouts.domain.models.Weight
 import com.carlosdiestro.levelup.workouts.ui.models.CompletedWorkoutSetPLO
 
 class CompletedWorkoutSetAdapter(
-    private val updateSet: (Double, Int, Int, CompletedWorkoutSetPLO) -> Unit,
-    private val showWarningDialog: () -> Unit
+    private val isUnilateral: Boolean,
+    private val updateSet: (Double, Double, Int, Int, Int, Int, CompletedWorkoutSetPLO) -> Unit,
+    private val openDialog: () -> Unit
 ) :
     ListAdapter<CompletedWorkoutSetPLO, CompletedWorkoutSetAdapter.ViewHolder>(
         CompletedWorkoutSetPLO.CompletedWorkoutSetDiffCallback()
@@ -28,12 +32,11 @@ class CompletedWorkoutSetAdapter(
         )
         return ViewHolder(
             binding,
-            { weight, reps, partials, pos ->
-                updateSet(weight, reps, partials, getItem(pos))
+            isUnilateral,
+            { rw, lw, rr, lr, rp, lp, pos ->
+                updateSet(rw, lw, rr, lr, rp, lp, getItem(pos))
             },
-            {
-                showWarningDialog()
-            }
+            { openDialog() }
         )
     }
 
@@ -44,79 +47,167 @@ class CompletedWorkoutSetAdapter(
 
     inner class ViewHolder(
         private val binding: ItemCompletedWorkoutSetBinding,
-        private val updateSet: (Double, Int, Int, Int) -> Unit,
-        private val showWarningDialog: () -> Unit
+        private val isUnilateral: Boolean,
+        private val updateSet: (Double, Double, Int, Int, Int, Int, Int) -> Unit,
+        private val openDialog: () -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.btnCompleteSet.setOnClickListener {
-                val weight = binding.etWeight.text.toTrimmedString()
-                val reps = binding.etReps.text.toTrimmedString()
-                val partials = binding.etPartials.text.toTrimmedString()
-
-                if (allInputsCorrect(weight, reps, partials)) {
-                    updateSet(
-                        weight.toDouble(),
-                        reps.toInt(),
-                        partials.toInt(),
-                        bindingAdapterPosition
-                    )
-                    bindVisibilities(true)
-                } else showWarningDialog()
+            binding.apply {
+                binding.apply {
+                    btnCompleteSet.setOnClickListener { completeSet() }
+                    tvSetHeader.setOnClickListener {
+                        bindVisibilities(!binding.dividerHeader.isVisible)
+                    }
+                }
             }
-            binding.tvSetHeader.setOnClickListener {
-                if (!binding.dividerHeader.isVisible) bindVisibilities(false)
-                else bindVisibilities(true)
+        }
+
+        private fun completeSet() {
+            val rightWeight = binding.etWeightRight.text.toTrimmedString()
+            val leftWeight = binding.etWeightLeft.text.toTrimmedString()
+            val rightReps = binding.etRepsRight.text.toTrimmedString()
+            val leftReps = binding.etRepsLeft.text.toTrimmedString()
+            val rightPartials = binding.etPartialsRight.text.toTrimmedString()
+            val leftPartials = binding.etPartialsLeft.text.toTrimmedString()
+
+            if (allInputsCorrect(
+                    rightWeight,
+                    leftWeight,
+                    rightReps,
+                    leftReps,
+                    rightPartials,
+                    leftPartials
+                )
+            ) {
+                updateSet(
+                    rightWeight.toDouble(),
+                    leftWeight.toDouble(),
+                    rightReps.toInt(),
+                    leftReps.toInt(),
+                    rightPartials.toInt(),
+                    leftPartials.toInt(),
+                    bindingAdapterPosition
+                )
+                bindVisibilities(true)
+            } else {
+                openDialog()
             }
         }
 
         fun bind(item: CompletedWorkoutSetPLO) {
-            if (item.isCompleted) bindVisibilities(true)
-            bindTexts(item)
-        }
-
-        private fun bindTexts(item: CompletedWorkoutSetPLO) {
-            binding.apply {
-                tvSetHeader.text =
-                    StringResource.Set.toText(binding.root.context, item.setOrder.toString())
-                tvRepRange.text = StringResource.RepRangeTitle.toText(
-                    binding.root.context,
-                    item.repRange.lower.toString(),
-                    item.repRange.upper.toString()
-                )
-                tvLastWeight.text =
-                    StringResource.Kg.toText(binding.root.context, item.lastWeight.rightWeight)
-                tvLastReps.text = StringResource.Reps.toText(
-                    binding.root.context,
-                    item.lastReps.rightReps,
-                    item.lastReps.rightPartialReps
-                )
-
-                etWeight.setText(item.currentWeight.rightWeight.toString())
-                etReps.setText(item.currentReps.rightReps.toString())
-                etPartials.setText(item.currentReps.rightPartialReps.toString())
-            }
+            bindVisibilities(item.isCompleted)
+            bindViews(item)
         }
 
         private fun bindVisibilities(isGone: Boolean) {
             binding.apply {
                 dividerHeader.gone(isGone)
                 tvWeight.gone(isGone)
-                ilWeight.gone(isGone)
-                tvRepetitions.gone(isGone)
-                ilReps.gone(isGone)
-                tvPlus.gone(isGone)
-                ilPartials.gone(isGone)
+                ilWeightLeft.gone(isGone)
+                tvRepetitionsRight.gone(isGone)
+                ilRepsRight.gone(isGone)
+                tvPlusRight.gone(isGone)
+                ilPartialsRight.gone(isGone)
                 dividerCurrent.gone(isGone)
                 tvPreviousHeader.gone(isGone)
                 tvLastReps.gone(isGone)
                 tvLastWeight.gone(isGone)
-                tvLastReps.gone(isGone)
                 btnCompleteSet.gone(isGone)
+
+                ilWeightRight.gone(isGone || !isUnilateral)
+                tvRepetitionsLeft.gone(isGone || !isUnilateral)
+                ilRepsLeft.gone(isGone || !isUnilateral)
+                tvPlusLeft.gone(isGone || !isUnilateral)
+                ilPartialsLeft.gone(isGone || !isUnilateral)
             }
         }
 
-        private fun allInputsCorrect(weight: String, reps: String, partials: String): Boolean =
-            weight.isNotBlank() && reps.isNotBlank() && partials.isNotBlank() && weight != "0" && reps != "0"
+        private fun bindViews(item: CompletedWorkoutSetPLO) {
+            bindCommonViews(item.setOrder, item.repRange)
+            bindLastWeights(item.lastWeight)
+            bindLastReps(item.lastReps)
+            bindRepetitionTitle()
+
+            binding.apply {
+                etWeightRight.setText(item.currentWeight.rightWeight.toString())
+                etWeightLeft.setText(item.currentWeight.leftWeight.toString())
+                etRepsRight.setText(item.currentReps.rightReps.toString())
+                etRepsLeft.setText(item.currentReps.leftReps.toString())
+                etPartialsRight.setText(item.currentReps.rightPartialReps.toString())
+                etPartialsLeft.setText(item.currentReps.leftPartialReps.toString())
+            }
+        }
+
+        private fun bindCommonViews(setOrder: Int, repRange: RepRange) {
+            binding.apply {
+                tvSetHeader.text =
+                    StringResource.Set.toText(binding.root.context, setOrder.toString())
+                tvRepRange.text = StringResource.RepRangeTitle.toText(
+                    binding.root.context,
+                    repRange.lower.toString(),
+                    repRange.upper.toString()
+                )
+            }
+        }
+
+        private fun bindLastWeights(weights: Weight) {
+            binding.apply {
+                if (isUnilateral) {
+                    tvLastWeight.text = StringResource.KgUnilateral.toText(
+                        binding.root.context,
+                        weights.rightWeight,
+                        weights.leftWeight
+                    )
+                } else {
+                    tvLastWeight.text =
+                        StringResource.Kg.toText(binding.root.context, weights.leftWeight)
+                }
+            }
+        }
+
+        private fun bindLastReps(reps: Repetition) {
+            binding.apply {
+                if (isUnilateral) {
+                    tvLastReps.text = StringResource.RepsUnilateral.toText(
+                        binding.root.context,
+                        reps.rightReps.toString(),
+                        reps.rightPartialReps.toString(),
+                        reps.leftReps.toString(),
+                        reps.leftPartialReps.toString()
+                    )
+                } else {
+                    tvLastReps.text = StringResource.Reps.toText(
+                        binding.root.context,
+                        reps.rightReps,
+                        reps.rightPartialReps
+                    )
+                }
+            }
+        }
+
+        private fun bindRepetitionTitle() {
+            binding.tvRepetitionsRight.text =
+                if (isUnilateral) StringResource.RightRepsTitle.toText(binding.root.context) else StringResource.RepsTitle.toText(
+                    binding.root.context
+                )
+        }
+
+        private fun allInputsCorrect(
+            rw: String,
+            lw: String,
+            rr: String,
+            lr: String,
+            rp: String,
+            lp: String
+        ): Boolean {
+            return if (isUnilateral) rw.isNotBlank() && lw.isNotBlank() &&
+                    rr.isNotBlank() && lr.isNotBlank() &&
+                    rp.isNotBlank() && lp.isNotBlank() &&
+                    rw != "0" && lw != "0" &&
+                    rr != "0" && lr != "0"
+            else lw.isNotBlank() && rr.isNotBlank() && rp.isNotBlank() && lw != "0" && rr != "0"
+        }
+
     }
 }

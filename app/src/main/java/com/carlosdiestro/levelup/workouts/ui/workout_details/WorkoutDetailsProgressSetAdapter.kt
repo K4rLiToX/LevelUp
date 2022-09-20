@@ -45,7 +45,7 @@ class WorkoutDetailsProgressSetAdapter :
         private fun bindWeight(weight: Weight) {
             val (rw, lw) = weight
             binding.tvWeight.text =
-                if (lw == 0.0) StringResource.Kg.toText(binding.root.context, rw.toString())
+                if (rw == 0.0) StringResource.Kg.toText(binding.root.context, lw.toString())
                 else StringResource.KgUnilateral.toText(
                     binding.root.context,
                     rw.toString(),

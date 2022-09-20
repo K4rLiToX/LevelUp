@@ -11,8 +11,12 @@
         <item name="android:textColor">@color/secondary_500</item>
     </style>
 
-    <style name="Widget.LevelUp.Button.TextButton" parent="Widget.Material3.Button.TextButton">
+    <style name="Widget.LevelUp.Button.TextButton.Primary" parent="Widget.Material3.Button.TextButton">
         <item name="android:textColor">@color/cta_500</item>
+    </style>
+
+    <style name="Widget.LevelUp.Button.TextButton.Secondary" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textColor">@color/secondary_500</item>
     </style>
 
     <style name="ThemeOverlay.LevelUp.FloatingActionButton" parent="">

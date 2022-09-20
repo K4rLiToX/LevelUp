@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.carlosdiestro.levelup.core.ui.extensions.verticalLayoutManger
+import com.carlosdiestro.levelup.core.ui.extensions.setUp
 import com.carlosdiestro.levelup.databinding.ItemCompletedWorkoutExerciseBinding
 import com.carlosdiestro.levelup.workouts.ui.models.CompletedWorkoutExercisePLO
 
@@ -35,14 +35,17 @@ class WorkoutDetailsProgressExerciseAdapter :
             WorkoutDetailsProgressSetAdapter()
 
         fun bind(item: CompletedWorkoutExercisePLO) {
-            binding.apply {
-                tvDate.text = item.date
-                recyclerView.apply {
-                    verticalLayoutManger(binding.root.context)
-                    adapter = recyclerAdapter
-                }
-                recyclerAdapter.submitList(item.completedSets)
-            }
+            setUpRecyclerView()
+            bindViews(item)
+        }
+
+        private fun setUpRecyclerView() {
+            binding.recyclerView.setUp(recyclerAdapter)
+        }
+
+        private fun bindViews(item: CompletedWorkoutExercisePLO) {
+            binding.tvDate.text = item.date
+            recyclerAdapter.submitList(item.completedSets)
         }
     }
 }

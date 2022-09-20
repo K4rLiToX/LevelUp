@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class ValidateNewWeightUseCase @Inject constructor(
+class ValidateBodyWeight @Inject constructor(
     private val repository: BodyWeightRepository,
     @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ) {

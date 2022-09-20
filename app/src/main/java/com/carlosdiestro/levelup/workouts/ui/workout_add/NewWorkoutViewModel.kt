@@ -22,16 +22,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewWorkoutViewModel @Inject constructor(
-    private val addNewWorkoutExerciseUseCase: AddNewWorkoutExerciseUseCase,
-    private val addSetToWorkoutExerciseUseCase: AddSetToWorkoutExerciseUseCase,
-    private val removeSetFromExerciseUseCase: RemoveSetFromExerciseUseCase,
+    private val insertWorkoutExerciseUseCase: InsertWorkoutExerciseUseCase,
+    private val insertWorkoutSetInWorkoutExerciseUseCase: InsertWorkoutSetInWorkoutExerciseUseCase,
+    private val deleteWorkoutSetFromWorkoutExerciseUseCase: DeleteWorkoutSetFromWorkoutExerciseUseCase,
     private val blankStringValidatorUseCase: BlankStringValidatorUseCase,
-    private val validateExercisesToAddUseCase: ValidateExercisesToAddUseCase,
-    private val addNewWorkoutUseCase: AddNewWorkoutUseCase,
+    private val validateExercisesToAddUseCase: ValidateWorkoutExerciseListUseCase,
+    private val insertWorkoutUseCase: InsertWorkoutUseCase,
     private val getWorkoutUseCase: GetWorkoutUseCase,
     private val updateWorkoutUseCase: UpdateWorkoutUseCase,
-    private val updateSetFromExerciseUseCase: UpdateSetFromExerciseUseCase,
-    private val removeExerciseFromWorkoutUseCase: RemoveExerciseFromWorkoutUseCase,
+    private val updateWorkoutSetFromWorkoutExerciseUseCase: UpdateWorkoutSetFromWorkoutExerciseUseCase,
+    private val deleteWorkoutExerciseFromWorkoutUseCase: DeleteWorkoutExerciseFromWorkoutUseCase,
     private val replaceWorkoutExerciseUseCase: ReplaceWorkoutExerciseUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
@@ -57,29 +57,29 @@ class NewWorkoutViewModel @Inject constructor(
 
     fun onEvent(event: NewWorkoutEvent) {
         when (event) {
-            is NewWorkoutEvent.OnExerciseClicked -> addExerciseToWorkout(event.exercisePLO)
-            is NewWorkoutEvent.OnNewSetClicked -> addNewSetToExercise(
+            is NewWorkoutEvent.ClickExercise -> insertExercise(event.exercisePLO)
+            is NewWorkoutEvent.InsertSet -> insertSet(
                 event.newSet,
                 event.exercisePosition
             )
-            is NewWorkoutEvent.OnSetRemoved -> removeSetFromExercise(
+            is NewWorkoutEvent.RemoveSet -> deleteSet(
                 event.exercise,
                 event.set
             )
-            is NewWorkoutEvent.AddNewWorkout -> submitOrUpdateWorkout(event.name)
-            is NewWorkoutEvent.OnUpdateSetClicked -> updateSetFromExercise(
+            is NewWorkoutEvent.InsertWorkout -> upsertWorkout(event.name)
+            is NewWorkoutEvent.UpdateSet -> updateSet(
                 event.exercise,
                 event.set
             )
-            is NewWorkoutEvent.OnRemoveExerciseClicked -> removeExerciseFromWorkout(event.id)
+            is NewWorkoutEvent.DeleteExercise -> deleteExercise(event.id)
             is NewWorkoutEvent.EnableReplaceMode -> enableReplaceMode(event.id)
             is NewWorkoutEvent.ReplaceExercise -> replaceExercise(event.exercise)
         }
     }
 
-    private fun addExerciseToWorkout(exercisePLO: ExercisePLO) {
+    private fun insertExercise(exercisePLO: ExercisePLO) {
         launchAndCollect(
-            addNewWorkoutExerciseUseCase(
+            insertWorkoutExerciseUseCase(
                 exercisePLO,
                 exerciseList.toList()
             )
@@ -94,9 +94,9 @@ class NewWorkoutViewModel @Inject constructor(
         }
     }
 
-    private fun addNewSetToExercise(newSet: WorkoutSetPLO, position: Int) {
+    private fun insertSet(newSet: WorkoutSetPLO, position: Int) {
         launchAndCollect(
-            addSetToWorkoutExerciseUseCase(
+            insertWorkoutSetInWorkoutExerciseUseCase(
                 newSet,
                 position,
                 exerciseList.toList()
@@ -111,9 +111,9 @@ class NewWorkoutViewModel @Inject constructor(
         }
     }
 
-    private fun removeSetFromExercise(exercise: WorkoutExercisePLO, set: WorkoutSetPLO) {
+    private fun deleteSet(exercise: WorkoutExercisePLO, set: WorkoutSetPLO) {
         launchAndCollect(
-            removeSetFromExerciseUseCase(
+            deleteWorkoutSetFromWorkoutExerciseUseCase(
                 exercise,
                 set,
                 exerciseList.toList()
@@ -128,9 +128,9 @@ class NewWorkoutViewModel @Inject constructor(
         }
     }
 
-    private fun updateSetFromExercise(exercise: WorkoutExercisePLO, set: WorkoutSetPLO) {
+    private fun updateSet(exercise: WorkoutExercisePLO, set: WorkoutSetPLO) {
         launchAndCollect(
-            updateSetFromExerciseUseCase(
+            updateWorkoutSetFromWorkoutExerciseUseCase(
                 exercise,
                 set,
                 exerciseList.toList()
@@ -145,7 +145,7 @@ class NewWorkoutViewModel @Inject constructor(
         }
     }
 
-    private fun submitOrUpdateWorkout(name: String) {
+    private fun upsertWorkout(name: String) {
         viewModelScope.launch {
             val isValidName = blankStringValidatorUseCase(name)
             val isExerciseListValid = validateExercisesToAddUseCase(exerciseList)
@@ -168,14 +168,14 @@ class NewWorkoutViewModel @Inject constructor(
                     workoutToUpdate!!.copy(name = name),
                     exerciseList
                 )
-            } else addNewWorkoutUseCase(name, exerciseList)
+            } else insertWorkoutUseCase(name, exerciseList)
             channel.send(NewWorkoutEventResponse.PopBackStack)
         }
     }
 
-    private fun removeExerciseFromWorkout(id: Int) {
+    private fun deleteExercise(id: Int) {
         launchAndCollect(
-            removeExerciseFromWorkoutUseCase(id, exerciseList.toList())
+            deleteWorkoutExerciseFromWorkoutUseCase(id, exerciseList.toList())
         ) { response ->
             exerciseList = response.toMutableList()
             _state.update {

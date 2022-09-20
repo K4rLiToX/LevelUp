@@ -5,6 +5,7 @@ import com.carlosdiestro.levelup.workouts.domain.models.Repetition
 import com.carlosdiestro.levelup.workouts.domain.models.Weight
 import com.carlosdiestro.levelup.workouts.domain.repositories.WorkoutExerciseRepository
 import com.carlosdiestro.levelup.workouts.domain.repositories.WorkoutRepository
+import com.carlosdiestro.levelup.workouts.mappers.toPLO
 import com.carlosdiestro.levelup.workouts.ui.models.CompletedWorkoutExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.CompletedWorkoutSetPLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutSetPLO
@@ -14,7 +15,7 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class GetAllWorkoutCompletedExercisesUseCase @Inject constructor(
+class GetCompletedWorkoutExerciseListUseCase @Inject constructor(
     private val workoutRepository: WorkoutRepository,
     private val workoutExerciseRepository: WorkoutExerciseRepository
 ) {

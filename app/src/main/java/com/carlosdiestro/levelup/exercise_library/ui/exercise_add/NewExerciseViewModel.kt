@@ -3,8 +3,8 @@ package com.carlosdiestro.levelup.exercise_library.ui.exercise_add
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
-import com.carlosdiestro.levelup.exercise_library.domain.usecases.AddNewExerciseUseCase
 import com.carlosdiestro.levelup.exercise_library.domain.usecases.BlankStringValidatorUseCase
+import com.carlosdiestro.levelup.exercise_library.domain.usecases.InsertExerciseUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class NewExerciseViewModel @Inject constructor(
     private val blankStringValidatorUseCase: BlankStringValidatorUseCase,
-    private val addNewExerciseUseCase: AddNewExerciseUseCase
+    private val insertExerciseUseCase: InsertExerciseUseCase
 ) : ViewModel() {
 
     private var _state: MutableStateFlow<NewExerciseState> = MutableStateFlow(NewExerciseState())
@@ -23,12 +23,12 @@ class NewExerciseViewModel @Inject constructor(
 
     fun onEvent(event: NewExerciseEvent) {
         when (event) {
-            is NewExerciseEvent.SaveNewExercise -> submitNewExercise(
+            is NewExerciseEvent.Save -> submitExercise(
                 event.name,
                 event.category,
                 event.isUnilateral
             )
-            NewExerciseEvent.ResetNewExerciseState -> _state.update {
+            NewExerciseEvent.ResetState -> _state.update {
                 it.copy(
                     exerciseName = "",
                     exerciseNameError = null,
@@ -38,7 +38,7 @@ class NewExerciseViewModel @Inject constructor(
         }
     }
 
-    private fun submitNewExercise(name: String, category: ExerciseCategory, isUnilateral: Boolean) {
+    private fun submitExercise(name: String, category: ExerciseCategory, isUnilateral: Boolean) {
         viewModelScope.launch {
             val response = blankStringValidatorUseCase(name)
             if (!response.isSuccessful) _state.update {
@@ -49,7 +49,7 @@ class NewExerciseViewModel @Inject constructor(
                 )
             }
             else {
-                addNewExerciseUseCase(name, category, isUnilateral)
+                insertExerciseUseCase(name, category, isUnilateral)
                 _state.update { it.copy(isSubmitSuccessful = true) }
             }
         }

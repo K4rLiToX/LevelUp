@@ -1,7 +1,7 @@
 package com.carlosdiestro.levelup.workouts.domain.usecases
 
-import com.carlosdiestro.levelup.workouts.domain.models.Workout
 import com.carlosdiestro.levelup.workouts.domain.repositories.WorkoutRepository
+import com.carlosdiestro.levelup.workouts.mappers.toDomain
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutPLO
 import javax.inject.Inject
 
@@ -13,9 +13,3 @@ class DeleteWorkoutUseCase @Inject constructor(
         repository.delete(workout.toDomain())
     }
 }
-
-fun WorkoutPLO.toDomain(): Workout = Workout(
-    id = id,
-    name = name,
-    emptyList()
-)

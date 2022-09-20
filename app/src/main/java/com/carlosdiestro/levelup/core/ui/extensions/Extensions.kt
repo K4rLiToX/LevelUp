@@ -2,23 +2,30 @@ package com.carlosdiestro.levelup.core.ui.extensions
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.content.Context
 import android.text.Editable
+import android.view.Gravity
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.PopupMenu
+import androidx.annotation.IdRes
+import androidx.annotation.MenuRes
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.carlosdiestro.levelup.MainActivity
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 fun <T> LifecycleOwner.launchAndCollect(
@@ -31,19 +38,6 @@ fun <T> LifecycleOwner.launchAndCollect(
             flow.collect(body)
         }
     }
-}
-
-fun <T, U> Flow<T>.diff(
-    lifecycleOwner: LifecycleOwner,
-    mapf: (T) -> U,
-    state: Lifecycle.State = Lifecycle.State.STARTED,
-    body: (U) -> Unit
-) {
-    lifecycleOwner.launchAndCollect(
-        state = state,
-        flow = map(mapf).distinctUntilChanged(),
-        body = body
-    )
 }
 
 fun <T> ViewModel.launchAndCollect(
@@ -89,17 +83,49 @@ fun Fragment.showWarningDialog(messageId: Int) {
         .show()
 }
 
-fun RecyclerView.verticalLayoutManger(context: Context) {
+fun <T, VH : RecyclerView.ViewHolder> RecyclerView.setUp(recyclerAdapter: ListAdapter<T, VH>) {
     this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+    this.adapter = recyclerAdapter
 }
 
-fun ViewPager2.initializeViewPagerWithTabLayout(
+fun ViewPager2.setUp(
     viewPagerAdapter: FragmentStateAdapter,
     tabLayout: TabLayout,
-    tabTitle: (Int) -> String
+    tabText: (Int) -> String
 ) {
     this.adapter = viewPagerAdapter
     TabLayoutMediator(tabLayout, this) { tab, position ->
-        tab.text = tabTitle(position)
+        tab.text = tabText(position)
     }.attach()
 }
+
+fun Menu.menuItemAsMaterialButton(@IdRes id: Int, buttonText: String, onClick: () -> Unit) {
+    (this.findItem(id).actionView as MaterialButton).apply {
+        text = buttonText
+        setOnClickListener { onClick() }
+    }
+}
+
+fun Fragment.setUpMenuProvider(provider: MenuProvider) {
+    requireActivity().addMenuProvider(provider, viewLifecycleOwner, Lifecycle.State.RESUMED)
+}
+
+fun Fragment.setActionBarTitle(text: String) {
+    (requireActivity() as MainActivity).supportActionBar?.title = text.uppercase()
+}
+
+fun Fragment.showPopUpMenu(
+    anchorView: View,
+    @MenuRes menuId: Int,
+    gravity: Int = Gravity.END,
+    onMenuItemClicked: (MenuItem) -> Boolean
+) {
+    PopupMenu(requireContext(), anchorView).apply {
+        menuInflater.inflate(menuId, this.menu)
+        this.gravity = gravity
+        setOnMenuItemClickListener { onMenuItemClicked(it) }
+    }.also {
+        it.show()
+    }
+}
+

@@ -9,7 +9,7 @@ import com.carlosdiestro.levelup.databinding.ItemExerciseBinding
 import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
 
 class ExerciseAdapter(
-    private val onItemClicked: ((ExercisePLO) -> Unit)? = null
+    private val onExerciseClicked: ((ExercisePLO) -> Unit)? = null
 ) :
     ListAdapter<ExercisePLO, ExerciseAdapter.ViewHolder>(ExercisePLO.ExerciseDiffCallback()) {
 
@@ -17,7 +17,7 @@ class ExerciseAdapter(
         val binding =
             ItemExerciseBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding) {
-            onItemClicked?.let { block -> block(getItem(it)) }
+            onExerciseClicked?.let { block -> block(getItem(it)) }
         }
     }
 
@@ -33,8 +33,8 @@ class ExerciseAdapter(
 
         init {
             binding.root.setOnClickListener {
-                onItemClicked?.let { block ->
-                    block(bindingAdapterPosition)
+                onItemClicked?.let { onClicked ->
+                    onClicked(bindingAdapterPosition)
                 }
             }
         }

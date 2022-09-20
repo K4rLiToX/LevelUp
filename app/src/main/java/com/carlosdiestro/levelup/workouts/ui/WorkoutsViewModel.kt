@@ -27,7 +27,7 @@ class WorkoutsViewModel @Inject constructor(
 
     fun onEvent(event: WorkoutEvent) {
         when (event) {
-            is WorkoutEvent.OnDeleteWorkout -> deleteWorkout(event.id)
+            is WorkoutEvent.DeleteWorkout -> deleteWorkout(event.id)
         }
     }
 
