@@ -5,6 +5,7 @@ import com.carlosdiestro.levelup.workouts.domain.models.Repetition
 import com.carlosdiestro.levelup.workouts.domain.models.Weight
 import com.carlosdiestro.levelup.workouts.domain.repositories.WorkoutExerciseRepository
 import com.carlosdiestro.levelup.workouts.domain.repositories.WorkoutRepository
+import com.carlosdiestro.levelup.workouts.mappers.toPLO
 import com.carlosdiestro.levelup.workouts.ui.models.CompletedWorkoutExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.models.CompletedWorkoutSetPLO
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutSetPLO
