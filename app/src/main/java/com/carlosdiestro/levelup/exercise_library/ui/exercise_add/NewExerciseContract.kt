@@ -10,11 +10,11 @@ data class NewExerciseState(
 )
 
 sealed interface NewExerciseEvent {
-    class SaveNewExercise(
+    class Save(
         val name: String,
         val isUnilateral: Boolean,
         val category: ExerciseCategory
     ) : NewExerciseEvent
 
-    object ResetNewExerciseState : NewExerciseEvent
+    object ResetState : NewExerciseEvent
 }

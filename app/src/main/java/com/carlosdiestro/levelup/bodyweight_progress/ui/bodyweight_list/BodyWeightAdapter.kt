@@ -10,14 +10,14 @@ import com.carlosdiestro.levelup.core.ui.resources.toText
 import com.carlosdiestro.levelup.databinding.ItemBodyWeightBinding
 
 class BodyWeightAdapter(
-    private val onItemLongClicked: (BodyWeightPLO) -> Unit
+    private val onItemClicked: (BodyWeightPLO) -> Unit
 ) : ListAdapter<BodyWeightPLO, BodyWeightAdapter.ViewHolder>(BodyWeightPLO.BodyWeightDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
             ItemBodyWeightBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding) {
-            onItemLongClicked(getItem(it))
+            onItemClicked(getItem(it))
         }
     }
 
@@ -28,12 +28,12 @@ class BodyWeightAdapter(
 
     inner class ViewHolder(
         private val binding: ItemBodyWeightBinding,
-        private val onItemLongClicked: (Int) -> Unit
+        private val onItemClicked: (Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.root.setOnClickListener {
-                onItemLongClicked(bindingAdapterPosition)
+                onItemClicked(bindingAdapterPosition)
             }
         }
 

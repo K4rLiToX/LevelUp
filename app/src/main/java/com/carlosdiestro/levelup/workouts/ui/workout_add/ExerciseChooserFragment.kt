@@ -45,7 +45,7 @@ class ExerciseChooserFragment : Fragment(R.layout.fragment_exercise_chooser) {
             cgCategories.setOnCheckedStateChangeListener { _, checkedIds ->
                 val category =
                     if (checkedIds.isNotEmpty()) getExerciseCategory(checkedIds[0]) else ExerciseCategory.ALL
-                viewModel.onEvent(ExerciseChooserEvent.OnFilterChanged(category))
+                viewModel.onEvent(ExerciseChooserEvent.UpdateFilter(category))
             }
         }
     }

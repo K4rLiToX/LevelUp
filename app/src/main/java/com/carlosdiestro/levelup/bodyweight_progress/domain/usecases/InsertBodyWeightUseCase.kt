@@ -5,7 +5,7 @@ import com.carlosdiestro.levelup.bodyweight_progress.domain.repositories.BodyWei
 import com.carlosdiestro.levelup.core.ui.managers.TimeManager
 import javax.inject.Inject
 
-class NoteDownBodyWeightUseCase @Inject constructor(
+class InsertBodyWeightUseCase @Inject constructor(
     private val repository: BodyWeightRepository
 ) {
 

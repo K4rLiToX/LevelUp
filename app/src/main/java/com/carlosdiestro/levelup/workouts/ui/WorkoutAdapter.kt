@@ -11,8 +11,8 @@ import com.carlosdiestro.levelup.databinding.ItemWorkoutBinding
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutPLO
 
 class WorkoutAdapter(
-    private val onItemClicked: (Int, String) -> Unit,
-    private val onMoreClicked: (Int, View) -> Unit
+    private val clickWorkout: (Int, String) -> Unit,
+    private val openMenu: (Int, View) -> Unit
 ) : ListAdapter<WorkoutPLO, WorkoutAdapter.ViewHolder>(WorkoutPLO.WorkoutDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -20,10 +20,10 @@ class WorkoutAdapter(
         return ViewHolder(
             binding,
             {
-                onItemClicked(getItem(it).id, getItem(it).name)
+                clickWorkout(getItem(it).id, getItem(it).name)
             },
             { pos, view ->
-                onMoreClicked(getItem(pos).id, view)
+                openMenu(getItem(pos).id, view)
             }
         )
     }
@@ -35,17 +35,17 @@ class WorkoutAdapter(
 
     inner class ViewHolder(
         private val binding: ItemWorkoutBinding,
-        private val onItemClicked: (Int) -> Unit,
-        private val onMoreClicked: (Int, View) -> Unit
+        private val clickWorkout: (Int) -> Unit,
+        private val openMenu: (Int, View) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.apply {
                 root.setOnClickListener {
-                    onItemClicked(bindingAdapterPosition)
+                    clickWorkout(bindingAdapterPosition)
                 }
                 btnMore.setOnClickListener {
-                    onMoreClicked(bindingAdapterPosition, it)
+                    openMenu(bindingAdapterPosition, it)
                 }
             }
         }

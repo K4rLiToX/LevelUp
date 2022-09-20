@@ -6,7 +6,7 @@ import com.carlosdiestro.levelup.workouts.mappers.toDomain
 import com.carlosdiestro.levelup.workouts.ui.models.WorkoutExercisePLO
 import javax.inject.Inject
 
-class AddNewWorkoutUseCase @Inject constructor(
+class InsertWorkoutUseCase @Inject constructor(
     private val repository: WorkoutRepository
 ) {
 

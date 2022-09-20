@@ -50,5 +50,3 @@ Vapp/src/main/java/com/carlosdiestro/levelup/core/ui/components/NestedScrollable
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 @
 app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
-—
-gapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/bodyweight_list/BodyWeightAdapter.kt,c\b\cbc20c5c1a44a2583538ce0615d175d900a83373

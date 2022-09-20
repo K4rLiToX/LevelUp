@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class GetExercisesUseCase @Inject constructor(
+class GetExerciseListUseCase @Inject constructor(
     private val repository: ExerciseRepository
 ) {
 

@@ -46,7 +46,7 @@ class UpdateBodyWeightDialog(
 
     private fun setUpClickListeners() {
         binding.apply {
-            btnSave.setOnClickListener { saveUpdatedBodyWeight() }
+            btnSave.setOnClickListener { saveBodyWeight() }
             btnCancel.setOnClickListener { dismiss() }
         }
     }
@@ -69,7 +69,7 @@ class UpdateBodyWeightDialog(
         }
     }
 
-    private fun saveUpdatedBodyWeight() {
+    private fun saveBodyWeight() {
         val newBodyWeightText = binding.etUpdateBodyWeight.text.toTrimmedString()
         viewModel.onEvent(UpdateBodyWeightEvent.Save(newBodyWeightText))
     }

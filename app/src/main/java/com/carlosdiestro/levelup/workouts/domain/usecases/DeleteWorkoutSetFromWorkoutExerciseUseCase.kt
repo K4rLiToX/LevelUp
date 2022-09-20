@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class UpdateSetFromExerciseUseCase @Inject constructor(
+class DeleteWorkoutSetFromWorkoutExerciseUseCase @Inject constructor(
     @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ) {
 
@@ -21,16 +21,21 @@ class UpdateSetFromExerciseUseCase @Inject constructor(
         emit(
             list.toMutableList().apply {
                 this[exercise.exerciseOrder - 1] = this[exercise.exerciseOrder - 1].copy(
-                    sets = updateSet(set, this[exercise.exerciseOrder - 1].sets)
+                    sets = removeSetAndRearrangeList(set, this[exercise.exerciseOrder - 1].sets)
                 )
             }
         )
     }.flowOn(dispatcher)
 
-    private fun updateSet(set: WorkoutSetPLO, sets: List<WorkoutSetPLO>): List<WorkoutSetPLO> {
-        return sets.map {
-            if (it.id == set.id) it.copy(repRange = set.repRange)
-            else it
-        }
+    private fun removeSetAndRearrangeList(
+        set: WorkoutSetPLO,
+        list: List<WorkoutSetPLO>
+    ): List<WorkoutSetPLO> {
+        return (list subtract listOf(set).toSet())
+            .toList()
+            .mapIndexed { i, s ->
+                if (s.setOrder == i + 1) s
+                else s.copy(setOrder = i + 1)
+            }
     }
 }

@@ -3,7 +3,7 @@ package com.carlosdiestro.levelup.workouts.ui.workout_add
 import androidx.lifecycle.ViewModel
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
-import com.carlosdiestro.levelup.exercise_library.domain.usecases.GetExercisesUseCase
+import com.carlosdiestro.levelup.exercise_library.domain.usecases.GetExerciseListUseCase
 import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
 import com.carlosdiestro.levelup.workouts.domain.usecases.FilterExerciseListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ExerciseChooserViewModel @Inject constructor(
-    private val getExerciseListUseCase: GetExercisesUseCase,
+    private val getExerciseListUseCase: GetExerciseListUseCase,
     private val filterExerciseListUseCase: FilterExerciseListUseCase
 ) : ViewModel() {
 
@@ -30,7 +30,7 @@ class ExerciseChooserViewModel @Inject constructor(
 
     fun onEvent(event: ExerciseChooserEvent) {
         when (event) {
-            is ExerciseChooserEvent.OnFilterChanged -> updateExerciseCategoryFilter(event.newFilter)
+            is ExerciseChooserEvent.UpdateFilter -> updateExerciseCategoryFilter(event.newFilter)
         }
     }
 

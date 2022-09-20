@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class GetAllWorkoutCompletedExercisesUseCase @Inject constructor(
+class GetCompletedWorkoutExerciseListUseCase @Inject constructor(
     private val workoutRepository: WorkoutRepository,
     private val workoutExerciseRepository: WorkoutExerciseRepository
 ) {

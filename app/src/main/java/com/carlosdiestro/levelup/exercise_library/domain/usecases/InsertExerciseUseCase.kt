@@ -5,7 +5,7 @@ import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
 import com.carlosdiestro.levelup.exercise_library.domain.repositories.ExerciseRepository
 import javax.inject.Inject
 
-class AddNewExerciseUseCase @Inject constructor(
+class InsertExerciseUseCase @Inject constructor(
     private val repository: ExerciseRepository
 ) {
 

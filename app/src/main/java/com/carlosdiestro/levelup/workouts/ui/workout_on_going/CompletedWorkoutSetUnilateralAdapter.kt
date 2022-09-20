@@ -14,7 +14,7 @@ import com.carlosdiestro.levelup.workouts.ui.models.CompletedWorkoutSetPLO
 
 class CompletedWorkoutSetUnilateralAdapter(
     private val updateSet: (Double, Double, Int, Int, Int, Int, CompletedWorkoutSetPLO) -> Unit,
-    private val showWarningDialog: () -> Unit
+    private val openDialog: () -> Unit
 ) :
     ListAdapter<CompletedWorkoutSetPLO, CompletedWorkoutSetUnilateralAdapter.ViewHolder>(
         CompletedWorkoutSetPLO.CompletedWorkoutSetDiffCallback()
@@ -31,7 +31,7 @@ class CompletedWorkoutSetUnilateralAdapter(
             { rw, lw, rr, lr, rp, lp, pos ->
                 updateSet(rw, lw, rr, lr, rp, lp, getItem(pos))
             },
-            { showWarningDialog() }
+            { openDialog() }
         )
     }
 
@@ -43,7 +43,7 @@ class CompletedWorkoutSetUnilateralAdapter(
     inner class ViewHolder(
         private val binding: ItemCompletedWorkoutSetUnilateralBinding,
         private val updateSet: (Double, Double, Int, Int, Int, Int, Int) -> Unit,
-        private val showWarningDialog: () -> Unit
+        private val openDialog: () -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -81,7 +81,7 @@ class CompletedWorkoutSetUnilateralAdapter(
                 )
                 bindVisibilities(true)
             } else {
-                showWarningDialog()
+                openDialog()
             }
         }
 

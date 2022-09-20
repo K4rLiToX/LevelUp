@@ -46,7 +46,7 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
             result?.let {
                 val isReplaceModeEnabled = viewModel.isReplaceModeEnabled()
                 if (isReplaceModeEnabled) viewModel.onEvent(NewWorkoutEvent.ReplaceExercise(it))
-                else viewModel.onEvent(NewWorkoutEvent.OnExerciseClicked(it))
+                else viewModel.onEvent(NewWorkoutEvent.ClickExercise(it))
             }
         }
     }
@@ -82,28 +82,28 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
 
     private fun setUpRecyclerAdapter() {
         recyclerAdapter = WorkoutExerciseAdapter(
-            { sets, pos -> addNewSet(sets, pos) },
-            { e, s -> viewModel.onEvent(NewWorkoutEvent.OnSetRemoved(e, s)) },
+            { sets, pos -> insertSet(sets, pos) },
+            { e, s -> viewModel.onEvent(NewWorkoutEvent.RemoveSet(e, s)) },
             { exercise, set -> updateSet(exercise, set) },
             { id, view -> openMoreMenu(id, view) }
         )
     }
 
-    private val addNewSet: (List<WorkoutSetPLO>, Int) -> Unit = { sets, pos ->
+    private val insertSet: (List<WorkoutSetPLO>, Int) -> Unit = { sets, pos ->
         AddSetDialog {
             val newSet = WorkoutSetPLO(
                 id = -1,
                 setOrder = sets.size + 1,
                 repRange = it
             )
-            viewModel.onEvent(NewWorkoutEvent.OnNewSetClicked(newSet, pos))
+            viewModel.onEvent(NewWorkoutEvent.InsertSet(newSet, pos))
         }.show(requireActivity().supportFragmentManager, AddSetDialog.TAG)
     }
 
     private val updateSet: (WorkoutExercisePLO, WorkoutSetPLO) -> Unit = { exercise, set ->
         AddSetDialog(set.repRange) {
             val newSet = set.copy(repRange = it)
-            viewModel.onEvent(NewWorkoutEvent.OnUpdateSetClicked(exercise, newSet))
+            viewModel.onEvent(NewWorkoutEvent.UpdateSet(exercise, newSet))
         }.show(requireActivity().supportFragmentManager, AddSetDialog.TAG)
     }
 
@@ -153,7 +153,7 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
 
     private fun submitNewWorkout() {
         val workoutName = binding.etName.text.toTrimmedString()
-        viewModel.onEvent(NewWorkoutEvent.AddNewWorkout(workoutName))
+        viewModel.onEvent(NewWorkoutEvent.InsertWorkout(workoutName))
     }
 
     private fun navigateToExerciseChooserFragment() {
@@ -167,7 +167,7 @@ class NewWorkoutFragment : Fragment(R.layout.fragment_new_workout), MenuProvider
                     viewModel.onEvent(NewWorkoutEvent.EnableReplaceMode(id))
                     navigateToExerciseChooserFragment()
                 }
-                else -> viewModel.onEvent(NewWorkoutEvent.OnRemoveExerciseClicked(id))
+                else -> viewModel.onEvent(NewWorkoutEvent.DeleteExercise(id))
             }
             true
         }

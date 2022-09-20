@@ -18,14 +18,14 @@ import javax.inject.Inject
 
 class WorkoutExerciseRepositoryImpl @Inject constructor(
     private val workoutExerciseDao: WorkoutExerciseDao,
-    private val completedWorkoutExerciseDAO: CompletedWorkoutExerciseDao,
+    private val completedWorkoutExerciseDao: CompletedWorkoutExerciseDao,
     private val workoutSetRepository: WorkoutSetRepository,
     @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) : WorkoutExerciseRepository {
 
     override suspend fun getLastCompletedExercisesWithSets(workoutId: Int): List<CompletedWorkoutExercise> =
         withContext(dispatcher) {
-            completedWorkoutExerciseDAO
+            completedWorkoutExerciseDao
                 .getCompletedExercisesWithSets(workoutId)
                 ?.groupBy { it.exercise?.date }
                 ?.map { (_, value) -> value }
@@ -35,7 +35,7 @@ class WorkoutExerciseRepositoryImpl @Inject constructor(
         }
 
     override fun getCompletedExercisesWithSets(workoutId: Int): Flow<List<Pair<Int, List<CompletedWorkoutExercise>>>> =
-        completedWorkoutExerciseDAO
+        completedWorkoutExerciseDao
             .getCompletedExercisesWithSetsFlow(workoutId)
             .map { list ->
                 list
@@ -48,7 +48,7 @@ class WorkoutExerciseRepositoryImpl @Inject constructor(
     override suspend fun insert(completedWorkoutExercise: CompletedWorkoutExercise) =
         withContext(dispatcher) {
             val exerciseId =
-                completedWorkoutExerciseDAO.insert(completedWorkoutExercise.toEntity()).toInt()
+                completedWorkoutExerciseDao.insert(completedWorkoutExercise.toEntity()).toInt()
             val newExercise =
                 completedWorkoutExercise.copy(completedSets = completedWorkoutExercise.completedSets.map {
                     it.copy(exerciseId = exerciseId)
@@ -58,7 +58,7 @@ class WorkoutExerciseRepositoryImpl @Inject constructor(
 
     override suspend fun insert(list: List<CompletedWorkoutExercise>) = withContext(dispatcher) {
         val exercisesIds =
-            completedWorkoutExerciseDAO.insert(list.toEntity()).map { it.toInt() }
+            completedWorkoutExerciseDao.insert(list.toEntity()).map { it.toInt() }
         val exercisesWithIds = list.mapIndexed { i, e -> Pair(exercisesIds[i], e) }
         val newExerciseList = exercisesWithIds.map { (exerciseId, exercise) ->
             exercise.copy(completedSets = exercise.completedSets.map { it.copy(exerciseId = exerciseId) })

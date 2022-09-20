@@ -70,7 +70,7 @@ class NewExerciseFragment : Fragment(R.layout.fragment_new_exercise), MenuProvid
         val exerciseCategory = getCategoryChecked(binding.cgCategories)
 
         viewModel.onEvent(
-            NewExerciseEvent.SaveNewExercise(
+            NewExerciseEvent.Save(
                 exerciseName,
                 isUnilateral,
                 exerciseCategory
@@ -90,7 +90,7 @@ class NewExerciseFragment : Fragment(R.layout.fragment_new_exercise), MenuProvid
             sUnilateral.isChecked = false
             cgCategories.check(R.id.cPush)
         }
-        viewModel.onEvent(NewExerciseEvent.ResetNewExerciseState)
+        viewModel.onEvent(NewExerciseEvent.ResetState)
     }
 
     private fun getCategoryChecked(group: ChipGroup): ExerciseCategory {

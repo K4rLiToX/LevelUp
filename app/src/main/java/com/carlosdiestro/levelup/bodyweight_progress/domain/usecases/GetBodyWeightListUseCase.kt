@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class GetWeightListUseCase @Inject constructor(
+class GetBodyWeightListUseCase @Inject constructor(
     private val repository: BodyWeightRepository
 ) {
     operator fun invoke(): Flow<List<BodyWeightPLO>> = repository.getAll().map { it.toPLO() }

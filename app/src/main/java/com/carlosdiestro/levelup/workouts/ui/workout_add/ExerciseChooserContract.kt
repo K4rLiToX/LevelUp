@@ -4,7 +4,7 @@ import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
 import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
 
 sealed interface ExerciseChooserEvent {
-    class OnFilterChanged(val newFilter: ExerciseCategory) : ExerciseChooserEvent
+    class UpdateFilter(val newFilter: ExerciseCategory) : ExerciseChooserEvent
 }
 
 data class ExerciseChooserState(

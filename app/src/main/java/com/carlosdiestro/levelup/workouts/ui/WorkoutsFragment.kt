@@ -61,7 +61,7 @@ class WorkoutsFragment : Fragment(R.layout.fragment_workouts) {
         ) {
             when (it.itemId) {
                 R.id.action_update -> navigateToUpdateWorkout(id)
-                else -> viewModel.onEvent(WorkoutEvent.OnDeleteWorkout(id))
+                else -> viewModel.onEvent(WorkoutEvent.DeleteWorkout(id))
             }
             true
         }
