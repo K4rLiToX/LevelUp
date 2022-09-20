@@ -11,6 +11,7 @@ import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.databinding.FragmentExerciseCategoryBinding
 import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
+import com.carlosdiestro.levelup.workouts.ui.workout_add.ExerciseChooserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,8 +19,13 @@ class ExerciseCategoryFragment : Fragment(R.layout.fragment_exercise_category) {
 
     private val binding by viewBinding(FragmentExerciseCategoryBinding::bind)
     private val viewModel by viewModels<ExerciseCategoryViewModel>()
+    private val exerciseChooserViewModel: ExerciseChooserViewModel by viewModels(ownerProducer = { requireParentFragment() })
     private val recyclerAdapter: ExerciseAdapter by lazy {
-        ExerciseAdapter()
+        ExerciseAdapter {
+            if (viewModel.isSelectionModeEnable) {
+                exerciseChooserViewModel.setExercise(it)
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,5 +55,6 @@ class ExerciseCategoryFragment : Fragment(R.layout.fragment_exercise_category) {
 
     companion object {
         const val EXERCISE_CATEGORY_KEY = "exercise_category_key"
+        const val IS_SELECTION_MODE_KEY = "is_selection_mode_key"
     }
 }

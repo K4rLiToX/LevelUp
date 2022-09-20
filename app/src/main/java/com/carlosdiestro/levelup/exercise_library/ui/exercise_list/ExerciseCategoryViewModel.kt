@@ -7,6 +7,7 @@ import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
 import com.carlosdiestro.levelup.exercise_library.domain.models.toExerciseCategory
 import com.carlosdiestro.levelup.exercise_library.domain.usecases.GetExerciseListUseCase
 import com.carlosdiestro.levelup.exercise_library.ui.exercise_list.ExerciseCategoryFragment.Companion.EXERCISE_CATEGORY_KEY
+import com.carlosdiestro.levelup.exercise_library.ui.exercise_list.ExerciseCategoryFragment.Companion.IS_SELECTION_MODE_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,6 +26,8 @@ class ExerciseCategoryViewModel @Inject constructor(
 
     private var exerciseCategory: ExerciseCategory =
         savedStateHandle.get<Int>(EXERCISE_CATEGORY_KEY)!!.toExerciseCategory()
+
+    val isSelectionModeEnable: Boolean = savedStateHandle.get<Boolean>(IS_SELECTION_MODE_KEY)!!
 
     init {
         fetchExercises()
