@@ -8,6 +8,7 @@ interface ExerciseRepository {
     suspend fun insert(exercise: Exercise)
     suspend fun update(exercise: Exercise)
     suspend fun delete(exercise: Exercise)
+    suspend fun getById(id: Int): Exercise
     fun getAll(): Flow<List<Exercise>>
     fun getByGroup(group: ExerciseCategory): Flow<List<Exercise>>
 }

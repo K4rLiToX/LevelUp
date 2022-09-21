@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             if (navController.currentDestination?.id == R.id.workoutsFragment) navController.navigate(
                 WorkoutsFragmentDirections.toNewWorkoutFragment()
             )
-            else navController.navigate(ExerciseLibraryFragmentDirections.toNewExerciseFragment())
+            else navController.navigate(ExerciseLibraryFragmentDirections.toNewExerciseFragment(-1))
         }
     }
 

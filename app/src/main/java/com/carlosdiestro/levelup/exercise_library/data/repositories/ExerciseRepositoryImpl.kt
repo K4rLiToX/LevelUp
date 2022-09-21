@@ -32,6 +32,10 @@ class ExerciseRepositoryImpl @Inject constructor(
         dao.delete(exercise.toEntity())
     }
 
+    override suspend fun getById(id: Int): Exercise = withContext(dispatcher){
+        dao.getById(id).toDomain()
+    }
+
     override fun getAll(): Flow<List<Exercise>> =
         dao.getAll().map { it?.toDomain() ?: emptyList() }.flowOn(dispatcher)
 

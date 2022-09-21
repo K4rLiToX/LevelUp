@@ -182,8 +182,6 @@ bapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/workout_on_going/OnGoin
 aapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/workout_details/WorkoutDetailsFragment.kt,7\e\7e768dccf307430055b99f6e47c7aa512da7d467
 ñ
 fapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/workout_on_going/CompletedWorkoutSetAdapter.kt,1\a\1ae742c8190fb312e40af8aba2b8b9e799161f94
-í
-bapp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/ExerciseCategoryFragmentAdapter.kt,5\a\5aba2bb46c917309cc8338516143526ab324579a
 ö
 japp/src/main/java/com/carlosdiestro/levelup/workouts/ui/workout_on_going/OnGoingWorkoutExerciseFragment.kt,e\e\eeef57d41cd1f87cf5ca0c5ca08c472c58c2c9b0
 é
@@ -194,8 +192,6 @@ Yapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/workout_add/NewWorkoutF
 ^app/src/main/java/com/carlosdiestro/levelup/workouts/ui/workout_add/ExerciseChooserFragment.kt,4\8\48baa295339ee43de75e2442d0d81296c6d538c8
 è
 _app/src/main/java/com/carlosdiestro/levelup/workouts/ui/workout_add/ExerciseChooserViewModel.kt,d\c\dc62a0a0bd293099f4ee24f9e7b32b50252500d7
-ä
-Zapp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/ExerciseLibraryFragment.kt,5\6\562a93c2a179cfbd93613277d7087f31bc2c30f9
 ù
 mapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/data/repositories/BodyWeightRepositoryImpl.kt,5\9\59325a0df3f51a0c234557151eea8d13c6dd7c7c
 ö

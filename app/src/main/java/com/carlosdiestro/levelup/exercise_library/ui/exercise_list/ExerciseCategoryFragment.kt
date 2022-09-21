@@ -27,7 +27,7 @@ class ExerciseCategoryFragment : Fragment(R.layout.fragment_exercise_category) {
             if (viewModel.isSelectionModeEnable) {
                 exerciseChooserViewModel.setExercise(it)
             } else {
-                findNavController().navigate(ExerciseLibraryFragmentDirections.toNewExerciseFragment(it))
+                findNavController().navigate(ExerciseLibraryFragmentDirections.toNewExerciseFragment(it.id))
             }
         }
     }
