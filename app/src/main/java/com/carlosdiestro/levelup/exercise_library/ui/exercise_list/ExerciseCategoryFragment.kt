@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.carlosdiestro.levelup.R
 import com.carlosdiestro.levelup.core.ui.extensions.launchAndCollect
 import com.carlosdiestro.levelup.core.ui.extensions.setUp
 import com.carlosdiestro.levelup.core.ui.extensions.visible
 import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.databinding.FragmentExerciseCategoryBinding
+import com.carlosdiestro.levelup.exercise_library.ui.ExerciseLibraryFragmentDirections
 import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
 import com.carlosdiestro.levelup.workouts.ui.workout_add.ExerciseChooserViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +26,8 @@ class ExerciseCategoryFragment : Fragment(R.layout.fragment_exercise_category) {
         ExerciseAdapter {
             if (viewModel.isSelectionModeEnable) {
                 exerciseChooserViewModel.setExercise(it)
+            } else {
+                findNavController().navigate(ExerciseLibraryFragmentDirections.toNewExerciseFragment(it))
             }
         }
     }

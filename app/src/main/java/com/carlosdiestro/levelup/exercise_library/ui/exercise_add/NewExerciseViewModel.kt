@@ -1,10 +1,13 @@
 package com.carlosdiestro.levelup.exercise_library.ui.exercise_add
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
 import com.carlosdiestro.levelup.exercise_library.domain.usecases.BlankStringValidatorUseCase
 import com.carlosdiestro.levelup.exercise_library.domain.usecases.InsertExerciseUseCase
+import com.carlosdiestro.levelup.exercise_library.domain.usecases.UpdateExerciseUseCase
+import com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,11 +18,28 @@ import javax.inject.Inject
 @HiltViewModel
 class NewExerciseViewModel @Inject constructor(
     private val blankStringValidatorUseCase: BlankStringValidatorUseCase,
-    private val insertExerciseUseCase: InsertExerciseUseCase
+    private val insertExerciseUseCase: InsertExerciseUseCase,
+    private val updateExerciseUseCase: UpdateExerciseUseCase,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private var _state: MutableStateFlow<NewExerciseState> = MutableStateFlow(NewExerciseState())
     val state = _state.asStateFlow()
+
+    private val exercise: ExercisePLO? = savedStateHandle.get<ExercisePLO>("exercise")
+    val isUpdateMode: Boolean = exercise != null
+
+    init {
+        exercise?.let { e ->
+            _state.update {
+                it.copy(
+                    exerciseName = e.name,
+                    isUnilateral = e.isUnilateral,
+                    exerciseCategory = e.category
+                )
+            }
+        }
+    }
 
     fun onEvent(event: NewExerciseEvent) {
         when (event) {
@@ -49,7 +69,14 @@ class NewExerciseViewModel @Inject constructor(
                 )
             }
             else {
-                insertExerciseUseCase(name, category, isUnilateral)
+                if (isUpdateMode) {
+                    updateExerciseUseCase(exercise!!.copy(
+                        name = name,
+                        isUnilateral = isUnilateral,
+                        category = category
+                    ))
+                }
+                else insertExerciseUseCase(name, category, isUnilateral)
                 _state.update { it.copy(isSubmitSuccessful = true) }
             }
         }

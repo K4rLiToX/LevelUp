@@ -5,6 +5,8 @@ import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
 
 data class NewExerciseState(
     val exerciseName: String = "",
+    val isUnilateral: Boolean = false,
+    val exerciseCategory: ExerciseCategory = ExerciseCategory.PUSH,
     val exerciseNameError: StringResource? = null,
     val isSubmitSuccessful: Boolean = false
 )

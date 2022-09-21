@@ -22,7 +22,13 @@
     <fragment
         android:id="@+id/newExerciseFragment"
         android:name="com.carlosdiestro.levelup.exercise_library.ui.exercise_add.NewExerciseFragment"
-        android:label="@string/title_new_exercise" />
+        android:label="@string/title_new_exercise" >
+        <argument
+            android:name="exercise"
+            app:argType="com.carlosdiestro.levelup.exercise_library.ui.models.ExercisePLO"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/workoutsFragment"
         android:name="com.carlosdiestro.levelup.workouts.ui.WorkoutsFragment"

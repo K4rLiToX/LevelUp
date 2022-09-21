@@ -27,6 +27,7 @@ sealed class StringResource(@StringRes val resId: Int) {
     object Cancel : StringResource(R.string.action_cancel)
     object Save : StringResource(R.string.action_save)
     object Accept : StringResource(R.string.action_accept)
+    object Update : StringResource(R.string.action_update)
     object Ok : StringResource(R.string.action_ok)
     object Close : StringResource(R.string.action_close)
     object Finish : StringResource(R.string.action_finish)

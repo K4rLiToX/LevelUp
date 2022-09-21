@@ -2,8 +2,6 @@
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-ñ
-fapp/src/main/java/com/carlosdiestro/levelup/exercise_library/domain/repositories/ExerciseRepository.kt,b\9\b925ee855eff805067f60991e15ce1e148317c81
 
 Oapp/src/main/java/com/carlosdiestro/levelup/workouts/framework/WorkoutEntity.kt,e\4\e43ad6b06167a9416c9933c76a1e6d1497fd18c7
 Ç
@@ -54,12 +52,8 @@ P
 ^app/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/mappers/BodyWeightUIMappers.kt,a\6\a6d0d703f319fae11bea8a0129a81f241fbcfa08
 ê
 `app/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/mappers/BodyWeightDataMappers.kt,5\4\54e22dc90a05a97c41ee17e94b659870d791688b
-ã
-[app/src/main/java/com/carlosdiestro/levelup/exercise_library/mappers/ExerciseDataMappers.kt,a\2\a2e1f42e07b8607b824de6ce26a91cd98c1992d8
 ñ
 fapp/src/main/java/com/carlosdiestro/levelup/exercise_library/domain/usecases/GetExerciseListUseCase.kt,9\8\983de1b919f439c030c574b5ea2ecf6c3586aedb
-â
-Yapp/src/main/java/com/carlosdiestro/levelup/exercise_library/mappers/ExerciseUIMappers.kt,8\1\81de248f7637a060340eeb5b254722a755967a02
 Ç
 Rapp/src/main/java/com/carlosdiestro/levelup/workouts/mappers/WorkoutDataMappers.kt,3\e\3e6a9ac7b1bc5571ed2d95376bcff615d1748ec4
 å
@@ -86,22 +80,10 @@ papp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/bodyweight_u
 qapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/bodyweight_list/BodyWeightProgressViewModel.kt,1\b\1b5e23864c4b69ddf78b4f78aa2dec8316caebac
 °
 qapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/bodyweight_update/UpdateBodyWeightViewModel.kt,5\3\53b135d2c4610f630a1bd2aea974f4d312d6c4c7
-ò
-happ/src/main/java/com/carlosdiestro/levelup/exercise_library/data/repositories/ExerciseRepositoryImpl.kt,4\f\4f282895eff176e7e24d828445365e9809ce339d
 ï
 eapp/src/main/java/com/carlosdiestro/levelup/exercise_library/domain/usecases/InsertExerciseUseCase.kt,7\6\76b8dcf1f007ce6b06d57675cae640b4c29a0d9d
 û
 napp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/ui/bodyweight_update/UpdateBodyWeightDialog.kt,b\8\b82ebc4cf83dc8e77e13e63d08cfe239c550324d
-ê
-`app/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_list/ExerciseAdapter.kt,4\4\440f1a39ae032b555bfbee213bf8a2524fabd21e
-î
-dapp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_add/NewExerciseViewModel.kt,0\e\0e160ad220b077ea095395fa70db44cdbdd8a9b7
-ì
-capp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_add/NewExerciseFragment.kt,b\a\baf179659ee989fbce2c9b00a514767de23dc98e
-ì
-capp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_add/NewExerciseContract.kt,b\8\b8b06f94d50182ddae0063d1f24a318aeb2c3ee4
-ô
-iapp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_list/ExerciseCategoryContract.kt,f\c\fc70024d75e7bd64797de10b499a9652f4098c5e
 ä
 Zapp/src/main/java/com/carlosdiestro/levelup/workouts/data/WorkoutExerciseRepositoryImpl.kt,d\c\dc96b6e42d07f068d5b885d635fd857e5c429f9f
 Ç
@@ -184,8 +166,6 @@ Kapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/WorkoutsContract.kt,c\
 fapp/src/main/java/com/carlosdiestro/levelup/workouts/domain/usecases/GetLastCompletedWorkoutUseCase.kt,c\e\ceff587331e5e6d4486813699e4aaa1e67b2737b
 û
 napp/src/main/java/com/carlosdiestro/levelup/workouts/domain/usecases/GetCompletedWorkoutExerciseListUseCase.kt,8\f\8f9ebc907cdd4c92f86a0046e382daa4d8deb355
-
-Oapp/src/main/java/com/carlosdiestro/levelup/core/ui/resources/StringResource.kt,9\7\97cd35efdf7a9fdbd33dc99ad62787bf02fc8249
 Ä
 Papp/src/main/java/com/carlosdiestro/levelup/workouts/domain/models/Repetition.kt,d\8\d895b21b0ca30be513f8175427a11741592584ec
 õ
@@ -208,8 +188,6 @@ bapp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/ExerciseCategor
 japp/src/main/java/com/carlosdiestro/levelup/workouts/ui/workout_on_going/OnGoingWorkoutExerciseFragment.kt,e\e\eeef57d41cd1f87cf5ca0c5ca08c472c58c2c9b0
 é
 ^app/src/main/java/com/carlosdiestro/levelup/workouts/ui/workout_add/ExerciseChooserContract.kt,c\a\ca99cad442a34d03e87c6472ada7ad18818bcfd8
-ö
-japp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_list/ExerciseCategoryViewModel.kt,9\2\9217da94baaa9e468d680901f4178fb03d6358a0
 â
 Yapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/workout_add/NewWorkoutFragment.kt,2\c\2ce0cdec65ba134b16a33bf702b2a8d60e3579dc
 é
@@ -218,10 +196,6 @@ Yapp/src/main/java/com/carlosdiestro/levelup/workouts/ui/workout_add/NewWorkoutF
 _app/src/main/java/com/carlosdiestro/levelup/workouts/ui/workout_add/ExerciseChooserViewModel.kt,d\c\dc62a0a0bd293099f4ee24f9e7b32b50252500d7
 ä
 Zapp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/ExerciseLibraryFragment.kt,5\6\562a93c2a179cfbd93613277d7087f31bc2c30f9
-ô
-iapp/src/main/java/com/carlosdiestro/levelup/exercise_library/ui/exercise_list/ExerciseCategoryFragment.kt,3\1\3118055a67a9aeb9b825abd29d6eec840ee2c03a
-k
-;app/src/main/java/com/carlosdiestro/levelup/MainActivity.kt,6\6\667823cd483095ebc5c8723ee5f25b9ca0a583d0
 ù
 mapp/src/main/java/com/carlosdiestro/levelup/bodyweight_progress/data/repositories/BodyWeightRepositoryImpl.kt,5\9\59325a0df3f51a0c234557151eea8d13c6dd7c7c
 ö

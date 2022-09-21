@@ -17,6 +17,7 @@ import com.carlosdiestro.levelup.core.ui.managers.viewBinding
 import com.carlosdiestro.levelup.core.ui.resources.StringResource
 import com.carlosdiestro.levelup.core.ui.resources.toText
 import com.carlosdiestro.levelup.databinding.FragmentNewExerciseBinding
+import com.carlosdiestro.levelup.exercise_library.domain.models.Exercise
 import com.carlosdiestro.levelup.exercise_library.domain.models.ExerciseCategory
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.transition.MaterialSharedAxis
@@ -41,13 +42,20 @@ class NewExerciseFragment : Fragment(R.layout.fragment_new_exercise), MenuProvid
         collectUIState()
     }
 
-    override fun onPrepareMenu(menu: Menu) =
+    override fun onPrepareMenu(menu: Menu) {
+        val text =
+            if (viewModel.isUpdateMode)
+                StringResource.Update.toText(requireContext())
+            else
+                StringResource.Save.toText(requireContext())
         menu.menuItemAsMaterialButton(
             R.id.action_save,
-            StringResource.Save.toText(requireContext())
+            text
         ) {
-            submitNewExercise()
+            submitExercise()
         }
+    }
+
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) =
         menuInflater.inflate(R.menu.menu_save, menu)
@@ -60,11 +68,12 @@ class NewExerciseFragment : Fragment(R.layout.fragment_new_exercise), MenuProvid
     private fun collectUIState() {
         launchAndCollect(viewModel.state) {
             handleNameInput(it.exerciseName, it.exerciseNameError)
+            if (viewModel.isUpdateMode) handleUnilateralAndCategory(it.isUnilateral, it.exerciseCategory)
             if (it.isSubmitSuccessful) reset()
         }
     }
 
-    private fun submitNewExercise() {
+    private fun submitExercise() {
         val exerciseName = binding.etName.text.toTrimmedString()
         val isUnilateral = binding.sUnilateral.isChecked
         val exerciseCategory = getCategoryChecked(binding.cgCategories)
@@ -85,6 +94,13 @@ class NewExerciseFragment : Fragment(R.layout.fragment_new_exercise), MenuProvid
         }
     }
 
+    private fun handleUnilateralAndCategory(isUnilateral: Boolean, category: ExerciseCategory) {
+        binding.apply {
+            sUnilateral.isChecked = isUnilateral
+            cgCategories.check(getIdFromCategory(category))
+        }
+    }
+
     private fun reset() {
         binding.apply {
             sUnilateral.isChecked = false
@@ -99,6 +115,16 @@ class NewExerciseFragment : Fragment(R.layout.fragment_new_exercise), MenuProvid
             R.id.cPull -> ExerciseCategory.PULL
             R.id.cLegs -> ExerciseCategory.LEGS
             else -> ExerciseCategory.CORE
+        }
+    }
+
+    private fun getIdFromCategory(category: ExerciseCategory): Int {
+        return when(category) {
+            ExerciseCategory.PUSH -> R.id.cPull
+            ExerciseCategory.PULL -> R.id.cPull
+            ExerciseCategory.LEGS -> R.id.cLegs
+            ExerciseCategory.CORE -> R.id.cCore
+            else -> -1
         }
     }
 }

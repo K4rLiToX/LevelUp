@@ -6,6 +6,7 @@ import com.carlosdiestro.levelup.exercise_library.domain.models.toValue
 import com.carlosdiestro.levelup.exercise_library.framework.ExerciseEntity
 
 fun Exercise.toEntity(): ExerciseEntity = ExerciseEntity(
+    id = if (id != -1) id else null,
     name = name,
     isUnilateral = isUnilateral,
     group = category.toValue(),
